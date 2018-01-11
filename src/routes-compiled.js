@@ -24,6 +24,14 @@ var _Table = require('./views/nav1/Table.vue');
 
 var _Table2 = _interopRequireDefault(_Table);
 
+var _Table3 = require('./views/nav1/Table1.vue');
+
+var _Table4 = _interopRequireDefault(_Table3);
+
+var _Table5 = require('./views/nav1/Table2.vue');
+
+var _Table6 = _interopRequireDefault(_Table5);
+
 var _Form = require('./views/nav1/Form.vue');
 
 var _Form2 = _interopRequireDefault(_Form);

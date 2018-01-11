@@ -48,9 +48,13 @@ var _Page3 = require('./views/nav2/Page5.vue');
 
 var _Page4 = _interopRequireDefault(_Page3);
 
-var _Page5 = require('./views/nav3/Page6.vue');
+var _Page5 = require('./views/nav2/Page51.vue');
 
 var _Page6 = _interopRequireDefault(_Page5);
+
+var _Page7 = require('./views/nav3/Page6.vue');
+
+var _Page8 = _interopRequireDefault(_Page7);
 
 var _echarts = require('./views/charts/echarts.vue');
 
@@ -74,19 +78,19 @@ var routes = [{
     name: '',
     iconCls: 'fa fa-address-card',
     leaf: true,
-    children: [{ path: '/page6', component: _Page6.default, name: '用户管理' }]
+    children: [{ path: '/page6', component: _Page8.default, name: '用户管理' }]
 }, {
     path: '/',
     component: _Home2.default,
     name: '解析管理',
     iconCls: 'el-icon-message',
-    children: [{ path: '/main', component: _Main2.default, name: '主页', hidden: true }, { path: '/table', component: _Table2.default, name: '服务器管理' }, { path: '/table1', component: _Table2.default, name: '解析配置管理' }, { path: '/table2', component: _Table2.default, name: '解析配置统计' }, { path: '/form', component: _Form2.default, name: 'Form' }, { path: '/user', component: _user2.default, name: '列表' }]
+    children: [{ path: '/main', component: _Main2.default, name: '主页', hidden: true }, { path: '/table', component: _Table2.default, name: '服务器管理' }, { path: '/table1', component: _Table4.default, name: '解析配置管理' }, { path: '/table2', component: _Table6.default, name: '解析配置统计' }, { path: '/form', component: _Form2.default, name: 'Form' }, { path: '/user', component: _user2.default, name: '列表' }]
 }, {
     path: '/',
     component: _Home2.default,
     name: '编码赋码管理',
     iconCls: 'fa fa-id-card-o',
-    children: [{ path: '/page4', component: _Page2.default, name: '前段码分配/管理' }, { path: '/page5', component: _Page4.default, name: '编码统计' }, { path: '/page51', component: _Page4.default, name: '编码分配查询' }]
+    children: [{ path: '/page4', component: _Page2.default, name: '前段码分配/管理' }, { path: '/page5', component: _Page4.default, name: '编码统计' }, { path: '/page51', component: _Page6.default, name: '编码分配查询' }]
 }, {
     path: '/',
     component: _Home2.default,

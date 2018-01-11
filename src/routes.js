@@ -9,6 +9,7 @@ import Form from './views/nav1/Form.vue'
 import user from './views/nav1/user.vue'
 import Page4 from './views/nav2/Page4.vue'
 import Page5 from './views/nav2/Page5.vue'
+import Page51 from './views/nav2/Page51.vue'
 import Page6 from './views/nav3/Page6.vue'
 import echarts from './views/charts/echarts.vue'
 
@@ -44,8 +45,8 @@ let routes = [
         children: [
             { path: '/main', component: Main, name: '主页', hidden: true },
             { path: '/table', component: Table, name: '服务器管理' },
-            { path: '/table1', component: Table, name: '解析配置管理' },
-            { path: '/table2', component: Table, name: '解析配置统计' },
+            { path: '/table1', component: Table1, name: '解析配置管理' },
+            { path: '/table2', component: Table2, name: '解析配置统计' },
             { path: '/form', component: Form, name: 'Form' },
             { path: '/user', component: user, name: '列表' },
         ]
@@ -58,7 +59,7 @@ let routes = [
         children: [
             { path: '/page4', component: Page4, name: '前段码分配/管理' },
             { path: '/page5', component: Page5, name: '编码统计' },
-            { path: '/page51', component: Page5, name: '编码分配查询' },
+            { path: '/page51', component: Page51, name: '编码分配查询' },
         ]
     },
 

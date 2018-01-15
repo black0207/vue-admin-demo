@@ -20,39 +20,39 @@ var _Main = require('./views/Main.vue');
 
 var _Main2 = _interopRequireDefault(_Main);
 
-var _Table = require('./views/nav1/Table.vue');
+var _Table = require('./views/nav2/Table.vue');
 
 var _Table2 = _interopRequireDefault(_Table);
 
-var _Table3 = require('./views/nav1/Table1.vue');
+var _Table3 = require('./views/nav2/Table1.vue');
 
 var _Table4 = _interopRequireDefault(_Table3);
 
-var _Table5 = require('./views/nav1/Table2.vue');
+var _Table5 = require('./views/nav2/Table2.vue');
 
 var _Table6 = _interopRequireDefault(_Table5);
 
-var _Form = require('./views/nav1/Form.vue');
+var _Form = require('./views/nav2/Form.vue');
 
 var _Form2 = _interopRequireDefault(_Form);
 
-var _user = require('./views/nav1/user.vue');
+var _user = require('./views/nav2/user.vue');
 
 var _user2 = _interopRequireDefault(_user);
 
-var _Page = require('./views/nav2/Page4.vue');
+var _Page = require('./views/nav3/Page4.vue');
 
 var _Page2 = _interopRequireDefault(_Page);
 
-var _Page3 = require('./views/nav2/Page5.vue');
+var _Page3 = require('./views/nav3/Page5.vue');
 
 var _Page4 = _interopRequireDefault(_Page3);
 
-var _Page5 = require('./views/nav2/Page51.vue');
+var _Page5 = require('./views/nav3/Page51.vue');
 
 var _Page6 = _interopRequireDefault(_Page5);
 
-var _Page7 = require('./views/nav3/Page6.vue');
+var _Page7 = require('./views/nav1/Page6.vue');
 
 var _Page8 = _interopRequireDefault(_Page7);
 

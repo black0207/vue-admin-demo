@@ -2,15 +2,15 @@ import Login from './views/Login.vue'
 import NotFound from './views/404.vue'
 import Home from './views/Home.vue'
 import Main from './views/Main.vue'
-import Table from './views/nav1/Table.vue'
-import Table1 from './views/nav1/Table1.vue'
-import Table2 from './views/nav1/Table2.vue'
-import Form from './views/nav1/Form.vue'
-import user from './views/nav1/user.vue'
-import Page4 from './views/nav2/Page4.vue'
-import Page5 from './views/nav2/Page5.vue'
-import Page51 from './views/nav2/Page51.vue'
-import Page6 from './views/nav3/Page6.vue'
+import Table from './views/nav2/Table.vue'
+import Table1 from './views/nav2/Table1.vue'
+import Table2 from './views/nav2/Table2.vue'
+import Form from './views/nav2/Form.vue'
+import user from './views/nav2/user.vue'
+import Page4 from './views/nav3/Page4.vue'
+import Page5 from './views/nav3/Page5.vue'
+import Page51 from './views/nav3/Page51.vue'
+import Page6 from './views/nav1/Page6.vue'
 import echarts from './views/charts/echarts.vue'
 
 let routes = [
@@ -62,7 +62,6 @@ let routes = [
             { path: '/page51', component: Page51, name: '编码分配查询' },
         ]
     },
-
     {
         path: '/',
         component: Home,

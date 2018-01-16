@@ -20,41 +20,49 @@ var _Main = require('./views/Main.vue');
 
 var _Main2 = _interopRequireDefault(_Main);
 
-var _Table = require('./views/nav1/Table.vue');
+var _serverMan = require('./views/nav2/serverMan.vue');
+
+var _serverMan2 = _interopRequireDefault(_serverMan);
+
+var _serverState = require('./views/nav2/serverState.vue');
+
+var _serverState2 = _interopRequireDefault(_serverState);
+
+var _configMan = require('./views/nav2/configMan.vue');
+
+var _configMan2 = _interopRequireDefault(_configMan);
+
+var _Table = require('./views/nav2/Table2.vue');
 
 var _Table2 = _interopRequireDefault(_Table);
 
-var _Table3 = require('./views/nav1/Table1.vue');
-
-var _Table4 = _interopRequireDefault(_Table3);
-
-var _Table5 = require('./views/nav1/Table2.vue');
-
-var _Table6 = _interopRequireDefault(_Table5);
-
-var _Form = require('./views/nav1/Form.vue');
+var _Form = require('./views/nav2/Form.vue');
 
 var _Form2 = _interopRequireDefault(_Form);
 
-var _user = require('./views/nav1/user.vue');
+var _user = require('./views/nav2/user.vue');
 
 var _user2 = _interopRequireDefault(_user);
 
-var _Page = require('./views/nav2/Page4.vue');
+var _frontCodeMan = require('./views/nav3/frontCodeMan.vue');
+
+var _frontCodeMan2 = _interopRequireDefault(_frontCodeMan);
+
+var _backCodeMan = require('./views/nav3/backCodeMan.vue');
+
+var _backCodeMan2 = _interopRequireDefault(_backCodeMan);
+
+var _Page = require('./views/nav3/Page5.vue');
 
 var _Page2 = _interopRequireDefault(_Page);
 
-var _Page3 = require('./views/nav2/Page5.vue');
+var _codeAllocation = require('./views/nav3/codeAllocation.vue');
+
+var _codeAllocation2 = _interopRequireDefault(_codeAllocation);
+
+var _Page3 = require('./views/nav1/Page6.vue');
 
 var _Page4 = _interopRequireDefault(_Page3);
-
-var _Page5 = require('./views/nav2/Page51.vue');
-
-var _Page6 = _interopRequireDefault(_Page5);
-
-var _Page7 = require('./views/nav3/Page6.vue');
-
-var _Page8 = _interopRequireDefault(_Page7);
 
 var _echarts = require('./views/charts/echarts.vue');
 
@@ -78,19 +86,19 @@ var routes = [{
     name: '',
     iconCls: 'fa fa-address-card',
     leaf: true,
-    children: [{ path: '/page6', component: _Page8.default, name: '用户管理' }]
+    children: [{ path: '/page6', component: _user2.default, name: '用户列表' }]
 }, {
     path: '/',
     component: _Home2.default,
-    name: '解析管理',
+    name: '解析服务管理',
     iconCls: 'el-icon-message',
-    children: [{ path: '/main', component: _Main2.default, name: '主页', hidden: true }, { path: '/table', component: _Table2.default, name: '服务器管理' }, { path: '/table1', component: _Table4.default, name: '解析配置管理' }, { path: '/table2', component: _Table6.default, name: '解析配置统计' }, { path: '/form', component: _Form2.default, name: 'Form' }, { path: '/user', component: _user2.default, name: '列表' }]
+    children: [{ path: '/main', component: _Main2.default, name: '主页', hidden: true }, { path: '/serverMan', component: _serverMan2.default, name: '解析服务器管理' }, { path: '/serverState', component: _serverState2.default, name: '服务器状态管理' }, { path: '/configMan', component: _configMan2.default, name: '解析配置管理' }, { path: '/configStats', component: _echarts2.default, name: '解析配置统计' }, { path: '/form', component: _Form2.default, name: 'Form', hidden: true }, { path: '/user', component: _user2.default, name: '列表', hidden: true }]
 }, {
     path: '/',
     component: _Home2.default,
     name: '编码赋码管理',
     iconCls: 'fa fa-id-card-o',
-    children: [{ path: '/page4', component: _Page2.default, name: '前段码分配/管理' }, { path: '/page5', component: _Page4.default, name: '编码统计' }, { path: '/page51', component: _Page6.default, name: '编码分配查询' }]
+    children: [{ path: '/frontCodeMan', component: _frontCodeMan2.default, name: '前/后码段管理' }, { path: '/backCodeMan', component: _backCodeMan2.default, name: '后码段管理', hidden: true }, { path: '/codeAllocation', component: _codeAllocation2.default, name: '编码分配管理' }, { path: '/codeStats', component: _echarts2.default, name: '编码统计' }]
 }, {
     path: '/',
     component: _Home2.default,

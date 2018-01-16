@@ -2,15 +2,17 @@ import Login from './views/Login.vue'
 import NotFound from './views/404.vue'
 import Home from './views/Home.vue'
 import Main from './views/Main.vue'
-import Table from './views/nav1/Table.vue'
-import Table1 from './views/nav1/Table1.vue'
-import Table2 from './views/nav1/Table2.vue'
-import Form from './views/nav1/Form.vue'
-import user from './views/nav1/user.vue'
-import Page4 from './views/nav2/Page4.vue'
-import Page5 from './views/nav2/Page5.vue'
-import Page51 from './views/nav2/Page51.vue'
-import Page6 from './views/nav3/Page6.vue'
+import serverMan from './views/nav2/serverMan.vue'
+import serverState  from './views/nav2/serverState.vue'
+import configMan from './views/nav2/configMan.vue'
+import Table2 from './views/nav2/Table2.vue'
+import Form from './views/nav2/Form.vue'
+import user from './views/nav2/user.vue'
+import frontCodeMan from './views/nav3/frontCodeMan.vue'
+import backCodeMan from './views/nav3/backCodeMan.vue'
+import Page5 from './views/nav3/Page5.vue'
+import codeAllocation from './views/nav3/codeAllocation.vue'
+import Page6 from './views/nav1/Page6.vue'
 import echarts from './views/charts/echarts.vue'
 
 let routes = [
@@ -34,21 +36,22 @@ let routes = [
         iconCls: 'fa fa-address-card',
         leaf: true,//只有一个节点
         children: [
-            { path: '/page6', component: Page6, name: '用户管理' }
+            { path: '/page6', component: user, name: '用户列表' }
         ]
     },
     {
         path: '/',
         component: Home,
-        name: '解析管理',
+        name: '解析服务管理',
         iconCls: 'el-icon-message',//图标样式class
         children: [
             { path: '/main', component: Main, name: '主页', hidden: true },
-            { path: '/table', component: Table, name: '服务器管理' },
-            { path: '/table1', component: Table1, name: '解析配置管理' },
-            { path: '/table2', component: Table2, name: '解析配置统计' },
-            { path: '/form', component: Form, name: 'Form' },
-            { path: '/user', component: user, name: '列表' },
+            { path: '/serverMan', component: serverMan, name: '解析服务器管理' },
+            { path: '/serverState', component: serverState, name: '服务器状态管理' },
+            { path: '/configMan', component: configMan, name: '解析配置管理' },
+            { path: '/configStats', component: echarts, name: '解析配置统计' },
+            { path: '/form', component: Form, name: 'Form', hidden: true },
+            { path: '/user', component: user, name: '列表',hidden:true },
         ]
     },
     {
@@ -57,12 +60,12 @@ let routes = [
         name: '编码赋码管理',
         iconCls: 'fa fa-id-card-o',
         children: [
-            { path: '/page4', component: Page4, name: '前段码分配/管理' },
-            { path: '/page5', component: Page5, name: '编码统计' },
-            { path: '/page51', component: Page51, name: '编码分配查询' },
+            { path: '/frontCodeMan', component: frontCodeMan, name: '前/后码段管理' },
+            { path: '/backCodeMan', component: backCodeMan, name: '后码段管理', hidden:true },
+            { path: '/codeAllocation', component: codeAllocation, name: '编码分配管理' },
+            { path: '/codeStats', component: echarts, name: '编码统计' },
         ]
     },
-
     {
         path: '/',
         component: Home,

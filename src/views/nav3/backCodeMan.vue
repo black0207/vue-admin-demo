@@ -33,8 +33,8 @@
       </el-table-column>
       <el-table-column label="操作" width="200">
         <template scope="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-          <el-button size="small" type="info"  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>
+          <el-button size="small" @click="handleEdit(scope.$index, scope.row)">详情</el-button>
+         <!-- <el-button size="small" type="info"  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>-->
           <!--<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>-->
         </template>
       </el-table-column>
@@ -103,32 +103,7 @@
       </div>
     </el-dialog>
 
-    <!--后码段界面-->
-    <el-dialog title="后码段信息" v-model="codeTableVisible" :close-on-click-modal="false">
-      <!--后码段列表-->
-      <el-table :data="backData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
-        <el-table-column type="selection" width="55" v-if="false">
-        </el-table-column>
-        <el-table-column type="index" width="80" label="序号">
-        </el-table-column>
-        <el-table-column prop="name" label="前码段" width="120" sortable>
-        </el-table-column>
-        <el-table-column prop="sex" label="组织名" width="100" :formatter="formatSex" sortable>
-        </el-table-column>
-        <el-table-column prop="age" label="年龄" width="100" sortable>
-        </el-table-column>
-        <el-table-column prop="birth" label="日期" width="120" sortable>
-        </el-table-column>
-        <el-table-column prop="addr" label="地址" min-width="250" sortable>
-        </el-table-column>
-        <el-table-column label="操作" width="100">
-          <template scope="scope">
-            <el-button size="small" @click="handleBCinfo(scope.$index, scope.row)">操作</el-button>
-          </template>
-        </el-table-column>
-      </el-table>
 
-    </el-dialog>
   </section>
 </template>
 
@@ -166,10 +141,7 @@
           addr: ''
         },
 
-        codeTableVisible: false,//后码段界面是否显示
-        editLoading: false,
-        //编辑界面数据
-        backData: [{index:1,name:"李振营",sex:1,age:22,birth:2010-1-1,addr:"北四环中路211号"}],
+
 
         addFormVisible: false,//新增界面是否显示
         addLoading: false,
@@ -242,17 +214,8 @@
       //显示后码段管理界面
       handleBackCode: function (index, row) {
         this.codeTableVisible = true;
-        //this.editForm = Object.assign({}, row);
-        /* this.$router.push({
-         path:"/backCodeMan",
-         params:{
-         frontCode:row.name
-         }
-         });*/
-      },
-      //后码段界面操作
-      handleBCinfo: function (index, row) {
-        this.$confirm('确认提交吗？', '提示', {})
+        this.editForm = Object.assign({}, row);
+        //this.$router.push("/serverState");
       },
       //显示新增界面
       handleAdd: function () {
@@ -289,55 +252,11 @@
           }
         });
       },
-      //新增
-      addSubmit: function () {
-        this.$refs.addForm.validate((valid) => {
-          if (valid) {
-            this.$confirm('确认提交吗？', '提示', {}).then(() => {
-              this.addLoading = true;
-            //NProgress.start();
-            let para = Object.assign({}, this.addForm);
-            para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-            addUser(para).then((res) => {
-              this.addLoading = false;
-            //NProgress.done();
-            this.$message({
-              message: '提交成功',
-              type: 'success'
-            });
-            this.$refs['addForm'].resetFields();
-            this.addFormVisible = false;
-            this.getUsers();
-          });
-          });
-          }
-        });
-      },
+
       selsChange: function (sels) {
         this.sels = sels;
-      },
-      //批量删除
-      batchRemove: function () {
-        var ids = this.sels.map(item => item.id).toString();
-        this.$confirm('确认删除选中记录吗？', '提示', {
-          type: 'warning'
-        }).then(() => {
-          this.listLoading = true;
-        //NProgress.start();
-        let para = { ids: ids };
-        batchRemoveUser(para).then((res) => {
-          this.listLoading = false;
-        //NProgress.done();
-        this.$message({
-          message: '删除成功',
-          type: 'success'
-        });
-        this.getUsers();
-      });
-      }).catch(() => {
-
-        });
       }
+
     },
     mounted() {
       this.getUsers();

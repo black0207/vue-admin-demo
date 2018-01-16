@@ -4,11 +4,15 @@
       <sourceFilesUrls>
         <item url="file://$PROJECT_DIR$/src/main-compiled.js" />
         <item url="file://$PROJECT_DIR$/src/routes-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/api/index-compiled.js" />
+        <item url="file://$PROJECT_DIR$/src/api/api-compiled.js" />
       </sourceFilesUrls>
     </properties>
     <CLASSES>
       <root url="file://$PROJECT_DIR$/src/main-compiled.js" />
       <root url="file://$PROJECT_DIR$/src/routes-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/api/index-compiled.js" />
+      <root url="file://$PROJECT_DIR$/src/api/api-compiled.js" />
     </CLASSES>
     <SOURCES />
   </library>

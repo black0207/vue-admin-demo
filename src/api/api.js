@@ -15,3 +15,7 @@ export const batchRemoveUser = params => { return axios.get(`${base}/user/batchr
 export const editUser = params => { return axios.get(`${base}/user/edit`, { params: params }); };
 
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
+
+//zqc增加的
+export const getServerStatePage = params => { return axios.get(`${base}/server/statepage`, { params: params }); }
+export const getResolveConfigPage = params => { return axios.get(`${base}/resolve/configpage`, { params: params }); }

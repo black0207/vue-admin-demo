@@ -48,9 +48,9 @@ var _frontCodeMan = require('./views/nav3/frontCodeMan.vue');
 
 var _frontCodeMan2 = _interopRequireDefault(_frontCodeMan);
 
-var _backCodeMan = require('./views/nav3/backCodeMan.vue');
+var _CodeTypeMan = require('./views/nav3/CodeTypeMan.vue');
 
-var _backCodeMan2 = _interopRequireDefault(_backCodeMan);
+var _CodeTypeMan2 = _interopRequireDefault(_CodeTypeMan);
 
 var _Page = require('./views/nav3/Page5.vue');
 
@@ -83,6 +83,13 @@ var routes = [{
 }, {
     path: '/',
     component: _Home2.default,
+    name: '',
+    iconCls: 'fa fa-address-card',
+    leaf: true,
+    children: [{ path: '/main', component: _Main2.default, name: '主页' }]
+}, {
+    path: '/',
+    component: _Home2.default,
     name: '解析服务管理',
     iconCls: 'el-icon-message',
     children: [{ path: '/main', component: _Main2.default, name: '主页', hidden: true }, { path: '/serverMan', component: _serverMan2.default, name: '解析服务器管理' }, { path: '/serverState', component: _serverState2.default, name: '服务器状态管理' }, { path: '/configMan', component: _configMan2.default, name: '解析配置管理' }, { path: '/configStats', component: _echarts2.default, name: '解析配置统计' }, { path: '/form', component: _Form2.default, name: 'Form', hidden: true }, { path: '/user', component: _user2.default, name: '列表', hidden: true }]
@@ -91,7 +98,7 @@ var routes = [{
     component: _Home2.default,
     name: '编码赋码管理',
     iconCls: 'fa fa-id-card-o',
-    children: [{ path: '/frontCodeMan', component: _frontCodeMan2.default, name: '前/后码段管理' }, { path: '/codeStats', component: _echarts2.default, name: '编码统计' }]
+    children: [{ path: '/CodeTypeMan', component: _CodeTypeMan2.default, name: '编码类型管理' }, { path: '/frontCodeMan', component: _frontCodeMan2.default, name: '编码码段管理' }, { path: '/codeStats', component: _echarts2.default, name: '编码概览统计' }, { path: '/codeStatsDetail', component: _echarts2.default, name: '编码码段统计' }]
 }, {
     path: '*',
     hidden: true,

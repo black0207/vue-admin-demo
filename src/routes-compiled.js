@@ -83,13 +83,6 @@ var routes = [{
 }, {
     path: '/',
     component: _Home2.default,
-    name: '',
-    iconCls: 'fa fa-address-card',
-    leaf: true,
-    children: [{ path: '/page6', component: _user2.default, name: '用户列表' }]
-}, {
-    path: '/',
-    component: _Home2.default,
     name: '解析服务管理',
     iconCls: 'el-icon-message',
     children: [{ path: '/main', component: _Main2.default, name: '主页', hidden: true }, { path: '/serverMan', component: _serverMan2.default, name: '解析服务器管理' }, { path: '/serverState', component: _serverState2.default, name: '服务器状态管理' }, { path: '/configMan', component: _configMan2.default, name: '解析配置管理' }, { path: '/configStats', component: _echarts2.default, name: '解析配置统计' }, { path: '/form', component: _Form2.default, name: 'Form', hidden: true }, { path: '/user', component: _user2.default, name: '列表', hidden: true }]
@@ -98,13 +91,7 @@ var routes = [{
     component: _Home2.default,
     name: '编码赋码管理',
     iconCls: 'fa fa-id-card-o',
-    children: [{ path: '/frontCodeMan', component: _frontCodeMan2.default, name: '前/后码段管理' }, { path: '/backCodeMan', component: _backCodeMan2.default, name: '后码段管理', hidden: true }, { path: '/codeAllocation', component: _codeAllocation2.default, name: '编码分配管理' }, { path: '/codeStats', component: _echarts2.default, name: '编码统计' }]
-}, {
-    path: '/',
-    component: _Home2.default,
-    name: 'Charts',
-    iconCls: 'fa fa-bar-chart',
-    children: [{ path: '/echarts', component: _echarts2.default, name: 'echarts' }]
+    children: [{ path: '/frontCodeMan', component: _frontCodeMan2.default, name: '前/后码段管理' }, { path: '/codeStats', component: _echarts2.default, name: '编码统计' }]
 }, {
     path: '*',
     hidden: true,

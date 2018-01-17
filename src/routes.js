@@ -29,16 +29,16 @@ let routes = [
         hidden: true
     },
     //{ path: '/main', component: Main },
-    {
+   /* {
         path: '/',
         component: Home,
-        name: '',
+        name: '用户管理',
         iconCls: 'fa fa-address-card',
-        leaf: true,//只有一个节点
+        //leaf: true,//只有一个节点
         children: [
             { path: '/page6', component: user, name: '用户列表' }
         ]
-    },
+    },*/
     {
         path: '/',
         component: Home,
@@ -61,12 +61,12 @@ let routes = [
         iconCls: 'fa fa-id-card-o',
         children: [
             { path: '/frontCodeMan', component: frontCodeMan, name: '前/后码段管理' },
-            { path: '/backCodeMan', component: backCodeMan, name: '后码段管理', hidden:true },
-            { path: '/codeAllocation', component: codeAllocation, name: '编码分配管理' },
+          /*  { path: '/backCodeMan', component: backCodeMan, name: '后码段管理', hidden:true },*/
+          /*  { path: '/codeAllocation', component: codeAllocation, name: '编码分配管理' },*/
             { path: '/codeStats', component: echarts, name: '编码统计' },
         ]
     },
-    {
+    /*{
         path: '/',
         component: Home,
         name: 'Charts',
@@ -74,7 +74,7 @@ let routes = [
         children: [
             { path: '/echarts', component: echarts, name: 'echarts' }
         ]
-    },
+    },*/
     {
         path: '*',
         hidden: true,

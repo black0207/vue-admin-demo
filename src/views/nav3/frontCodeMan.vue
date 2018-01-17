@@ -9,9 +9,9 @@
         <el-form-item>
           <el-button type="primary" v-on:click="getUsers">查询</el-button>
         </el-form-item>
-       <!-- <el-form-item>
+       <el-form-item>
           <el-button type="primary" @click="handleAdd">新增</el-button>
-        </el-form-item>-->
+        </el-form-item>
       </el-form>
     </el-col>
 
@@ -31,10 +31,11 @@
       </el-table-column>
       <el-table-column prop="addr" label="地址" min-width="250" sortable>
       </el-table-column>
-      <el-table-column label="操作" width="200">
+      <el-table-column label="操作" width="300">
         <template scope="scope">
           <el-button size="small" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-          <el-button size="small" type="info"  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>
+          <el-button size="small" type="info"  @click="handleBackCode(scope.$index, scope.row)">后码段分配</el-button>
+          <el-button size="small" type="success "  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>
           <!--<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>-->
         </template>
       </el-table-column>
@@ -135,7 +136,7 @@
 <script>
   import util from '../../common/js/util'
   //import NProgress from 'nprogress'
-  import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
+  import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser ,addFrontCode} from '../../api/api';
 
   export default {
     data() {

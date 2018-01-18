@@ -48,9 +48,9 @@ var _frontCodeMan = require('./views/nav3/frontCodeMan.vue');
 
 var _frontCodeMan2 = _interopRequireDefault(_frontCodeMan);
 
-var _backCodeMan = require('./views/nav3/backCodeMan.vue');
+var _CodeTypeMan = require('./views/nav3/CodeTypeMan.vue');
 
-var _backCodeMan2 = _interopRequireDefault(_backCodeMan);
+var _CodeTypeMan2 = _interopRequireDefault(_CodeTypeMan);
 
 var _Page = require('./views/nav3/Page5.vue');
 
@@ -86,7 +86,7 @@ var routes = [{
     name: '',
     iconCls: 'fa fa-address-card',
     leaf: true,
-    children: [{ path: '/page6', component: _user2.default, name: '用户列表' }]
+    children: [{ path: '/main', component: _Main2.default, name: '主页' }]
 }, {
     path: '/',
     component: _Home2.default,
@@ -98,13 +98,7 @@ var routes = [{
     component: _Home2.default,
     name: '编码赋码管理',
     iconCls: 'fa fa-id-card-o',
-    children: [{ path: '/frontCodeMan', component: _frontCodeMan2.default, name: '前/后码段管理' }, { path: '/backCodeMan', component: _backCodeMan2.default, name: '后码段管理', hidden: true }, { path: '/codeAllocation', component: _codeAllocation2.default, name: '编码分配管理' }, { path: '/codeStats', component: _echarts2.default, name: '编码统计' }]
-}, {
-    path: '/',
-    component: _Home2.default,
-    name: 'Charts',
-    iconCls: 'fa fa-bar-chart',
-    children: [{ path: '/echarts', component: _echarts2.default, name: 'echarts' }]
+    children: [{ path: '/CodeTypeMan', component: _CodeTypeMan2.default, name: '编码类型管理' }, { path: '/frontCodeMan', component: _frontCodeMan2.default, name: '编码码段管理' }, { path: '/codeStats', component: _echarts2.default, name: '编码概览统计' }, { path: '/codeStatsDetail', component: _echarts2.default, name: '编码码段统计' }]
 }, {
     path: '*',
     hidden: true,

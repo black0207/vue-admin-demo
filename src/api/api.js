@@ -1,6 +1,8 @@
 import axios from 'axios';
 
 let base = '';
+let baseCode = 'http://192.168.12.79:8080';//编码url
+let baseEnode = '';//解析url
 
 export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
 
@@ -19,3 +21,5 @@ export const addUser = params => { return axios.get(`${base}/user/add`, { params
 //zqc增加的
 export const getServerStatePage = params => { return axios.get(`${base}/server/statepage`, { params: params }); }
 export const getResolveConfigPage = params => { return axios.get(`${base}/resolve/configpage`, { params: params }); }
+//编码赋码接口
+export const addFrontCode = params => { return axios.get(`${baseCode}/CodeSystem/codeType/insert`, { params: params }); };

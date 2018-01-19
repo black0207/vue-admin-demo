@@ -148,16 +148,16 @@
       getData() {
         let para = {
           page: this.page,
-          condition : this.filters.name
-
+          condition : this.filters.name,
+          pageSize : this.pageSize
         };
         this.listLoading = true;
         //NProgress.start();
 
         searchCodeType(para).then((res)=>{
           //console.log(res.data);
-          this.total = res.data.length;
-          this.typeData = res.data.filter((u, index) => index < 3 * para.page && index >= 3 * (para.page - 1));
+          this.total = res.data.length;//数据总条目
+          this.typeData = res.data.filter((u, index) => index < para.pageSize * para.page && index >= para.pageSize * (para.page - 1));//显示分页后的数据
           this.listLoading = false;
         });
 

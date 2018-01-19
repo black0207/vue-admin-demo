@@ -8,7 +8,9 @@ export default {
    * mock bootstrap
    */
   bootstrap() {
-    let mock = new MockAdapter(axios);
+   let mock = new MockAdapter(axios);
+
+    mock.restore();//关闭mock模拟数据
 
     // mock success request
     mock.onGet('/success').reply(200, {
@@ -149,6 +151,7 @@ export default {
         }, 500);
       });
     });
+
 
   }
 };

@@ -6,6 +6,7 @@
         <item url="file://$PROJECT_DIR$/src/mock/mock-compiled.js" />
         <item url="file://$PROJECT_DIR$/src/routes-compiled.js" />
         <item url="file://$PROJECT_DIR$/src/mock/index-compiled.js" />
+        <item url="file://$PROJECT_DIR$/config/index-compiled.js" />
         <item url="file://$PROJECT_DIR$/src/api/index-compiled.js" />
         <item url="file://$PROJECT_DIR$/src/api/api-compiled.js" />
       </sourceFilesUrls>
@@ -15,6 +16,7 @@
       <root url="file://$PROJECT_DIR$/src/mock/mock-compiled.js" />
       <root url="file://$PROJECT_DIR$/src/routes-compiled.js" />
       <root url="file://$PROJECT_DIR$/src/mock/index-compiled.js" />
+      <root url="file://$PROJECT_DIR$/config/index-compiled.js" />
       <root url="file://$PROJECT_DIR$/src/api/index-compiled.js" />
       <root url="file://$PROJECT_DIR$/src/api/api-compiled.js" />
     </CLASSES>

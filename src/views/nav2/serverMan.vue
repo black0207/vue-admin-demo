@@ -34,7 +34,7 @@
 			<el-table-column label="操作" width="250">
 				<template scope="scope">
 					<el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-					<el-button size="small" @click="handleState(scope.$index, scope.row)">状态管理</el-button>
+					<!--<el-button size="small" @click="handleState(scope.$index, scope.row)">状态管理</el-button>-->
 					<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
 				</template>
 			</el-table-column>
@@ -43,7 +43,7 @@
 		<!--工具条-->
 		<el-col :span="24" class="toolbar">
 			<el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>
-			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;">
+			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="15" :total="total" style="float:right;">
 			</el-pagination>
 		</el-col>
 

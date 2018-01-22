@@ -38,3 +38,5 @@ export const getServerStatePage = params => { return axios.get(`${base}/server/s
 export const getResolveConfigPage = params => { return axios.get(`${base}/resolve/configpage`, { params: params }); }
 //编码赋码接口
 export const addFrontCode = params => { return axios.get(`${baseCode}/CodeSystem/codeType/insert`, { params: params }); };
+//zxf增加的
+export const getServerInfoPage = params => { return axios.get(`${base}/serverinfo/infopage`, { params: params }); }

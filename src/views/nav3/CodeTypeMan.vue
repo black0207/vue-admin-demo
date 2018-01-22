@@ -23,9 +23,9 @@
       </el-table-column>
       <el-table-column prop="typeId" label="编码类型ID" width="320" sortable>
       </el-table-column>
-      <el-table-column prop="typeName" label="编码类型名称" width="320"  sortable>
+      <el-table-column prop="typeName" label="编码类型名称" min-width="320"  sortable>
       </el-table-column>
-      <el-table-column prop="rule" label="编码规则" width="550" sortable>
+      <el-table-column prop="rule" label="编码规则" min-width="550" sortable>
       </el-table-column>
 
       <el-table-column label="操作" width="300">

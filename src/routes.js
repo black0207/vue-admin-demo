@@ -45,7 +45,7 @@ let routes = [
         name: '解析服务管理',
         iconCls: 'el-icon-message',//图标样式class
         children: [
-            { path: '/main', component: Main, name: '主页', hidden: true },
+           /* { path: '/main', component: Main, name: '主页', hidden: true },*/
             { path: '/serverMan', component: serverMan, name: '解析服务器管理' },
             { path: '/serverState', component: serverState, name: '服务器状态管理' },
             { path: '/configMan', component: configMan, name: '解析配置管理' },

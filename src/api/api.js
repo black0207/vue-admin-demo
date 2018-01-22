@@ -17,6 +17,12 @@ export const batchRemoveUser = params => { return axios.get(`${base}/user/batchr
 export const editUser = params => { return axios.get(`${base}/user/edit`, { params: params }); };
 
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
+//新增编码类型
+export const addCodeType = params => { return axios.post(`${baseCode}/CodeSystem/codeType/insert`, params); };
+//新增编码类型
+export const updateCodeType = params => { return axios.post(`${baseCode}/CodeSystem/codeType/update`, params); };
+//查询编码类型
+export const searchCodeType = params => { return axios.get(`${baseCode}/CodeSystem/codeType/queryByCondition`, { params: params }); };
 
 //zqc增加的
 export const getServerStatePage = params => { return axios.get(`${base}/server/statepage`, { params: params }); }

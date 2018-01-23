@@ -19,3 +19,5 @@ export const editUser = params => { return axios.get(`${base}/user/edit`, { para
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
 //编码赋码接口
 export const addFrontCode = params => { return axios.get(`${baseCode}/CodeSystem/codeType/insert`, { params: params }); };
+//编码概览统计接口
+export const getCount = params => { return axios.get(`${baseCode}/CodeSystem/statistics/getCount`, { params: params }); };

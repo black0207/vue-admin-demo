@@ -1,27 +1,66 @@
 <template>
     <section class="chart-container">
-        <el-row>
-            <el-col :span="12">
-                <div id="chartColumn" style="width:100%; height:400px;"></div>
+        <el-row :gutter="20">
+            <el-col :span="6">
+                <el-row class="grid-content bg-purple">
+                    <el-col :span="10" class="grid-left">
+                        <i class="el-icon-star-on"></i>
+                    </el-col>
+                    <el-col :span="14" class="grid-right">
+                        <div class="title">编码类型</div>
+                        <div class="number">{{codingType}}</div>
+                    </el-col>
+                </el-row>
             </el-col>
-            <el-col :span="12">
-                <div id="chartBar" style="width:100%; height:400px;"></div>
+            <el-col :span="6">
+                <el-row class="grid-content bg-purple">
+                    <el-col :span="10" class="grid-left">
+                        <i class="el-icon-star-on"></i>
+                    </el-col>
+                    <el-col :span="14" class="grid-right">
+                        <div class="title">公司/前段码</div>
+                        <div class="number">{{orgCount}}</div>
+                    </el-col>
+                </el-row>
             </el-col>
-            <el-col :span="12">
-                <div id="chartLine" style="width:100%; height:400px;"></div>
+            <el-col :span="6">
+                <el-row class="grid-content bg-purple">
+                    <el-col :span="10" class="grid-left">
+                        <i class="el-icon-star-on"></i>
+                    </el-col>
+                    <el-col :span="14" class="grid-right">
+                        <div class="title">码池容量</div>
+                        <div class="number">{{codingType}}</div>
+                    </el-col>
+                </el-row>
             </el-col>
-            <el-col :span="12">
-                <div id="chartPie" style="width:100%; height:400px;"></div>
-            </el-col>
-            <el-col :span="24">
-                <a href="http://echarts.baidu.com/examples.html" target="_blank" style="float: right;">more>></a>
+            <el-col :span="6">
+                <el-row class="grid-content bg-purple">
+                    <el-col :span="10" class="grid-left">
+                        <i class="el-icon-star-on"></i>
+                    </el-col>
+                    <el-col :span="14" class="grid-right">
+                        <div class="title">码池情况</div>
+                        <div class="number">{{codingType}}</div>
+                    </el-col>
+                </el-row>
             </el-col>
         </el-row>
+        <el-row>
+            <el-col :span="12" >
+                <div id="chartColumn" style="width:100%; height:400px;"></div>
+            </el-col>
+            <el-col :span="12" >
+                <div id="chartBar" style="width:100%; height:400px;"></div>
+            </el-col>
+        </el-row>
+
     </section>
 </template>
 
 <script>
-    import echarts from 'echarts'
+    import echarts from 'echarts';
+    import {getCount} from "../../api/api";
 
     export default {
         data() {
@@ -29,11 +68,21 @@
                 chartColumn: null,
                 chartBar: null,
                 chartLine: null,
-                chartPie: null
+                chartPie: null,
+                codingType:100,
+                orgCount:0
             }
         },
 
         methods: {
+            getTotalCount(){
+                getCount(para).then((res) => {
+                    this.orgCount = res.orgCount;
+                    console.log( res.orgCount)
+                });
+            },
+
+
             drawColumnChart() {
                 this.chartColumn = echarts.init(document.getElementById('chartColumn'));
                 this.chartColumn.setOption({
@@ -188,6 +237,7 @@
                 this.drawBarChart()
                 this.drawLineChart()
                 this.drawPieChart()
+                this.getTotalCount()
             },
         },
 
@@ -200,7 +250,7 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="less" rel="stylesheet/less">
     .chart-container {
         width: 100%;
         float: left;
@@ -210,7 +260,45 @@
         float: left;
     }*/
 
+    .el-row {
+        margin-bottom: 20px;
+        &:last-child {
+             margin-bottom: 0;
+         }
+    }
     .el-col {
-        padding: 30px 20px;
+        border-radius: 4px;
+    }
+    .bg-purple-dark {
+        background: #99a9bf;
+    }
+    .bg-purple {
+        background: #eef1f6;
+    }
+    .bg-purple-light {
+        background: #eef1f6;
+    }
+    .grid-content {
+        border-radius: 4px;
+        min-height: 36px;
+        padding: 20px;
+        .grid-left{
+            text-align: center;
+            i{
+                font-size: 100px;
+                color: darkturquoise;
+            }
+        }
+        .grid-right{
+            .number{
+                color: #2a2f43;
+                font-size: 4em;
+                margin: 0;
+            }
+        }
+    }
+    .row-bg {
+        padding: 10px 0;
+        background-color: #f9fafc;
     }
 </style>

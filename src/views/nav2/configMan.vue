@@ -49,31 +49,6 @@
 		</el-pagination>
 		</el-col>
 
-		<!--关联界面-->
-		<el-dialog title="关联服务器" v-model="associationFormVisible" :close-on-click-modal="false">
-			<el-form :model="associationForm" label-width="120px" ref="associationForm">
-				<el-form-item label="解析类型">
-					<el-input v-model="associationForm.type" readonly></el-input>
-				</el-form-item>
-				<el-form-item label="解析标识">
-					<el-input v-model="associationForm.identify" readonly></el-input>
-				</el-form-item>
-				<el-form-item label="解析结果">
-					<el-input v-model="associationForm.result" readonly></el-input>
-				</el-form-item>
-				<el-form-item label="关联服务器">
-					<el-transfer v-model="associationForm.servers" :data="dataConfigs" :titles="['备选', '已选']" :button-texts="['删除', '添加']">
-					</el-transfer>
-				</el-form-item>
-
-
-			</el-form>
-			<div slot="footer" class="dialog-footer">
-				<el-button @click.native="associationFormVisible = false">取消</el-button>
-				<el-button type="primary" @click.native="associationSubmit" :loading="associationLoading">提交</el-button>
-			</div>
-		</el-dialog>
-
 		<!--新增界面-->
 		<el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
 			<el-form :model="addForm" label-width="120px" ref="addForm">
@@ -94,7 +69,7 @@
 				<el-form-item label="解析结果">
 					<el-input v-model="addForm.result" ></el-input>
 				</el-form-item>
-				<el-form-item label="关联服务器">
+				<!--<el-form-item label="关联服务器">-->
 
 					<!--<el-select-->
 							<!--v-model="value9"-->
@@ -112,24 +87,49 @@
 								<!--:value="item.value">-->
 						<!--</el-option>-->
 					<!--</el-select>-->
-				</el-form-item>
+				<!--</el-form-item>-->
 			</el-form>
 			<div slot="footer" class="dialog-footer">
 				<el-button @click.native="addFormVisible = false">取消</el-button>
 				<el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
 			</div>
 		</el-dialog>
+
+		<!--关联界面-->
+		<el-dialog title="关联服务器" v-model="associationFormVisible" :close-on-click-modal="false">
+			<el-form :model="associationForm" label-width="120px" ref="associationForm">
+				<el-form-item label="解析类型">
+					<el-input v-model="associationForm.type" readonly></el-input>
+				</el-form-item>
+				<el-form-item label="解析标识">
+					<el-input v-model="associationForm.identify" readonly></el-input>
+				</el-form-item>
+				<el-form-item label="解析结果">
+					<el-input v-model="associationForm.result" readonly></el-input>
+				</el-form-item>
+				<el-form-item label="关联服务器">
+					<el-transfer v-model="associationForm.serviceId" :data="serversName" :titles="['备选', '已选']" :button-texts="['删除', '添加']">
+					</el-transfer>
+				</el-form-item>
+			</el-form>
+			<div slot="footer" class="dialog-footer">
+				<el-button @click.native="associationFormVisible = false">取消</el-button>
+				<el-button type="primary" @click.native="associationSubmit" :loading="associationLoading">提交</el-button>
+			</div>
+		</el-dialog>
+
 	</section>
 </template>
 
 <script>
     import util from '../../common/js/util'
-    //import NProgress from 'nprogress'
-    import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser, getResolveConfigPage, addResolveConfig, removeResolveConfig, batchRemoveResolveConfigs } from '../../api/api';
+    import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser, getResolveConfigPage, addResolveConfig, removeResolveConfig, batchRemoveResolveConfigs, associateServers, getServerStatePage } from '../../api/api';
 
     export default {
         data() {
             return {
+                serversName: [
+                ],
                 resolveTypes: [
                     {
 						value: 'Ecode',
@@ -146,28 +146,22 @@
                 listLoading: false,
 				sels: [],//列表选中列
 
-                associationFormVisible: false,//编辑界面是否显示
+                associationFormVisible: false,//关联界面是否显示
                 associationLoading: false,
-//                editFormRules: {
-//                    name: [
-//                        { required: true, message: '请输入姓名', trigger: 'blur' }
-//                    ]
-//                },
+
                 //关联界面数据
                 associationForm: {
                     type: '',
                     identify: '',
                     result: '',
                     servers:[],
+					serviceId:[],
+
                 },
 
                 addFormVisible: false,//新增界面是否显示
                 addLoading: false,
-//                addFormRules: {
-//                    name: [
-//                        { required: true, message: '请输入姓名', trigger: 'blur' }
-//                    ]
-//                },
+
                 //新增界面数据
                 addForm: {
                     type:'',
@@ -178,44 +172,36 @@
             }
         },
         methods: {
-            //性别显示转换
-//			formatSex: function (row, column) {
-//				return row.sex == 1 ? '男' : row.sex == 0 ? '女' : '未知';
-//			},
             handleCurrentChange(val) {
                 this.page = val;
                 this.getResolveConfigs();
             },
-            //获取用户列表
+            //获取解析配置列表
             getResolveConfigs() {
                 let para = {
 //                    page: this.page,
                     resolveQueryWords: this.resolveQueryWords,
                 };
-                console.log(para.resolveQueryWords);
                 this.listLoading = true;
                 getResolveConfigPage(para).then((res) => {
-                    console.log(this.resolveQueryWords);
                     this.total = res.data.length;
-//                    console.log(res.data.length);
                     this.resolveConfigs = res.data;
-                    console.log(this.resolveConfigs);
+                    for(let i=0; i<this.total; i++) {
+                        this.resolveConfigs[i].associatedServers = this.resolveConfigs[i].serviceName.join(",");
+					}
                     this.listLoading = false;
-//                    this.listLoading = true;
+//
                 });
             },
             //删除
             handleDel: function (index, row) {
-                console.log(row.configId);
                 this.$confirm('确认删除该记录吗?', '提示', {
                     type: 'warning'
                 }).then(() => {
                     this.listLoading = true;
-
                     let para = { configId: row.configId };
                     removeResolveConfig(para).then((res) => {
                         this.listLoading = false;
-
                         this.$message({
                             message: '删除成功',
                             type: 'success'
@@ -226,11 +212,7 @@
 
                 });
             },
-            //显示编辑界面
-            handleAssociation: function (index, row) {
-                this.associationFormVisible = true;
-                this.associationForm = Object.assign({}, row);
-            },
+
             //显示新增界面
             handleAdd: function () {
                 this.addFormVisible = true;
@@ -240,15 +222,58 @@
                     result:'',
                 };
             },
-            //编辑
+            //新增
+            addSubmit: function () {
+                this.$refs.addForm.validate((valid) => {
+//                    if (valid) {
+                    this.$confirm('确认提交吗？', '提示', {}).then(() => {
+                        this.addLoading = true;
+
+                        let para = Object.assign({}, this.addForm);
+                        addResolveConfig(para).then((res) => {
+                            this.addLoading = false;
+
+                            this.$message({
+                                message: '提交成功',
+                                type: 'success'
+                            });
+                            this.$refs['addForm'].resetFields();
+                            this.addFormVisible = false;
+                            this.getResolveConfigs();
+                        });
+                    });
+//                    }
+                });
+            },
+
+            //显示关联界面
+            handleAssociation: function (index, row) {
+
+                let para = {
+                    serverQueryWords:'',
+				};
+                getServerStatePage(para).then((res) => {
+                    console.log(res);
+                    let serversInfo = res.data;
+                    let len = res.data.length;
+                    for (let i=0; i<len; i++) {
+                        this.serversName[i] = Object.assign({}, this.serversName[i], { key: serversInfo[i].serviceId, label: serversInfo[i].serviceName });
+					}
+                });
+                this.associationFormVisible = true;
+                this.associationForm = Object.assign({}, row);
+//				this.associationForm.serviceId = row.serviceId;
+//                console.log(row);
+            },
+
+            //关联页面提交
             associationSubmit: function () {
                 this.$refs.associationForm.validate((valid) => {
-                    if (valid) {
+//                    if (valid) {
                         this.$confirm('确认提交吗？', '提示', {}).then(() => {
                             this.associationLoading = true;
 
                             let para = Object.assign({}, this.associationForm);
-//                            para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
                             associateServers(para).then((res) => {
                                 this.associationLoading = false;
 
@@ -261,56 +286,34 @@
                                 this.getResolveConfigs();
                             });
                         });
-                    }
-                });
-            },
-            //新增
-            addSubmit: function () {
-                this.$refs.addForm.validate((valid) => {
-//                    if (valid) {
-                        this.$confirm('确认提交吗？', '提示', {}).then(() => {
-                            this.addLoading = true;
-
-                            let para = Object.assign({}, this.addForm);
-                            addResolveConfig(para).then((res) => {
-                                this.addLoading = false;
-
-                                this.$message({
-                                    message: '提交成功',
-                                    type: 'success'
-                                });
-                                this.$refs['addForm'].resetFields();
-                                this.addFormVisible = false;
-                                this.getResolveConfigs();
-                            });
-                        });
 //                    }
                 });
             },
+
             selsChange: function (sels) {
                 this.sels = sels;
             },
-            //批量删除
-            batchRemove: function () {
-                var ids = this.sels.map(item => item.id).toString();
-                this.$confirm('确认删除选中记录吗？', '提示', {
-                    type: 'warning'
-                }).then(() => {
-                    this.listLoading = true;
-                    let para = { ids: ids };
-                    batchRemoveCoonfigs(para).then((res) => {
-                        this.listLoading = false;
-
-                        this.$message({
-                            message: '删除成功',
-                            type: 'success'
-                        });
-                        this.getResolveConfigs();
-                    });
-                }).catch(() => {
-
-                });
-            }
+//            //批量删除
+//            batchRemove: function () {
+//                var ids = this.sels.map(item => item.id).toString();
+//                this.$confirm('确认删除选中记录吗？', '提示', {
+//                    type: 'warning'
+//                }).then(() => {
+//                    this.listLoading = true;
+//                    let para = { ids: ids };
+//                    batchRemoveCoonfigs(para).then((res) => {
+//                        this.listLoading = false;
+//
+//                        this.$message({
+//                            message: '删除成功',
+//                            type: 'success'
+//                        });
+//                        this.getResolveConfigs();
+//                    });
+//                }).catch(() => {
+//
+//                });
+//            }
         },
         mounted() {
             this.getResolveConfigs();

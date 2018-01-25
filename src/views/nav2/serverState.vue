@@ -34,7 +34,7 @@
 			</el-table-column>
 			<el-table-column label="操作" min-width="150" align="center">
 				<template scope="scope">
-					<el-button type="primary" size="small" @click="handleEdit(scope.$index, scope.row)">状态控制</el-button>
+					<el-button type="primary" size="small" @click="handleControl(scope.$index, scope.row)">状态控制</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -46,26 +46,23 @@
 		</el-col>
 
 		<!--状态控制界面-->
-		<el-dialog title="状态控制" v-model="editFormVisible" :close-on-click-modal="false">
-			<el-form :model="editForm" label-width="120px" ref="editForm">
+		<el-dialog title="状态控制" v-model="controlFormVisible" :close-on-click-modal="false">
+			<el-form :model="controlForm" label-width="120px" ref="controlForm">
 				<el-form-item label="服务器名称">
-					<el-input v-model="editForm.serviceName" readonly style="width: 200px;"></el-input>
+					<el-input v-model="controlForm.serviceName" readonly style="width: 200px;"></el-input>
 				</el-form-item>
 
 				<el-form-item label="配置更新">
-					<el-input v-model="editForm.config" readonly style="width: 200px;"></el-input>
-					<el-button type="success" @click.native="configUpdate">更新</el-button>
-					<!--<el-transfer v-model="editForm.config" :data="dataConfigs" :titles="['备选', '已选']" :button-texts="['删除', '添加']">-->
-					<!--</el-transfer>-->
+					<el-input v-model="controlForm.config" readonly style="width: 200px;" placeholder="请手动更新配置"></el-input>
+					<el-button type="success" @click.native="configUpdate" :loading="updateLoading">更新</el-button>
 				</el-form-item>
 				<el-form-item label="软件版本">
-					<el-input v-model="editForm.softVersion" readonly style="width: 200px;"></el-input>
-
-					<el-button type="success" @click.native="checkUpdate">检查更新</el-button>
+					<el-input v-model="controlForm.softVersion" readonly style="width: 200px;"></el-input>
+					<el-button type="success" @click.native="checkUpdate" disabled>检查更新</el-button>
 				</el-form-item>
 				<el-form-item label="关机/重启">
-					<el-button type="danger" @click.native="editOff" :loading="editLoading">关机</el-button>
-					<el-button type="success" @click.native="editRestart">重启</el-button>
+					<el-button type="danger" @click.native="controlOff" :loading="offLoading">关机</el-button>
+					<el-button type="success" @click.native="controlRestart" :loading="restartLoading">重启</el-button>
 				</el-form-item>
 			</el-form>
 		</el-dialog>
@@ -76,7 +73,7 @@
 <script>
 	import util from '../../common/js/util'
 	//import NProgress from 'nprogress'
-	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser, getServerStatePage } from '../../api/api';
+	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser, getServerStatePage, configIF } from '../../api/api';
 
 	export default {
 		data() {
@@ -88,112 +85,29 @@
                 listLoading: false,
 //				sels: [],//列表选中列
 
-                editFormVisible: false,//编辑界面是否显示
-                editLoading: false,
-//				editFormRules: {
-//					name: [
-//						{ required: true, message: '请输入姓名', trigger: 'blur' }
-//					]
-//				},
-                //编辑界面数据
-                editForm: {
-//					id: 0,
+                controlFormVisible: false,//编辑界面是否显示
+                updateLoading: false,
+                offLoading: false,
+                restartLoading: false,
+
+                //控制界面数据
+                controlForm: {
+					serverId:'',
                     serviceName: '',
                     softVersion: '',
                     config: '',
-
                 },
-//                dataConfigs: [
-//                    {
-//                        key: 1,
-//                        label: '配置1',
-//                    },
-//                    {
-//                        key: 2,
-//                        label: '配置2',
-//                    },
-//                    {
-//                        key: 3,
-//                        label: '配置3',
-//                    },
-//                    {
-//                        key: 4,
-//                        label: '配置4',
-//                    },
-//                    {
-//                        key: 5,
-//                        label: '配置5',
-//                    },
-//                    {
-//                        key: 6,
-//                        label: '配置6',
-//                    },
-//                    {
-//                        key: 7,
-//                        label: '配置7',
-//                    },
-//                    {
-//                        key: 8,
-//                        label: '配置8',
-//                    },
-//                    {
-//                        key: 9,
-//                        label: '配置9',
-//                    },
-//                    {
-//                        key: 10,
-//                        label: '配置10',
-//                    },
-//                ],
-//
-//                softwareVersions: [
-//                    {
-//						value: '1',
-//						label: '111'
-//					}, {
-//						value: '2',
-//						label: '222'
-//					}, {
-//						value: '3',
-//						label: '333'
-//					}, {
-//						value: '4',
-//						label: '444'
-//					}, {
-//						value: '5',
-//						label: '555'
-//                	},
-//				],
-
-//				addFormVisible: false,//新增界面是否显示
-//				addLoading: false,
-//				addFormRules: {
-//					name: [
-//						{ required: true, message: '请输入姓名', trigger: 'blur' }
-//					]
-//				},
-//				//新增界面数据
-//				addForm: {
-//					name: '',
-//					sex: -1,
-//					age: 0,
-//					birth: '',
-//					addr: ''
-//				}
-//
-//			}
             }
         },
+
+
 		methods: {
-			//性别显示转换
-//			formatSex: function (row, column) {
-//				return row.sex == 1 ? '男' : row.sex == 0 ? '女' : '未知';
-//			},
+
 			handleCurrentChange(val) {
 				this.page = val;
 				this.getServerStates();
 			},
-			//获取用户列表
+			//获取服务器状态列表
             getServerStates() {
 				let para = {
 //					page: this.page,
@@ -204,169 +118,65 @@
                 getServerStatePage(para).then((res) => {
 					this.total = res.data.length;
 					this.servers = res.data;
-					console.log(res.data);
+//					console.log(res.data);
 					this.listLoading = false;
-
 				});
 			},
-			//删除
-			handleDel: function (index, row) {
-				this.$confirm('确认删除该记录吗?', '提示', {
-					type: 'warning'
-				}).then(() => {
-					this.listLoading = true;
-					//NProgress.start();
-					let para = { id: row.id };
-					removeUser(para).then((res) => {
-						this.listLoading = false;
-						//NProgress.done();
-						this.$message({
-							message: '删除成功',
-							type: 'success'
-						});
-						this.getServerStates();
-					});
-				}).catch(() => {
 
-				});
+			//显示控制界面
+			handleControl: function (index, row) {
+				this.controlFormVisible = true;
+				this.controlForm = Object.assign({}, row);
 			},
-			//显示编辑界面
-			handleEdit: function (index, row) {
-				this.editFormVisible = true;
-				this.editForm = Object.assign({}, row);
-			},
-			//显示新增界面
-			handleAdd: function () {
-				this.addFormVisible = true;
-				this.addForm = {
-					name: '',
-					sex: -1,
-					age: 0,
-					birth: '',
-					addr: ''
+
+			//更新配置
+            configUpdate: function () {
+                this.updateLoading = true;
+                let para = {
+                    type: 'update',
+                    serviceId: this.controlForm.serverId,
 				};
-			},
-			//编辑
-			editSubmit: function () {
-				this.$refs.editForm.validate((valid) => {
-					if (valid) {
-						this.$confirm('确认提交吗？', '提示', {}).then(() => {
-							this.editLoading = true;
-							//NProgress.start();
-							let para = Object.assign({}, this.editForm);
-							para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-							editUser(para).then((res) => {
-								this.editLoading = false;
-								//NProgress.done();
-								this.$message({
-									message: '提交成功',
-									type: 'success'
-								});
-								this.$refs['editForm'].resetFields();
-								this.editFormVisible = false;
-								this.getServerStates();
-							});
-						});
-					}
+                configIF(para).then((res) => {
+                    this.updateLoading = false;
+                    this.$message({
+                        message: '更新成功',
+                        type: 'success'
+                    });
+                    this.controlForm.config = '已更新,更新时间:'+res.updateTime;
+                    this.getServerStates();
+
 				});
 			},
             //关机
-            editOff: function () {
-                this.$refs.editForm.validate((valid) => {
-                    if (valid) {
-                        this.$confirm('确认关机？', '提示', {}).then(() => {
-                            this.editLoading = true;
-                            //NProgress.start();
-                            let para = Object.assign({}, this.editForm);
-                            para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-                            editUser(para).then((res) => {
-                                this.editLoading = false;
-                                //NProgress.done();
-                                this.$message({
-                                    message: '提交成功',
-                                    type: 'success'
-                                });
-                                this.$refs['editForm'].resetFields();
-                                this.editFormVisible = false;
-                                this.getServerStates();
-                            });
-                        });
-                    }
+            controlOff: function () {
+                this.offLoading = true;
+                let para = {
+                    type: 'off',
+                    serviceId: this.controlForm.serverId,
+                };
+                configIF(para).then((res) => {
+                    this.offLoading = false;
+                    this.$message({
+                        message: '关机成功',
+                        type: 'success'
+                    });
                 });
             },
             //重启
-            editRestart: function () {
-                this.$refs.editForm.validate((valid) => {
-                    if (valid) {
-                        this.$confirm('确认提交吗？', '提示', {}).then(() => {
-                            this.editLoading = true;
-                            //NProgress.start();
-                            let para = Object.assign({}, this.editForm);
-                            para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-                            editUser(para).then((res) => {
-                                this.editLoading = false;
-                                //NProgress.done();
-                                this.$message({
-                                    message: '提交成功',
-                                    type: 'success'
-                                });
-                                this.$refs['editForm'].resetFields();
-                                this.editFormVisible = false;
-                                this.getServerStates();
-                            });
-                        });
-                    }
+            controlRestart: function () {
+                this.restartLoading = true;
+                let para = {
+                    type: 'restart',
+                    serviceId: this.controlForm.serverId,
+                };
+                configIF(para).then((res) => {
+                    this.restartLoading = false;
+                    this.$message({
+                        message: '重启成功',
+                        type: 'success',
+                    });
                 });
             },
-			//新增
-			addSubmit: function () {
-				this.$refs.addForm.validate((valid) => {
-					if (valid) {
-						this.$confirm('确认提交吗？', '提示', {}).then(() => {
-							this.addLoading = true;
-							//NProgress.start();
-							let para = Object.assign({}, this.addForm);
-							para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-							addUser(para).then((res) => {
-								this.addLoading = false;
-								//NProgress.done();
-								this.$message({
-									message: '提交成功',
-									type: 'success'
-								});
-								this.$refs['addForm'].resetFields();
-								this.addFormVisible = false;
-								this.getServerStates();
-							});
-						});
-					}
-				});
-			},
-			selsChange: function (sels) {
-				this.sels = sels;
-			},
-			//批量删除
-			batchRemove: function () {
-				var ids = this.sels.map(item => item.id).toString();
-				this.$confirm('确认删除选中记录吗？', '提示', {
-					type: 'warning'
-				}).then(() => {
-					this.listLoading = true;
-					//NProgress.start();
-					let para = { ids: ids };
-					batchRemoveUser(para).then((res) => {
-						this.listLoading = false;
-						//NProgress.done();
-						this.$message({
-							message: '删除成功',
-							type: 'success'
-						});
-						this.getServerStates();
-					});
-				}).catch(() => {
-
-				});
-			},
 		},
 		mounted() {
 			this.getServerStates();

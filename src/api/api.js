@@ -25,8 +25,8 @@ export const getResolveConfigPage = params => { return axios.get(`${baseWGQ}/CBS
 export const addResolveConfig = params => { return axios.get(`${baseWGQ}/CBSP/addParseConfig`, { params: params }); };
 export const removeResolveConfig = params => { return axios.get(`${baseWGQ}/CBSP/deleteParseConfig`, { params: params }); };
 // export const batchRemoveResolveConfigs = params => { return axios.get(`${baseWGQ}/CBSP/batchDeleteParseConfig`, { params: params }); };
-export const associateServers = params => { return axios.get(`${baseWGQ}/CBSP/associateServers`, { params: params }); };
-export const configIF = params => { return axios.get(`${baseWGQ}/CBSP/associateServers`, { params: params }); };
+export const associateServers = params => { return axios.get(`${baseWGQ}/CBSP/relateService`, { params: params }); };
+export const configIF = params => { return axios.get(`${baseWGQ}/CBSP/controlServiceState`, { params: params }); };
 
 //编码赋码接口
 export const addFrontCode = params => { return axios.get(`${baseCode}/CodeSystem/codeType/insert`, { params: params }); };

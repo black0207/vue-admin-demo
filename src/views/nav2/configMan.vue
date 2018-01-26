@@ -17,8 +17,7 @@
 
 		<!--列表-->
 		<el-table :data="resolveConfigs" highlight-current-row v-loading="listLoading" style="width: 100%;" border>
-			<!--<el-table-column type="selection" width="55">-->
-			<!--</el-table-column>-->
+
 			<el-table-column type="index" width="80" align="center" label="序号">
 			</el-table-column>
 			<!--name-->
@@ -44,7 +43,6 @@
 
 		<!--工具条-->
 		<el-col :span="24" class="toolbar">
-		<!--<el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>-->
 		<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;">
 		</el-pagination>
 		</el-col>
@@ -69,26 +67,8 @@
 				<el-form-item label="解析结果">
 					<el-input v-model="addForm.result" ></el-input>
 				</el-form-item>
-				<!--<el-form-item label="关联服务器">-->
-
-					<!--<el-select-->
-							<!--v-model="value9"-->
-							<!--multiple-->
-							<!--filterable-->
-							<!--remote-->
-							<!--reserve-keyword-->
-							<!--placeholder="请输入关键词"-->
-							<!--:remote-method="remoteMethod"-->
-							<!--:loading="loading">-->
-						<!--<el-option-->
-								<!--v-for="item in options4"-->
-								<!--:key="item.value"-->
-								<!--:label="item.label"-->
-								<!--:value="item.value">-->
-						<!--</el-option>-->
-					<!--</el-select>-->
-				<!--</el-form-item>-->
 			</el-form>
+
 			<div slot="footer" class="dialog-footer">
 				<el-button @click.native="addFormVisible = false">取消</el-button>
 				<el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
@@ -96,7 +76,7 @@
 		</el-dialog>
 
 		<!--关联界面-->
-		<el-dialog title="关联服务器" v-model="associationFormVisible" :close-on-click-modal="false">
+		<el-dialog title="关联服务器" v-model="associationFormVisible" :close-on-click-modal="false" min-width="1000px">
 			<el-form :model="associationForm" label-width="120px" ref="associationForm">
 				<el-form-item label="解析类型">
 					<el-input v-model="associationForm.type" readonly></el-input>
@@ -187,7 +167,12 @@
                     this.total = res.data.length;
                     this.resolveConfigs = res.data;
                     for(let i=0; i<this.total; i++) {
-                        this.resolveConfigs[i].associatedServers = this.resolveConfigs[i].serviceName.join(",");
+//                        console.log('this.resolveConfigs[i].serviceName='+this.resolveConfigs[i].serviceName);
+                        if(this.resolveConfigs[i].serviceName) {
+                            this.resolveConfigs[i].associatedServers = this.resolveConfigs[i].serviceName.join(",");
+						} else {
+                            this.resolveConfigs[i].associatedServers = '-';
+						}
 					}
                     this.listLoading = false;
 //
@@ -231,10 +216,11 @@
 
                         let para = Object.assign({}, this.addForm);
                         addResolveConfig(para).then((res) => {
+                            console.log('111111111111111:'+res);
                             this.addLoading = false;
 
                             this.$message({
-                                message: '提交成功',
+                                message: '添加成功',
                                 type: 'success'
                             });
                             this.$refs['addForm'].resetFields();
@@ -248,22 +234,31 @@
 
             //显示关联界面
             handleAssociation: function (index, row) {
-
+                this.associationForm = Object.assign({}, row);
                 let para = {
                     serverQueryWords:'',
 				};
                 getServerStatePage(para).then((res) => {
-                    console.log(res);
                     let serversInfo = res.data;
+                    let tempServersName = [];
                     let len = res.data.length;
                     for (let i=0; i<len; i++) {
-                        this.serversName[i] = Object.assign({}, this.serversName[i], { key: serversInfo[i].serviceId, label: serversInfo[i].serviceName });
+                        tempServersName[i] =  {
+                            key: serversInfo[i].serviceId,
+							label: serversInfo[i].serviceName,
+						};
 					}
+					this.serversName = tempServersName;
                 });
+                console.log('row.serviceId:'+row.serviceId)
+                if (row.serviceId != undefined) {
+                    this.associationForm.serviceId = row.serviceId;
+				} else {
+                    this.associationForm.serviceId = [ ];
+				}
+
                 this.associationFormVisible = true;
-                this.associationForm = Object.assign({}, row);
-//				this.associationForm.serviceId = row.serviceId;
-//                console.log(row);
+
             },
 
             //关联页面提交
@@ -273,10 +268,12 @@
                         this.$confirm('确认提交吗？', '提示', {}).then(() => {
                             this.associationLoading = true;
 
-                            let para = Object.assign({}, this.associationForm);
+                            let para = {
+                                configId: this.associationForm.configId,
+                                associatedServersId: this.associationForm.serviceId.join(","),
+                            };
                             associateServers(para).then((res) => {
                                 this.associationLoading = false;
-
                                 this.$message({
                                     message: '提交成功',
                                     type: 'success'
@@ -284,7 +281,12 @@
                                 this.$refs['associationForm'].resetFields();
                                 this.associationFormVisible = false;
                                 this.getResolveConfigs();
-                            });
+                            },(res) => {
+                                this.$message({
+                                    message: res.error,
+                                    type: 'danger'
+                                });
+							});
                         });
 //                    }
                 });

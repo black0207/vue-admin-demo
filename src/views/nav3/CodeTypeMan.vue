@@ -100,7 +100,7 @@
         typeData: [],
         total: 0,
         page: 1,
-        pageSize:3,
+        pageSize:15,
         listLoading: false,
         sels: [],//列表选中列
 

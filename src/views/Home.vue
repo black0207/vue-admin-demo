@@ -77,8 +77,8 @@
 			return {
 				sysName:'福州后台管理系统',
 				collapsed:false,
-				sysUserName: '',
-				sysUserAvatar: '',
+				sysUserName: 'admin',
+				sysUserAvatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
 				form: {
 					name: '',
 					region: '',
@@ -131,7 +131,7 @@
 			var user = sessionStorage.getItem('user');
 			if (user) {
 				user = JSON.parse(user);
-				this.sysUserName = user.name || '';
+				this.sysUserName = user.username || '';
 				this.sysUserAvatar = user.avatar || '';
 			}
 

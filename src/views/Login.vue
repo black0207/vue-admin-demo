@@ -24,7 +24,8 @@
         logining: false,
         ruleForm2: {
           account: 'admin',
-          checkPass: '123456'
+          checkPass: '123456',
+          avatar:'../assets/users.png'
         },
         rules2: {
           account: [
@@ -50,12 +51,12 @@
             //_this.$router.replace('/table');
             this.logining = true;
             //NProgress.start();
-            var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
+            var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass ,avatar: this.ruleForm2.avatar};
 
             if (loginParams.username == "admin" && loginParams.password =="123456"){
                   this.logining = false;
                   sessionStorage.setItem('user', JSON.stringify(loginParams));
-                  this.$router.push({ path: '/main' });
+                  this.$router.push({ path: '/serverMan' });
             }else {
                   this.$message({
                     message: msg,

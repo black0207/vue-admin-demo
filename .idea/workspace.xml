@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="326815dd-df0c-40ae-aca5-a46588a1f50c" name="Default" comment="">
+    <list default="true" id="326815dd-df0c-40ae-aca5-a46588a1f50c" name="Default" comment="修改 冲突">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="vue-admin-master.iws" />
@@ -343,7 +343,7 @@
       <workItem from="1516605644231" duration="6956000" />
       <workItem from="1516614764604" duration="8091000" />
       <workItem from="1516685256444" duration="38508000" />
-      <workItem from="1517219444684" duration="251000" />
+      <workItem from="1517219444684" duration="272000" />
     </task>
     <task id="LOCAL-00001" summary="修改跳转链接">
       <created>1515656237800</created>
@@ -401,11 +401,18 @@
       <option name="project" value="LOCAL" />
       <updated>1517219658391</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="修改 冲突">
+      <created>1517219703449</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1517219703449</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="144212000" />
+    <option name="totallyTimeSpent" value="144233000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">

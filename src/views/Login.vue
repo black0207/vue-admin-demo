@@ -23,9 +23,14 @@
       return {
         logining: false,
         ruleForm2: {
+          account: '',
+          checkPass: '',
+          avatar:'./static/user1.png'
+        },
+        ruleForm3:{
           account: 'admin',
           checkPass: '123456',
-          avatar:'../assets/users.png'
+          avatar:'./static/user1.png'
         },
         rules2: {
           account: [
@@ -58,10 +63,12 @@
                   sessionStorage.setItem('user', JSON.stringify(loginParams));
                   this.$router.push({ path: '/serverMan' });
             }else {
+              this.logining = false;
                   this.$message({
-                    message: msg,
+                    message: '登录失败，请重新登录！',
                     type: 'error'
                   });
+              this.$refs.ruleForm2.resetFields();
             }
 
             /*requestLogin(loginParams).then(data => {

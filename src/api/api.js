@@ -20,10 +20,12 @@ export const addUser = params => { return axios.get(`${base}/user/add`, { params
 
 //新增编码类型 by LZY
 export const addCodeType = params => { return axios.post(`${baseCode}/CodeSystem/codeType/insert`, params); };
-//新增编码类型 by LZY
+//编辑编码类型 by LZY
 export const updateCodeType = params => { return axios.post(`${baseCode}/CodeSystem/codeType/update`, params); };
 //查询编码类型 by LZY
 export const searchCodeType = params => { return axios.get(`${baseCode}/CodeSystem/codeType/queryByCondition`, { params: params }); };
+//查询公司/组织的名称ID by LZY
+export const  searchOrgInfo = params =>{ return axios.get(`${baseCode}/CodeSystem/organization/findList`, { params: params });};
 //查询前码段 by LZY
 export const searchPreCode = params => { return axios.get(`${baseCode}/CodeSystem/preCode/findList`, { params: params }); };
 //新增前码段 by LZY

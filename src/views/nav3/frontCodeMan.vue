@@ -69,16 +69,30 @@
     </el-dialog>
 
     <!--新增界面-->
-    <el-dialog title="分配前码段" v-model="addFormVisible" :close-on-click-modal="false">
-      <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
+    <el-dialog title="分配前码段" v-model="addFormVisible" :close-on-click-modal="false" >
+      <el-form :model="addForm" :label-positon="labelPosition1" label-width="120px"  :rules="addFormRules" ref="addForm">
         <el-form-item label="前段码" prop="preCode">
         <el-input v-model="addForm.preCode" auto-complete="off"></el-input>
       </el-form-item>
-        <el-form-item label="编码类型ID" prop="codeTypeId">
-          <el-input v-model="addForm.codeTypeId" auto-complete="off"></el-input>
+        <el-form-item label="编码类型" prop="codeTypeId">
+          <el-select v-model="addForm.codeTypeId" filterable style="width: 100%" placeholder="请选择">
+            <el-option
+                    v-for="item in allCodeTypes"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="组织ID" prop="organizationId">
-          <el-input v-model="addForm.organizationId" auto-complete="off"></el-input>
+        <el-form-item label="组织机构名称" prop="organizationId">
+          <el-select v-model="addForm.organizationId" filterable style="width: 100%" placeholder="请选择">
+            <el-option
+                    v-for="item in allCodeNames"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
 
       </el-form>
@@ -140,10 +154,10 @@
 
       </el-table>
       <div style="margin-top:20px;padding-left: 10px ;background-color:#d4edfc;height: 35px;line-height: 35px;">后段码分配</div>
-      <el-form :model="assignForm" :label-position="labelPosition" label-width="120px" :rules="editFormRules" ref="assignForm" style="margin-top: 10px">
+      <el-form :model="assignForm" :label-position="labelPosition" label-width="120px" :rules="editFormRules" ref="assignForm" style="margin-top: 20px">
 
-        <el-form-item label="后段码数量" prop="number" >
-          <el-input-number v-model="assignForm.number" auto-complete="off"></el-input-number>
+        <el-form-item label="后段码数量" prop="number" style="padding-left: 20px">
+          <el-input-number v-model="assignForm.number" style="text-align: center" auto-complete="off"></el-input-number>
         </el-form-item>
 
       </el-form>
@@ -158,7 +172,7 @@
 <script>
   import util from '../../common/js/util'
   //import NProgress from 'nprogress'
-  import {modifySuffixStatus,searchSuffixCode,addSuffixCode,addPreCode,searchPreCode, getUserListPage, batchRemoveUser,} from '../../api/api';
+  import {searchOrgInfo,searchCodeType,modifySuffixStatus,searchSuffixCode,addSuffixCode,addPreCode,searchPreCode,  batchRemoveUser,} from '../../api/api';
 
   export default {
     data() {
@@ -169,9 +183,11 @@
         labelPosition:'left',
         preCodeData: [],
         suffixCodeData:[],
+        allCodeTypes:[],//存储所有编码类型
+        allCodeNames:[],//存储所有公司名称
         total: 0,
         page: 1,
-        pageSize:3,
+        pageSize:15,
         total1: 0,
         page1: 1,
         pageSize1:10,//后码段列表页面容量
@@ -398,6 +414,26 @@
           codeTypeId: '',
           organizationId: ''
         };
+        let para = {};
+        searchCodeType(para).then((res)=>{
+          //console.log(res.data);
+        let typeDatas = res.data;
+        let tempData = [];
+        for(var i=0;i<typeDatas.length;i++){
+          tempData.push({value:typeDatas[i].typeId,label:typeDatas[i].typeName});
+        }
+        this.allCodeTypes = tempData;
+      });
+
+        searchOrgInfo(para).then((res)=>{
+          let tempData1 = [];
+        let orgNames = res.data;
+        for(var i=0;i<orgNames.length;i++){
+          tempData1.push({value:orgNames[i].organizationId,label:orgNames[i].organizationName});
+        }
+        this.allCodeNames = tempData1;
+        });
+
       },
       //编辑
       editSubmit: function () {
@@ -467,12 +503,21 @@
         this.listLoading = true;
         //NProgress.start();
         addSuffixCode(para).then((res) => {
-          this.$message({
-          message: '新增编码成功',
-          type: 'success'
-          });
-
           console.log(res.data);
+        if(res.data == "success"){
+          this.backEditFormVisible = false;
+          this.$refs['assignForm'].resetFields();
+          this.$message({
+            message: '新增编码成功！',
+            type: 'success'
+          });
+        }else {
+          this.$message({
+            message: '操作失败！',
+            type: 'error'
+          });
+        }
+
           this.listLoading = false;
       });
       },

@@ -23,8 +23,14 @@
       return {
         logining: false,
         ruleForm2: {
+          account: '',
+          checkPass: '',
+          avatar:'./static/user1.png'
+        },
+        ruleForm3:{
           account: 'admin',
-          checkPass: '123456'
+          checkPass: '123456',
+          avatar:'./static/user1.png'
         },
         rules2: {
           account: [
@@ -50,8 +56,22 @@
             //_this.$router.replace('/table');
             this.logining = true;
             //NProgress.start();
-            var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass };
-            requestLogin(loginParams).then(data => {
+            var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass ,avatar: this.ruleForm2.avatar};
+
+            if (loginParams.username == "admin" && loginParams.password =="123456"){
+                  this.logining = false;
+                  sessionStorage.setItem('user', JSON.stringify(loginParams));
+                  this.$router.push({ path: '/serverMan' });
+            }else {
+              this.logining = false;
+                  this.$message({
+                    message: '登录失败，请重新登录！',
+                    type: 'error'
+                  });
+              this.$refs.ruleForm2.resetFields();
+            }
+
+            /*requestLogin(loginParams).then(data => {
               this.logining = false;
               //NProgress.done();
               let { msg, code, user } = data;
@@ -64,7 +84,7 @@
                 sessionStorage.setItem('user', JSON.stringify(user));
                 this.$router.push({ path: '/main' });
               }
-            });
+            });*/
           } else {
             console.log('error submit!!');
             return false;

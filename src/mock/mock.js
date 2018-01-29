@@ -3,16 +3,20 @@ import MockAdapter from 'axios-mock-adapter';
 import { LoginUsers, Users } from './data/user';
 import { Servers } from './data/user';
 import { ResolveConfigs } from './data/user';
+import { Serverinfo } from './data/user';
 let _Users = Users;
 let _Servers = Servers;
 let _ResolveConfigs = ResolveConfigs;
+let _Serverinfo = Serverinfo;
 
 export default {
   /**
    * mock bootstrap
    */
   bootstrap() {
-    let mock = new MockAdapter();
+   let mock = new MockAdapter(axios);
+
+    mock.restore();//关闭mock模拟数据
 
     // mock success request
     mock.onGet('/success').reply(200, {
@@ -122,6 +126,27 @@ export default {
       });
       //zqc
 
+      //zxf增加的
+      //获取服务器管理信息列表（分页）
+      mock.onGet('/serverinfo/infopage').reply(config => {
+          let {page, name} = config.params;
+          let mockServerinfo = _Serverinfo.filter(serverinfo => {
+              if (name && serverinfo.name.indexOf(name) == -1) return false;
+              return true;
+          });
+          let total = mockServerinfo.length;
+          mockServerinfo = mockServerinfo.filter((u, index) => index < 20 * page && index >= 20 * (page - 1));
+          return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                  resolve([200, {
+                      total: total,
+                      serverinfo: mockServerinfo
+                  }]);
+              }, 1000);
+          });
+      });
+      //zxf
+
     //删除用户
     mock.onGet('/user/remove').reply(config => {
       let { id } = config.params;
@@ -193,6 +218,7 @@ export default {
         }, 500);
       });
     });
+
 
   }
 };

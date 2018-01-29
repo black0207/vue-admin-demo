@@ -5,7 +5,7 @@ const LoginUsers = [
     username: 'admin',
     password: '123456',
     avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
-    name: '张某某'
+    name: 'admin'
   }
 ];
 
@@ -47,3 +47,16 @@ for (let i = 0; i < 99; i++) {
     }));
 }
 export { ResolveConfigs } ;
+
+//zxf增加的
+const Serverinfo = [];
+for (let i = 0; i < 99; i++) {
+    Serverinfo.push(Mock.mock({
+        name: Mock.Random.cname(),
+        addr: Mock.Random.integer(0, 1),
+        key: Mock.Random.date(),
+        // configUpdate: Mock.Random.integer(0, 1),
+        info: Mock.Random.integer(0, 1000),
+    }));
+}
+export { Serverinfo };

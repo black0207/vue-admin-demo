@@ -24,13 +24,13 @@
 			<el-table-column prop="type" label="解析类型" min-width="140" sortable align="center">
 			</el-table-column>
 			<!--workingState-->
-			<el-table-column prop="identify" label="解析标识" min-width="140" sortable align="center">
+			<el-table-column prop="identifier" label="解析标识" min-width="140" sortable align="center">
 			</el-table-column>
 			<!--softwareVersion-->
 			<el-table-column prop="result" label="解析结果" min-width="140" sortable align="center">
 			</el-table-column>
 			<!--configUpdate-->
-			<el-table-column prop="associatedServers" label="关联服务器" min-width="160" align="center">
+			<el-table-column prop="associatedServersName" label="关联服务器" min-width="160" align="center">
 			</el-table-column>
 			<!--resolveStatistic-->
 			<el-table-column label="操作" min-width="180" align="center">
@@ -82,13 +82,13 @@
 					<el-input v-model="associationForm.type" readonly></el-input>
 				</el-form-item>
 				<el-form-item label="解析标识">
-					<el-input v-model="associationForm.identify" readonly></el-input>
+					<el-input v-model="associationForm.identifier" readonly></el-input>
 				</el-form-item>
 				<el-form-item label="解析结果">
 					<el-input v-model="associationForm.result" readonly></el-input>
 				</el-form-item>
 				<el-form-item label="关联服务器">
-					<el-transfer v-model="associationForm.serviceId" :data="serversName" :titles="['备选', '已选']" :button-texts="['删除', '添加']">
+					<el-transfer v-model="associationForm.associatedServersId" :data="serversName" :titles="['备选', '已选']" :button-texts="['删除', '添加']">
 					</el-transfer>
 				</el-form-item>
 			</el-form>
@@ -108,17 +108,17 @@
     export default {
         data() {
             return {
-                serversName: [
-                ],
-                resolveTypes: [
-                    {
-						value: 'Ecode',
-						label: 'Ecode'
-					}, {
-						value: '港名',
-						label: '港名'
-					},
-				],
+                serversName: [],
+				resolveTypes:[],
+//                resolveTypes: [
+//                    {
+//						value: 'Ecode',
+//						label: 'Ecode'
+//					}, {
+//						value: '港名',
+//						label: '港名'
+//					},
+//				],
                 resolveQueryWords: '',
                 resolveConfigs: [],
                 total: 0,
@@ -131,11 +131,12 @@
 
                 //关联界面数据
                 associationForm: {
+                    configId: '',
                     type: '',
-                    identify: '',
+                    identifier: '',
                     result: '',
-                    servers:[],
-					serviceId:[],
+//                    allServers: [],
+                    associatedServersId: [],
 
                 },
 
@@ -145,8 +146,9 @@
                 //新增界面数据
                 addForm: {
                     type:'',
-                    identify:'',
+                    identifier:'',
                     result:'',
+					associatedServersId:[],
                 },
 
             }
@@ -158,24 +160,42 @@
             },
             //获取解析配置列表
             getResolveConfigs() {
+                this.resolveConfigs = [];
                 let para = {
 //                    page: this.page,
                     resolveQueryWords: this.resolveQueryWords,
                 };
                 this.listLoading = true;
                 getResolveConfigPage(para).then((res) => {
+                    console.log(res.data);
                     this.total = res.data.length;
-                    this.resolveConfigs = res.data;
+                    let data = res.data;
+                    let tempResolveConfigs = [];
                     for(let i=0; i<this.total; i++) {
-//                        console.log('this.resolveConfigs[i].serviceName='+this.resolveConfigs[i].serviceName);
-                        if(this.resolveConfigs[i].serviceName) {
-                            this.resolveConfigs[i].associatedServers = this.resolveConfigs[i].serviceName.join(",");
+                        let tempResolveConfigs = {
+                            configId: '',
+                            type: '',
+                            identifier: '',
+                            result: '',
+                            associatedServersName: '',
+                            associatedServersId: [],
+						};
+                        tempResolveConfigs.configId =data[i].configId;
+                        tempResolveConfigs.type = data[i].type;
+                        tempResolveConfigs.identifier = data[i].identify;
+                        tempResolveConfigs.result = data[i].result;
+                        if (data[i].serviceName != undefined) {
+                            tempResolveConfigs.associatedServersName = data[i].serviceName.join(",");
+                            tempResolveConfigs.associatedServersId = data[i].serviceId;
 						} else {
-                            this.resolveConfigs[i].associatedServers = '-';
+                            tempResolveConfigs.associatedServersName = '--';
+
 						}
+
+
+                        this.resolveConfigs.push(tempResolveConfigs);
 					}
                     this.listLoading = false;
-//
                 });
             },
             //删除
@@ -203,9 +223,14 @@
                 this.addFormVisible = true;
                 this.addForm = {
                     type:'',
-                    identify:'',
+                    identifier:'',
                     result:'',
+                    associatedServersId:[],
                 };
+                let para = {};
+                getResolveTypes(para).then((res) => {
+                    this.resolveTypes = Object.assign({},res.data);
+				});
             },
             //新增
             addSubmit: function () {
@@ -214,9 +239,14 @@
                     this.$confirm('确认提交吗？', '提示', {}).then(() => {
                         this.addLoading = true;
 
-                        let para = Object.assign({}, this.addForm);
+                        let para = {
+                            type: this.addForm.type,
+							identify: this.addForm.identifier,
+							result: this.addForm.result,
+                            associatedServersId: [],
+						};
                         addResolveConfig(para).then((res) => {
-                            console.log('111111111111111:'+res);
+
                             this.addLoading = false;
 
                             this.$message({
@@ -234,7 +264,12 @@
 
             //显示关联界面
             handleAssociation: function (index, row) {
-                this.associationForm = Object.assign({}, row);
+                this.associationForm.configId = row.configId;
+                this.associationForm.type = row.type;
+                this.associationForm.identifier = row.identifier;
+                this.associationForm.result = row.result;
+                this.associationForm.associatedServersId = row.associatedServersId;
+//                this.associationForm = Object.assign({}, row);
                 let para = {
                     serverQueryWords:'',
 				};
@@ -250,12 +285,12 @@
 					}
 					this.serversName = tempServersName;
                 });
-                console.log('row.serviceId:'+row.serviceId)
-                if (row.serviceId != undefined) {
-                    this.associationForm.serviceId = row.serviceId;
-				} else {
-                    this.associationForm.serviceId = [ ];
-				}
+//                console.log('row.serviceId:'+row.serviceId)
+//                if (row.serviceId != undefined) {
+//                    this.associationForm.serviceId = row.serviceId;
+//				} else {
+//                    this.associationForm.serviceId = [ ];
+//				}
 
                 this.associationFormVisible = true;
 
@@ -270,7 +305,7 @@
 
                             let para = {
                                 configId: this.associationForm.configId,
-                                associatedServersId: this.associationForm.serviceId.join(","),
+                                associatedServersId: this.associationForm.associatedServersId.join(","),
                             };
                             associateServers(para).then((res) => {
                                 this.associationLoading = false;

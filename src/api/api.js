@@ -27,6 +27,7 @@ export const removeResolveConfig = params => { return axios.get(`${baseWGQ}/CBSP
 // export const batchRemoveResolveConfigs = params => { return axios.get(`${baseWGQ}/CBSP/batchDeleteParseConfig`, { params: params }); };
 export const associateServers = params => { return axios.get(`${baseWGQ}/CBSP/relateService`, { params: params }); };
 export const configIF = params => { return axios.get(`${baseWGQ}/CBSP/controlServiceState`, { params: params }); };
+export const getResolveTypes = params => { return axios.get(`${baseWGQ}/CBSP/controlServiceState`, { params: params }); };
 
 //编码赋码接口
 export const addFrontCode = params => { return axios.get(`${baseCode}/CodeSystem/codeType/insert`, { params: params }); };

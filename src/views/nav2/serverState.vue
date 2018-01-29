@@ -170,11 +170,7 @@
 
 				}, (res) => {
                     this.updateLoading = false;
-                    this.$message({
-                        message: '更新失败',
-                        type: 'danger',
-                    });
-
+                    this.$message.error('错了哦，这是一条错误消息');
                 });
 			},
             //关机
@@ -192,11 +188,7 @@
                     });
                 }, (res) => {
                     this.turnOffLoading = false;
-                    this.$message({
-                        message: '关机失败',
-                        type: 'danger',
-                    });
-
+                    this.$message.error('错了哦，这是一条错误消息');
 				});
             },
             //重启
@@ -213,12 +205,8 @@
                         type: 'success',
                     });
                 },(res) => {
-                    his.turnOnLoading = false;
-                    this.$message({
-                        message: '开机失败',
-                        type: 'danger',
-                    });
-
+                    this.turnOnLoading = false;
+                    this.$message.error('错了哦，这是一条错误消息');
 				});
             },
 		},

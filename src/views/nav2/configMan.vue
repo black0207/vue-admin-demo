@@ -103,22 +103,13 @@
 
 <script>
     import util from '../../common/js/util'
-    import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser, getResolveConfigPage, addResolveConfig, removeResolveConfig, batchRemoveResolveConfigs, associateServers, getServerStatePage } from '../../api/api';
+    import { getResolveConfigPage, addResolveConfig, removeResolveConfig, batchRemoveResolveConfigs, associateServers, getServerStatePage, searchCodeType } from '../../api/api';
 
     export default {
         data() {
             return {
                 serversName: [],
 				resolveTypes:[],
-//                resolveTypes: [
-//                    {
-//						value: 'Ecode',
-//						label: 'Ecode'
-//					}, {
-//						value: '港名',
-//						label: '港名'
-//					},
-//				],
                 resolveQueryWords: '',
                 resolveConfigs: [],
                 total: 0,
@@ -160,41 +151,40 @@
             },
             //获取解析配置列表
             getResolveConfigs() {
-                this.resolveConfigs = [];
+//                this.resolveConfigs = [];
                 let para = {
 //                    page: this.page,
                     resolveQueryWords: this.resolveQueryWords,
                 };
                 this.listLoading = true;
                 getResolveConfigPage(para).then((res) => {
-                    console.log(res.data);
+//                    console.log(res.data);
                     this.total = res.data.length;
                     let data = res.data;
                     let tempResolveConfigs = [];
                     for(let i=0; i<this.total; i++) {
-                        let tempResolveConfigs = {
-                            configId: '',
-                            type: '',
-                            identifier: '',
-                            result: '',
-                            associatedServersName: '',
-                            associatedServersId: [],
+                        let singleResolveConfigs = {
+//                            configId: '',
+//                            type: '',
+//                            identifier: '',
+//                            result: '',
+//                            associatedServersName: '',
+//                            associatedServersId: [],
 						};
-                        tempResolveConfigs.configId =data[i].configId;
-                        tempResolveConfigs.type = data[i].type;
-                        tempResolveConfigs.identifier = data[i].identify;
-                        tempResolveConfigs.result = data[i].result;
+                        singleResolveConfigs.configId =data[i].configId;
+                        singleResolveConfigs.type = data[i].type;
+                        singleResolveConfigs.identifier = data[i].identify;
+                        singleResolveConfigs.result = data[i].result;
                         if (data[i].serviceName != undefined) {
-                            tempResolveConfigs.associatedServersName = data[i].serviceName.join(",");
-                            tempResolveConfigs.associatedServersId = data[i].serviceId;
+                            singleResolveConfigs.associatedServersName = data[i].serviceName.join(",");
+                            singleResolveConfigs.associatedServersId = data[i].serviceId;
 						} else {
-                            tempResolveConfigs.associatedServersName = '--';
+                            singleResolveConfigs.associatedServersName = '--';
 
 						}
-
-
-                        this.resolveConfigs.push(tempResolveConfigs);
+                        tempResolveConfigs.push(tempResolveConfigs);
 					}
+					this.resolveConfigs = tempResolveConfigs;
                     this.listLoading = false;
                 });
             },
@@ -228,8 +218,18 @@
                     associatedServersId:[],
                 };
                 let para = {};
-                getResolveTypes(para).then((res) => {
-                    this.resolveTypes = Object.assign({},res.data);
+                searchCodeType(para).then((res) => {
+                    console.log(res.data);
+                    let data = res.data;
+                    let tempResolveTypes = [];
+                    for(let i=0; i<data.length; i++){
+                        tempResolveTypes.push(
+                            {
+								value: data[i].typeId,
+								label: data[i].typeName,
+                            });
+                    }
+                    this.resolveTypes = tempResolveTypes;
 				});
             },
             //新增
@@ -285,12 +285,6 @@
 					}
 					this.serversName = tempServersName;
                 });
-//                console.log('row.serviceId:'+row.serviceId)
-//                if (row.serviceId != undefined) {
-//                    this.associationForm.serviceId = row.serviceId;
-//				} else {
-//                    this.associationForm.serviceId = [ ];
-//				}
 
                 this.associationFormVisible = true;
 

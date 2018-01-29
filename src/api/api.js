@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 let base = '';
-let baseCode = 'http://192.168.12.79:8080';//编码类型url
+let baseCode = 'http://192.168.12.79:8080';//编码url
+let baseEnode = '';//解析url
+let baseWGQ = 'http://192.168.12.86:8080';
 let suffixCode = 'http://192.168.12.150:8080';//后段码url
 
 export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
@@ -41,8 +43,14 @@ export const  modifySuffixStatus = params =>{ return axios.post(`${suffixCode}/C
 
 
 //zqc增加的
-export const getServerStatePage = params => { return axios.get(`${base}/server/statepage`, { params: params }); }
-export const getResolveConfigPage = params => { return axios.get(`${base}/resolve/configpage`, { params: params }); }
+export const getServerStatePage = params => { return axios.get(`${baseWGQ}/CBSP/researchServiceState`, { params: params }); }
+export const getResolveConfigPage = params => { return axios.get(`${baseWGQ}/CBSP/researchParseConfig`, { params: params }); }
+export const addResolveConfig = params => { return axios.get(`${baseWGQ}/CBSP/addParseConfig`, { params: params }); };
+export const removeResolveConfig = params => { return axios.get(`${baseWGQ}/CBSP/deleteParseConfig`, { params: params }); };
+// export const batchRemoveResolveConfigs = params => { return axios.get(`${baseWGQ}/CBSP/batchDeleteParseConfig`, { params: params }); };
+export const associateServers = params => { return axios.get(`${baseWGQ}/CBSP/relateService`, { params: params }); };
+export const configIF = params => { return axios.get(`${baseWGQ}/CBSP/controlServiceState`, { params: params }); };
+
 //编码赋码接口
 export const addFrontCode = params => { return axios.get(`${baseCode}/CodeSystem/codeType/insert`, { params: params }); };
 //zxf增加的

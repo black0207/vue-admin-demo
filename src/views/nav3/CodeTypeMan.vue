@@ -70,8 +70,8 @@
           <el-input v-model="addForm.typeName" name="typeName" auto-complete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="编码规则">
-          <el-input type="textarea" :row="3" name="rule" v-model="addForm.rule" ></el-input>
+        <el-form-item label="编码规则" prop="rule">
+          <el-input type="textarea" :row="3" v-model="addForm.rule" ></el-input>
         </el-form-item>
 
       </el-form>
@@ -107,7 +107,7 @@
         editFormVisible: false,//编辑界面是否显示
         editLoading: false,
         editFormRules: {
-          name: [
+          typeName: [
             { required: true, message: '请输入姓名', trigger: 'blur' }
           ]
         },
@@ -123,8 +123,11 @@
         addFormVisible: false,//新增界面是否显示
         addLoading: false,
         addFormRules: {
-          name: [
+          typeName: [
             { required: true, message: '请输入名称', trigger: 'blur' }
+          ],
+          rule: [
+            { required: true, message: '请输入编码规则', trigger: 'blur' }
           ]
         },
         //新增界面数据

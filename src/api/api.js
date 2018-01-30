@@ -3,6 +3,10 @@ import axios from 'axios';
 let base = '';
 let baseCode = 'http://192.168.12.79:8080';//编码url
 let baseEnode = '';//解析url
+let baseInfo = 'http://192.168.12.86:8080';//解析服务器查询url
+let baseAddInfo = 'http://192.168.12.86:8080';//解析服务器添加url
+let baseEditInfo = 'http://192.168.12.86:8080';//解析服务器更新url
+let baseDeleteInfo = 'http://192.168.12.86:8080';//解析服务器删除url
 
 export const requestLogin = params => { return axios.post(`${base}/login`, params).then(res => res.data); };
 
@@ -39,4 +43,8 @@ export const getResolveConfigPage = params => { return axios.get(`${base}/resolv
 //编码赋码接口
 export const addFrontCode = params => { return axios.get(`${baseCode}/CodeSystem/codeType/insert`, { params: params }); };
 //zxf增加的
-export const getServerInfoPage = params => { return axios.get(`${base}/serverinfo/infopage`, { params: params }); }
+export const getServerInfoPage = params => { return axios.get(`${baseInfo}/CBSP/researchServiceInfo`, { params: params }); }
+export const addServerInfo = params => { return axios.get(`${baseAddInfo}/CBSP/addServiceInfo`, { params: params }); }
+export const editServerInfo = params => { return axios.get(`${baseEditInfo}/CBSP/updateServiceInfo`, { params: params }); }
+export const deleteServerInfo = params => { return axios.get(`${baseDeleteInfo}/CBSP/deleteServiceInfo`, { params: params }); }
+// export const getServerInfoPage = params => { return axios.get(`${base}/serverinfo/infopage`, { params: params }); }

@@ -16,7 +16,7 @@
     </el-col>
 
     <!--列表-->
-    <el-table :data="preCodeData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+    <el-table :data="preCodeData" border highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
       <el-table-column type="selection" width="55" v-if="false">
       </el-table-column>
       <el-table-column type="index" width="80" label="序号">

@@ -53,7 +53,7 @@
         <el-form-item label="编码类型名称" prop="typeName">
           <el-input v-model="editForm.typeName"  auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="编码规则">
+        <el-form-item label="编码规则" prop="rule">
           <el-input v-model="editForm.rule" ></el-input>
         </el-form-item>
       </el-form>
@@ -64,7 +64,7 @@
     </el-dialog>
 
     <!--新增界面-->
-    <el-dialog title="自定义编码类型" v-model="addFormVisible" :close-on-click-modal="false">
+    <el-dialog title="自定义编码类型" v-model="addFormVisible" :close-on-click-modal="false" :before-close="addFormClose">
       <el-form :model="addForm" :label-position="labelPosition" label-width="120px" :rules="addFormRules" ref="addForm">
         <el-form-item label="编码类型名称" prop="typeName">
           <el-input v-model="addForm.typeName" name="typeName" auto-complete="off"></el-input>
@@ -109,6 +109,9 @@
         editFormRules: {
           typeName: [
             { required: true, message: '请输入姓名', trigger: 'blur' }
+          ],
+          rule: [
+            { required: true, message: '请输入编码规则', trigger: 'blur' }
           ]
         },
         //编辑界面数据
@@ -203,6 +206,12 @@
           rule: ''
 
         };
+      },
+      addFormClose:function () {
+
+        //this.$refs['addForm'].resetFields();
+        location.reload();
+        //this.addFormVisible = true;
       },
       //编辑
       editSubmit: function () {

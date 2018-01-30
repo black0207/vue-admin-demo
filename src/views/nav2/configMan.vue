@@ -21,16 +21,16 @@
 			<el-table-column type="index" width="80" align="center" label="序号">
 			</el-table-column>
 			<!--name-->
-			<el-table-column prop="type" label="解析类型" min-width="140" sortable align="center">
+			<el-table-column prop="type" label="解析类型" min-width="140" show-overflow-tooltip sortable align="center">
 			</el-table-column>
 			<!--workingState-->
-			<el-table-column prop="identifier" label="解析标识" min-width="140" sortable align="center">
+			<el-table-column prop="identifier" label="解析标识" min-width="140" show-overflow-tooltip sortable align="center">
 			</el-table-column>
 			<!--softwareVersion-->
-			<el-table-column prop="result" label="解析结果" min-width="140" sortable align="center">
+			<el-table-column prop="result" label="解析结果" min-width="140" show-overflow-tooltip sortable align="center">
 			</el-table-column>
 			<!--configUpdate-->
-			<el-table-column prop="associatedServersName" label="关联服务器" min-width="160" align="center">
+			<el-table-column prop="associatedServersName" label="关联服务器" show-overflow-tooltip min-width="160" align="center">
 			</el-table-column>
 			<!--resolveStatistic-->
 			<el-table-column label="操作" min-width="180" align="center">
@@ -43,14 +43,15 @@
 
 		<!--工具条-->
 		<el-col :span="24" class="toolbar">
-		<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;">
+		<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="pageSize" :total="total" style="float:right;">
 		</el-pagination>
 		</el-col>
 
 		<!--新增界面-->
 		<el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
-			<el-form :model="addForm" label-width="120px" ref="addForm">
-				<el-form-item label="解析类型">
+			<el-form :model="addForm" label-width="120px" ref="addForm" :rules="addFormRules">
+
+				<el-form-item label="解析类型" prop="type">
 					<el-select v-model="addForm.type" placeholder="请选择">
 						<el-option
 								v-for="item in resolveTypes"
@@ -60,12 +61,13 @@
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="解析标识">
-					<el-input v-model="addForm.identifier" ></el-input>
+
+				<el-form-item label="解析标识" prop="identifier">
+					<el-input v-model="addForm.identifier"></el-input>
 				</el-form-item>
 
-				<el-form-item label="解析结果">
-					<el-input v-model="addForm.result" ></el-input>
+				<el-form-item label="解析结果" prop="result">
+					<el-input v-model="addForm.result"></el-input>
 				</el-form-item>
 			</el-form>
 
@@ -76,7 +78,7 @@
 		</el-dialog>
 
 		<!--关联界面-->
-		<el-dialog title="关联服务器" v-model="associationFormVisible" :close-on-click-modal="false" min-width="1000px">
+		<el-dialog title="关联服务器" v-model="associationFormVisible" :close-on-click-modal="false" width="70%">
 			<el-form :model="associationForm" label-width="120px" ref="associationForm">
 				<el-form-item label="解析类型">
 					<el-input v-model="associationForm.type" readonly></el-input>
@@ -113,9 +115,10 @@
                 resolveQueryWords: '',
                 resolveConfigs: [],
                 total: 0,
+				pageSize: 10,
                 page: 1,
                 listLoading: false,
-				sels: [],//列表选中列
+//				sels: [],//列表选中列
 
                 associationFormVisible: false,//关联界面是否显示
                 associationLoading: false,
@@ -140,6 +143,17 @@
                     result:'',
 					associatedServersId:[],
                 },
+                addFormRules: {
+                    type: [
+						{ required: true }
+					],
+                    identifier: [
+						{ required: true, message: '请输入解析标识', trigger: 'blur' },
+					],
+					result: [
+						{ required: true, message: '请输入解析结果', trigger: 'blur' }
+					],
+                },
 
             }
         },
@@ -150,14 +164,12 @@
             },
             //获取解析配置列表
             getResolveConfigs() {
-//                this.resolveConfigs = [];
                 let para = {
-//                    page: this.page,
+                    page: this.page,
                     resolveQueryWords: this.resolveQueryWords,
                 };
                 this.listLoading = true;
                 getResolveConfigPage(para).then((res) => {
-//                    console.log(res.data);
                     this.total = res.data.length;
                     let data = res.data;
                     let tempResolveConfigs = [];
@@ -183,9 +195,12 @@
 						}
                         tempResolveConfigs.push(singleResolveConfigs);
 					}
-					this.resolveConfigs = tempResolveConfigs;
+					this.resolveConfigs = tempResolveConfigs.filter((u, index) => index < this.pageSize * para.page && index >= this.pageSize * (para.page - 1));
                     this.listLoading = false;
-                });
+                }, (res) => {
+                    this.$message.error('数据加载失败!');
+                    this.listLoading = false;
+				});
             },
             //删除
             handleDel: function (index, row) {
@@ -211,10 +226,10 @@
             handleAdd: function () {
                 this.addFormVisible = true;
                 this.addForm = {
-                    type:'',
-                    identifier:'',
-                    result:'',
-                    associatedServersId:[],
+                    type: '',
+                    identifier: '',
+                    result: '',
+                    associatedServersId: [],
                 };
                 let para = {};
                 searchCodeType(para).then((res) => {
@@ -234,30 +249,30 @@
             //新增
             addSubmit: function () {
                 this.$refs.addForm.validate((valid) => {
-//                    if (valid) {
-                    this.$confirm('确认提交吗？', '提示', {}).then(() => {
-                        this.addLoading = true;
+                    if (valid) {
+						this.$confirm('确认提交吗？', '提示', {}).then(() => {
+							this.addLoading = true;
 
-                        let para = {
-                            type: this.addForm.type,
-							identify: this.addForm.identifier,
-							result: this.addForm.result,
-//                            associatedServersId: [],
-						};
-                        addResolveConfig(para).then((res) => {
+							let para = {
+								type: this.addForm.type,
+								identify: this.addForm.identifier,
+								result: this.addForm.result,
+	//                            associatedServersId: [],
+							};
+							addResolveConfig(para).then((res) => {
 
-                            this.addLoading = false;
+								this.addLoading = false;
 
-                            this.$message({
-                                message: '添加成功',
-                                type: 'success'
-                            });
-                            this.$refs['addForm'].resetFields();
-                            this.addFormVisible = false;
-                            this.getResolveConfigs();
-                        });
-                    });
-//                    }
+								this.$message({
+									message: '添加成功',
+									type: 'success'
+								});
+								this.$refs['addForm'].resetFields();
+								this.addFormVisible = false;
+								this.getResolveConfigs();
+							});
+						});
+                    }
                 });
             },
 

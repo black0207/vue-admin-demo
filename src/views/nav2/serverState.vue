@@ -21,16 +21,16 @@
 			<el-table-column prop="serverName" label="服务器名称" min-width="140" sortable show-overflow-tooltip align="center">
 			</el-table-column>
 			<!--workingState-->
-			<el-table-column prop="workingState" label="工作状态" min-width="140" sortable align="center">
+			<el-table-column prop="workingState" label="工作状态" min-width="140" show-overflow-tooltip sortable align="center">
 			</el-table-column>
 			<!--softwareVersion-->
-			<el-table-column prop="softwareVersion" label="软件版本" min-width="140" sortable align="center">
+			<el-table-column prop="softwareVersion" label="软件版本" min-width="140" show-overflow-tooltip sortable align="center">
 			</el-table-column>
 			<!--configUpdate-->
-			<el-table-column prop="configUpdateState" label="配置更新状态" min-width="160" sortable align="center">
+			<el-table-column prop="configUpdateState" label="配置更新状态" min-width="160" show-overflow-tooltip sortable align="center">
 			</el-table-column>
 			<!--resolveStatistic-->
-			<el-table-column prop="resolveQuantity" label="解析量统计" min-width="160" sortable align="center">
+			<el-table-column prop="resolveQuantity" label="解析量统计" min-width="160" show-overflow-tooltip sortable align="center">
 			</el-table-column>
 			<el-table-column label="操作" min-width="150" align="center">
 				<template scope="scope">
@@ -41,7 +41,7 @@
 
 		<!--工具条-->
 		<el-col :span="24" class="toolbar">
-			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="20" :total="total" style="float:right;">
+			<el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="pageSize" :total="total" style="float:right;">
 			</el-pagination>
 		</el-col>
 
@@ -53,7 +53,7 @@
 				</el-form-item>
 
 				<el-form-item label="配置更新">
-					<el-input v-model="controlForm.configUpdateState" readonly style="width: 200px;" placeholder="请手动更新配置"></el-input>
+					<el-input v-model="controlForm.configUpdateState" readonly style="width: 400px;" placeholder="请手动更新配置" ></el-input>
 					<el-button type="success" @click.native="configUpdate" :loading="updateLoading">更新</el-button>
 				</el-form-item>
 				<el-form-item label="软件版本">
@@ -61,8 +61,8 @@
 					<el-button type="success" @click.native="checkUpdate" disabled>检查更新</el-button>
 				</el-form-item>
 				<el-form-item label="开关机">
-					<el-button :disabled="turnOnDisabled" ref="turnOn" type="success" @click.native="turnOn" :loading="turnOnLoading">开机</el-button>
-					<el-button :disabled="turnOffDisabled" ref="turnOff" type="danger" @click.native="turnOff" :loading="turnOffLoading">关机</el-button>
+					<el-button :disabled="turnOnDisabled" type="success" @click.native="turnOn" :loading="turnOnLoading">开机</el-button>
+					<el-button :disabled="turnOffDisabled" type="danger" @click.native="turnOff" :loading="turnOffLoading">关机</el-button>
 
 				</el-form-item>
 			</el-form>
@@ -81,6 +81,7 @@
                 serverQueryWords:'',
                 serversState: [],
                 total: 0,
+				pageSize: 10,
                 page: 1,
                 listLoading: false,
 //				sels: [],//列表选中列
@@ -112,11 +113,10 @@
 			//获取服务器状态列表
             getServerStates() {
 				let para = {
-//					page: this.page,
+					page: this.page,
                     serverQueryWords: this.serverQueryWords,
 				};
                 this.listLoading = true;
-
                 getServerStatePage(para).then((res) => {
                     console.log(res.data);
 					this.total = res.data.length;
@@ -141,9 +141,12 @@
                         tempServersState.push(singleServersState);
 
 					}
-                    this.serversState = tempServersState;
-
+//
+                    this.serversState = tempServersState.filter((u, index) => index < this.pageSize * para.page && index >= this.pageSize * (para.page - 1));
 					this.listLoading = false;
+				}, (res) => {
+                    this.$message.error('数据加载失败!');
+                    this.listLoading = false;
 				});
 			},
 
@@ -156,11 +159,11 @@
                     this.turnOnDisabled = false;
                     this.turnOffDisabled = true;
 				}
-				this.controlFormVisible = true;
                 this.controlForm.serverId = row.serverId;
                 this.controlForm.serverName = row.serverName;
                 this.controlForm.softwareVersion = row.softwareVersion;
                 this.controlForm.configUpdateState = '';
+                this.controlFormVisible = true;
 			},
 
 			//更新配置
@@ -171,20 +174,55 @@
                     serviceId: this.controlForm.serverId,
 				};
                 configIF(para).then((res) => {
-                    console.log(res);
-                    this.updateLoading = false;
-                    this.$message({
-                        message: '更新成功',
-                        type: 'success'
-                    });
-                    this.controlForm.configUpdateState = '已更新,更新时间:';
-                    this.getServerStates();
+                    let resArray = res.data.split(",");
+                    if( resArray[0] == 'success') {
+                        this.updateLoading = false;
+                        this.$message({
+                            message: '更新成功',
+                            type: 'success'
+                        });
+                        this.controlForm.configUpdateState = '已更新,更新时间:'+ resArray[1];
+                        this.getServerStates();
+					} else if ( resArray[0] == 'fail') {
+                        this.updateLoading = false;
+                        this.$message.error('更新失败！');
+					}
 
 				}, (res) => {
                     this.updateLoading = false;
-                    this.$message.error('错了哦，这是一条错误消息');
+                    this.$message.error('出错了！');
                 });
 			},
+
+            //开机
+            turnOn: function () {
+                this.turnOnLoading = true;
+                let para = {
+                    type: 'turnOn',
+                    serviceId: this.controlForm.serverId,
+                };
+                configIF(para).then((res) => {
+                    let resArray = res.data.split(",");
+                    if( resArray[0] == 'success') {
+                        this.turnOnLoading = false;
+                        this.$message({
+                            message: '开机成功',
+                            type: 'success',
+                        });
+                        this.turnOnDisabled = true;
+                        this.turnOffDisabled = false;
+                        this.getServerStates();
+					} else if ( resArray[0] == 'fail') {
+                        this.turnOnLoading = false;
+                        this.$message.error('开机失败！');
+                    }
+
+                },(res) => {
+                    this.turnOnLoading = false;
+                    this.$message.error('出错了');
+				});
+            },
+
             //关机
             turnOff: function () {
                 this.turnOffLoading = true;
@@ -193,33 +231,25 @@
                     serviceId: this.controlForm.serverId,
                 };
                 configIF(para).then((res) => {
-                    this.turnOffLoading = false;
-                    this.$message({
-                        message: '关机成功',
-                        type: 'success',
-                    });
+                    let resArray = res.data.split(",");
+                    if( resArray[0] == 'success') {
+                        this.turnOffLoading = false;
+                        this.$message({
+                            message: '关机成功',
+                            type: 'success',
+                        });
+                        this.turnOnDisabled = false;
+                        this.turnOffDisabled = true;
+                        this.getServerStates();
+					} else if ( resArray[0] == 'fail') {
+                        this.turnOffLoading = false;
+                        this.$message.error('关机失败！');
+                    }
+
                 }, (res) => {
                     this.turnOffLoading = false;
-                    this.$message.error('错了哦，这是一条错误消息');
-				});
-            },
-            //重启
-            turnOn: function () {
-                this.turnOnLoading = true;
-                let para = {
-                    type: 'turnOn',
-                    serviceId: this.controlForm.serverId,
-                };
-                configIF(para).then((res) => {
-                    this.turnOnLoading = false;
-                    this.$message({
-                        message: '开机成功',
-                        type: 'success',
-                    });
-                },(res) => {
-                    this.turnOnLoading = false;
-                    this.$message.error('错了哦，这是一条错误消息');
-				});
+                    this.$message.error('出错了！');
+                });
             },
 		},
 		mounted() {

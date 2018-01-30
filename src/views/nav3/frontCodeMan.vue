@@ -69,8 +69,8 @@
     </el-dialog>
 
     <!--新增界面-->
-    <el-dialog title="分配前码段" v-model="addFormVisible" :close-on-click-modal="false" >
-      <el-form :model="addForm" :label-positon="labelPosition1" label-width="120px"  :rules="addFormRules" ref="addForm">
+    <el-dialog title="新增前码段" v-model="addFormVisible" :close-on-click-modal="false" >
+      <el-form :model="addForm" :label-positon="labelPosition" label-width="120px"  :rules="addFormRules" ref="addForm">
         <el-form-item label="前段码" prop="preCode">
         <el-input v-model="addForm.preCode" auto-complete="off"></el-input>
       </el-form-item>
@@ -222,8 +222,14 @@
         addFormVisible: false,//新增界面是否显示
         addLoading: false,
         addFormRules: {
-          preCodeName: [
+          preCode: [
             { required: true, message: '请输入前段码', trigger: 'blur' }
+          ],
+          codeTypeId: [
+            { required: true, message: '请选择编码类型', trigger: 'blur' }
+          ],
+          organizationId: [
+            { required: true, message: '请选择组织机构', trigger: 'blur' }
           ]
         },
         //新增界面数据

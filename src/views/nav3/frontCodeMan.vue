@@ -25,14 +25,14 @@
       </el-table-column>
       <el-table-column prop="preCode" label="前码段" min-width="300" sortable>
       </el-table-column>
-      <el-table-column prop="codeType" label="编码类型" width="150" sortable>
+      <el-table-column prop="codeType" label="编码类型" width="200" sortable>
       </el-table-column>
       <el-table-column prop="organizationName" label="组织名" min-width="400"  sortable>
       </el-table-column>
 
       <el-table-column label="操作" width="300">
         <template scope="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+          <el-button size="small" v-if="false" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
           <el-button size="small" type="info"  @click="assignBackCode(scope.$index, scope.row)">后码段分配</el-button>
           <el-button size="small" type="success "  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>
           <!--<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>-->
@@ -426,7 +426,7 @@
         let typeDatas = res.data;
         let tempData = [];
         for(var i=0;i<typeDatas.length;i++){
-          tempData.push({value:typeDatas[i].typeId,label:typeDatas[i].typeName});
+          tempData.push({value:typeDatas[i].typeId+'',label:typeDatas[i].typeName});
         }
         this.allCodeTypes = tempData;
       });
@@ -435,7 +435,7 @@
           let tempData1 = [];
         let orgNames = res.data;
         for(var i=0;i<orgNames.length;i++){
-          tempData1.push({value:orgNames[i].organizationId,label:orgNames[i].organizationName});
+          tempData1.push({value:orgNames[i].organizationId+'',label:orgNames[i].organizationName});
         }
         this.allCodeNames = tempData1;
         });

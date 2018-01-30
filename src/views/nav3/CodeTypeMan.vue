@@ -46,7 +46,7 @@
 
     <!--编辑界面-->
     <el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
-      <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
+      <el-form :model="editForm" :label-position="labelPosition" label-width="120px" :rules="editFormRules" ref="editForm">
         <el-form-item label="编码类型ID" v-if="false">
           <el-input v-model="editForm.id" ></el-input>
         </el-form-item>
@@ -65,7 +65,7 @@
 
     <!--新增界面-->
     <el-dialog title="自定义编码类型" v-model="addFormVisible" :close-on-click-modal="false">
-      <el-form :model="addForm" :label-position="labelPosition" label-width="80px" :rules="addFormRules" ref="addForm">
+      <el-form :model="addForm" :label-position="labelPosition" label-width="120px" :rules="addFormRules" ref="addForm">
         <el-form-item label="编码类型名称" prop="typeName">
           <el-input v-model="addForm.typeName" name="typeName" auto-complete="off"></el-input>
         </el-form-item>
@@ -96,11 +96,11 @@
         filters: {
           name: ''
         },
-        labelPosition:"right",
+        labelPosition:"left",
         typeData: [],
         total: 0,
         page: 1,
-        pageSize:3,
+        pageSize:15,
         listLoading: false,
         sels: [],//列表选中列
 

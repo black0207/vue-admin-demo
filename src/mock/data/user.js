@@ -30,9 +30,9 @@ for (let i = 0; i < 99; i++) {
   Servers.push(Mock.mock({
         name: Mock.Random.cname(),
         workingState: Mock.Random.integer(0, 1),
-        softwareVersion: Mock.Random.date(),
-        configUpdate: Mock.Random.integer(0, 1),
-        resolveStatistic: Mock.Random.integer(0, 1000),
+        softwareVersion: Mock.Random.pick(['111', '222', '333', '444', '555']),
+      configUpdateState: Mock.Random.integer(0, 1),
+      resolveStatistic: Mock.Random.integer(0, 1000),
     }));
 }
 export { Servers };

@@ -56,12 +56,12 @@
 								v-for="item in resolveTypes"
 								:key="item.value"
 								:label="item.label"
-								:value="item.value">
+								:value="item.label">
 						</el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item label="解析标识">
-					<el-input v-model="addForm.identify" ></el-input>
+					<el-input v-model="addForm.identifier" ></el-input>
 				</el-form-item>
 
 				<el-form-item label="解析结果">
@@ -126,7 +126,6 @@
                     type: '',
                     identifier: '',
                     result: '',
-//                    allServers: [],
                     associatedServersId: [],
 
                 },
@@ -164,12 +163,12 @@
                     let tempResolveConfigs = [];
                     for(let i=0; i<this.total; i++) {
                         let singleResolveConfigs = {
-//                            configId: '',
-//                            type: '',
-//                            identifier: '',
-//                            result: '',
-//                            associatedServersName: '',
-//                            associatedServersId: [],
+                            configId: '',
+                            type: '',
+                            identifier: '',
+                            result: '',
+                            associatedServersName: '',
+                            associatedServersId: [],
 						};
                         singleResolveConfigs.configId =data[i].configId;
                         singleResolveConfigs.type = data[i].type;
@@ -182,7 +181,7 @@
                             singleResolveConfigs.associatedServersName = '--';
 
 						}
-                        tempResolveConfigs.push(tempResolveConfigs);
+                        tempResolveConfigs.push(singleResolveConfigs);
 					}
 					this.resolveConfigs = tempResolveConfigs;
                     this.listLoading = false;
@@ -243,7 +242,7 @@
                             type: this.addForm.type,
 							identify: this.addForm.identifier,
 							result: this.addForm.result,
-                            associatedServersId: [],
+//                            associatedServersId: [],
 						};
                         addResolveConfig(para).then((res) => {
 
@@ -269,7 +268,6 @@
                 this.associationForm.identifier = row.identifier;
                 this.associationForm.result = row.result;
                 this.associationForm.associatedServersId = row.associatedServersId;
-//                this.associationForm = Object.assign({}, row);
                 let para = {
                     serverQueryWords:'',
 				};
@@ -296,11 +294,17 @@
 //                    if (valid) {
                         this.$confirm('确认提交吗？', '提示', {}).then(() => {
                             this.associationLoading = true;
+                            if (this.associationForm.associatedServersId[0] == 0) {
+                                this.associationForm.associatedServersId.shift();
+							}
+//                            console.log('this.associationForm.associatedServersId: '+this.associationForm.associatedServersId);
 
                             let para = {
                                 configId: this.associationForm.configId,
                                 associatedServersId: this.associationForm.associatedServersId.join(","),
                             };
+//                            console.log('para.associatedServersId: '+para.associatedServersId);
+//                            console.log('type of para.associatedServersId: '+typeof(para.associatedServersId));
                             associateServers(para).then((res) => {
                                 this.associationLoading = false;
                                 this.$message({
@@ -311,10 +315,8 @@
                                 this.associationFormVisible = false;
                                 this.getResolveConfigs();
                             },(res) => {
-                                this.$message({
-                                    message: res.error,
-                                    type: 'danger'
-                                });
+                                this.associationLoading = false;
+                                this.$message.error('错了哦，这是一条错误消息');
 							});
                         });
 //                    }

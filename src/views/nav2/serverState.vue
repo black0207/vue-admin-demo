@@ -61,8 +61,8 @@
 					<el-button type="success" @click.native="checkUpdate" disabled>检查更新</el-button>
 				</el-form-item>
 				<el-form-item label="开关机">
-					<el-button type="success" @click.native="turnOn" :loading="turnOnLoading">开机</el-button>
-					<el-button type="danger" @click.native="turnOff" :loading="turnOffLoading">关机</el-button>
+					<el-button :disabled="turnOnDisabled" ref="turnOn" type="success" @click.native="turnOn" :loading="turnOnLoading">开机</el-button>
+					<el-button :disabled="turnOffDisabled" ref="turnOff" type="danger" @click.native="turnOff" :loading="turnOffLoading">关机</el-button>
 
 				</el-form-item>
 			</el-form>
@@ -73,8 +73,7 @@
 
 <script>
 	import util from '../../common/js/util'
-	//import NProgress from 'nprogress'
-	import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser, getServerStatePage, configIF } from '../../api/api';
+	import { getServerStatePage, configIF } from '../../api/api';
 
 	export default {
 		data() {
@@ -90,6 +89,8 @@
                 updateLoading: false,
                 turnOffLoading: false,
                 turnOnLoading: false,
+                turnOnDisabled: false,
+                turnOffDisabled: false,
 
                 //控制界面数据
                 controlForm: {
@@ -110,7 +111,6 @@
 			},
 			//获取服务器状态列表
             getServerStates() {
-			    this.serversState = [];
 				let para = {
 //					page: this.page,
                     serverQueryWords: this.serverQueryWords,
@@ -121,8 +121,9 @@
                     console.log(res.data);
 					this.total = res.data.length;
 					let data = res.data;
+					let tempServersState = [];
 					for (let i=0; i<this.total; i++) {
-                        let tempServersState = {
+                        let singleServersState = {
                             serverId: '',
                             serverName: '',
                             workingState: '',
@@ -130,14 +131,17 @@
                             configUpdateState: '',
                             resolveQuantity: '',
                         };
-                        tempServersState.serverId = data[i].serviceId;
-                        tempServersState.serverName = data[i].serviceName;
-                        tempServersState.workingState = data[i].workState;
-                        tempServersState.softwareVersion = data[i].softVersion;
-                        tempServersState.configUpdateState = data[i].updateState;
-                        tempServersState.resolveQuantity = data[i].analyCount;
-                        this.serversState.push(tempServersState);
+                        singleServersState.serverId = data[i].serviceId;
+                        singleServersState.serverName = data[i].serviceName;
+                        singleServersState.workingState = data[i].workState;
+                        singleServersState.softwareVersion = data[i].softVersion;
+                        singleServersState.configUpdateState = data[i].updateState;
+                        singleServersState.resolveQuantity = data[i].analyCount;
+
+                        tempServersState.push(singleServersState);
+
 					}
+                    this.serversState = tempServersState;
 
 					this.listLoading = false;
 				});
@@ -145,6 +149,13 @@
 
 			//显示控制界面
 			handleControl: function (index, row) {
+			    if (row.workingState == 'on') {
+			        this.turnOnDisabled = true;
+                    this.turnOffDisabled = false;
+				} else if (row.workingState == 'off'){
+                    this.turnOnDisabled = false;
+                    this.turnOffDisabled = true;
+				}
 				this.controlFormVisible = true;
                 this.controlForm.serverId = row.serverId;
                 this.controlForm.serverName = row.serverName;
@@ -160,6 +171,7 @@
                     serviceId: this.controlForm.serverId,
 				};
                 configIF(para).then((res) => {
+                    console.log(res);
                     this.updateLoading = false;
                     this.$message({
                         message: '更新成功',

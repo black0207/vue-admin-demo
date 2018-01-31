@@ -28,11 +28,10 @@
       <el-table-column prop="rule" label="编码规则" min-width="550" sortable align="center">
       </el-table-column>
 
-      <el-table-column label="操作" width="300" align="center">
+      <el-table-column label="操作" width="200" align="center">
         <template scope="scope">
           <el-button type="primary" plain size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-         <!-- <el-button size="small" type="info"  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>-->
-          <el-button type="danger" plain disabled=true size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
+          <el-button type="danger" plain v-if="false" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>

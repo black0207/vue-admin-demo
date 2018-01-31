@@ -9,7 +9,7 @@
     </el-form-item>
     <el-checkbox v-model="checked"  class="remember">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;" @keyup.native="handleSubmit2" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
+      <el-button type="primary" style="width:100%;" native-type="submit" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
       <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
     </el-form-item>
   </el-form>
@@ -58,7 +58,7 @@
             //NProgress.start();
             var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass ,avatar: this.ruleForm2.avatar};
 
-            if (loginParams.username == "admin" && loginParams.password =="123456"){
+            if (loginParams.username == "admin" && loginParams.password =="admin"){
                   this.logining = false;
                   sessionStorage.setItem('user', JSON.stringify(loginParams));
                   this.$router.push({ path: '/configStats' });

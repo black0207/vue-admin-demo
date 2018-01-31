@@ -44,7 +44,7 @@ let routes = [
         path: '/',
         component: Home,
         name: '解析服务管理',
-        iconCls: 'el-icon-message',//图标样式class
+        iconCls: 'el-icon-setting',//图标样式class
         children: [
            /* { path: '/main', component: Main, name: '主页', hidden: true },*/
             { path: '/configStats', component: analysisOverview, name: '解析概览统计' },
@@ -59,7 +59,7 @@ let routes = [
         path: '/',
         component: Home,
         name: '编码赋码管理',
-        iconCls: 'fa fa-id-card-o',
+        iconCls: 'el-icon-edit-outline',
         children: [
             { path: '/codeStats', component: codeOverview, name: '编码概览统计' },
             { path: '/CodeTypeMan', component: CodeTypeMan, name: '编码类型管理', },

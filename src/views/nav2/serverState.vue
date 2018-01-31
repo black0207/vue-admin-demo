@@ -35,6 +35,7 @@
 			<el-table-column label="操作" min-width="150" align="center">
 				<template scope="scope">
 					<el-button type="primary" size="small" @click="handleControl(scope.$index, scope.row)">状态控制</el-button>
+					<el-button type="primary" size="small" @click="handleResolveConfigs(scope.$index, scope.row)">配置管理</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -46,23 +47,23 @@
 		</el-col>
 
 		<!--状态控制界面-->
-		<el-dialog title="状态控制" :visible.sync="controlFormVisible" :close-on-click-modal="false">
+		<el-dialog title="状态控制" :visible.sync="controlFormVisible" :close-on-click-modal="false" custom-class="customControlDialogSize">
 			<el-form :model="controlForm" label-width="120px" ref="controlForm">
 				<el-form-item label="服务器名称">
-					<el-input v-model="controlForm.serverName" readonly style="width: 200px;"></el-input>
+					<el-input v-model="controlForm.serverName" readonly style="width: 415px;"></el-input>
 				</el-form-item>
 
 				<el-form-item label="配置更新">
 					<el-input v-model="controlForm.configUpdateState" readonly style="width: 300px;" placeholder="请手动更新配置" ></el-input>
-					<el-button type="success" @click.native="configUpdate" :loading="updateLoading">更新</el-button>
+					<el-button type="success" @click.native="configUpdate" :loading="updateLoading" style="width: 100px; margin-left: 10px;">更新</el-button>
 				</el-form-item>
 				<el-form-item label="软件版本">
 					<el-input v-model="controlForm.softwareVersion" readonly style="width: 300px;"></el-input>
-					<el-button type="success" @click.native="checkUpdate" disabled>检查更新</el-button>
+					<el-button type="success" @click.native="checkUpdate" disabled style="width: 100px; margin-left: 10px;">检查更新</el-button>
 				</el-form-item>
 				<el-form-item label="开关机">
-					<el-button :disabled="turnOnDisabled" type="success" @click.native="turnOn" :loading="turnOnLoading">开机</el-button>
-					<el-button :disabled="turnOffDisabled" type="danger" @click.native="turnOff" :loading="turnOffLoading">关机</el-button>
+					<el-button :disabled="turnOnDisabled" type="success" @click.native="turnOn" :loading="turnOnLoading" style="width: 100px;">开机</el-button>
+					<el-button :disabled="turnOffDisabled" type="danger" @click.native="turnOff" :loading="turnOffLoading" style="width: 100px; margin-left: 10px;">关机</el-button>
 
 				</el-form-item>
 			</el-form>
@@ -70,6 +71,13 @@
 
 	</section>
 </template>
+
+<style>
+	.customControlDialogSize {
+		max-width: 600px;
+		min-width: 600px;
+	}
+</style>
 
 <script>
 	import util from '../../common/js/util'
@@ -132,7 +140,7 @@
                             resolveQuantity: '',
                         };
                         singleServersState.serverId = data[i].serviceId;
-                        singleServersState.serverName = data[i].serviceName;
+                        singleServersState.serverName = data[i].serverName;
                         singleServersState.workingState = data[i].workState;
                         singleServersState.softwareVersion = data[i].softVersion;
                         singleServersState.configUpdateState = data[i].updateState;
@@ -165,7 +173,16 @@
                 this.controlForm.configUpdateState = '';
                 this.controlFormVisible = true;
 			},
+            handleResolveConfigs:function (index, row) {
 
+			    this.$router.push({
+					path:"/link",
+					query:{
+					    serverInfo:row
+					}
+				});
+
+            },
 			//更新配置
             configUpdate: function () {
                 this.updateLoading = true;

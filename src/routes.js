@@ -10,6 +10,7 @@ import Form from './views/nav2/Form.vue'
 import user from './views/nav2/user.vue'
 import frontCodeMan from './views/nav3/frontCodeMan.vue'
 import CodeTypeMan from './views/nav3/CodeTypeMan.vue'
+import link  from './views/nav2/link.vue'
 import Page5 from './views/nav3/Page5.vue'
 import codeAllocation from './views/nav3/codeAllocation.vue'
 import Page6 from './views/nav1/Page6.vue'
@@ -51,6 +52,7 @@ let routes = [
             { path: '/serverMan', component: serverMan, name: '解析服务器管理' },
             { path: '/serverState', component: serverState, name: '服务器状态管理' },
             { path: '/configMan', component: configMan, name: '解析配置管理' },
+            { path: '/link', component: link, name: '服务器配置管理', hidden: true },
             { path: '/form', component: Form, name: 'Form', hidden: true },
             { path: '/user', component: user, name: '列表',hidden:true },
         ]

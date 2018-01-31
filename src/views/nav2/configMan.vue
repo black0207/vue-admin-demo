@@ -78,7 +78,7 @@
 		</el-dialog>
 
 		<!--关联界面-->
-		<el-dialog title="关联服务器" :visible.sync="associationFormVisible" :close-on-click-modal="false" width="50%" >
+		<el-dialog title="关联服务器" :visible.sync="associationFormVisible" :close-on-click-modal="false" custom-class="customDialogSize">
 			<el-form :model="associationForm" label-width="120px" ref="associationForm">
 				<el-form-item label="解析类型">
 					<el-input v-model="associationForm.type" readonly></el-input>
@@ -102,6 +102,12 @@
 
 	</section>
 </template>
+<style>
+	.customDialogSize {
+		max-width: 750px;
+		min-width: 750px;
+	}
+</style>
 
 <script>
     import util from '../../common/js/util'

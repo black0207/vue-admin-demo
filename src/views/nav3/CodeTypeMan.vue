@@ -10,7 +10,7 @@
           <el-button type="primary" v-on:click="getData">查询</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleAdd">新增</el-button>
+          <el-button type="primary" v-on:click="handleAdd">新增</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -30,9 +30,9 @@
 
       <el-table-column label="操作" width="300">
         <template scope="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button type="primary" plain size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
          <!-- <el-button size="small" type="info"  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>-->
-          <el-button type="danger" disabled=true size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
+          <el-button type="danger" plain disabled=true size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -45,7 +45,7 @@
     </el-col>
 
     <!--编辑界面-->
-    <el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
+    <el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">
       <el-form :model="editForm" :label-position="labelPosition" label-width="120px" :rules="editFormRules" ref="editForm">
         <el-form-item label="编码类型ID" v-if="false">
           <el-input v-model="editForm.id" ></el-input>
@@ -64,7 +64,7 @@
     </el-dialog>
 
     <!--新增界面-->
-    <el-dialog title="自定义编码类型" v-model="addFormVisible" :close-on-click-modal="false" :before-close="addFormClose">
+    <el-dialog title="自定义编码类型" :visible.sync="addFormVisible" :close-on-click-modal="false" :before-close="addFormClose">
       <el-form :model="addForm" :label-position="labelPosition" label-width="120px" :rules="addFormRules" ref="addForm">
         <el-form-item label="编码类型名称" prop="typeName">
           <el-input v-model="addForm.typeName" name="typeName" auto-complete="off"></el-input>
@@ -76,7 +76,7 @@
 
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click.native="addFormVisible = false">取消</el-button>
+        <el-button @click.native="addFormClose">取消</el-button>
         <el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
       </div>
     </el-dialog>
@@ -100,7 +100,7 @@
         typeData: [],
         total: 0,
         page: 1,
-        pageSize:15,
+        pageSize:10,
         listLoading: false,
         sels: [],//列表选中列
 
@@ -209,9 +209,9 @@
       },
       addFormClose:function () {
 
-        //this.$refs['addForm'].resetFields();
-        location.reload();
-        //this.addFormVisible = true;
+        this.$refs['addForm'].resetFields();
+        //location.reload();
+        this.addFormVisible = false;
       },
       //编辑
       editSubmit: function () {

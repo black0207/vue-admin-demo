@@ -16,7 +16,7 @@
     </el-col>
 
     <!--列表-->
-    <el-table :data="preCodeData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+    <el-table :data="preCodeData" border highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
       <el-table-column type="selection" width="55" v-if="false">
       </el-table-column>
       <el-table-column type="index" width="80" label="序号">
@@ -25,16 +25,16 @@
       </el-table-column>
       <el-table-column prop="preCode" label="前码段" min-width="300" sortable>
       </el-table-column>
-      <el-table-column prop="codeType" label="编码类型" width="150" sortable>
+      <el-table-column prop="codeType" label="编码类型" width="200" sortable>
       </el-table-column>
       <el-table-column prop="organizationName" label="组织名" min-width="400"  sortable>
       </el-table-column>
 
       <el-table-column label="操作" width="300">
         <template scope="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-          <el-button size="small" type="info"  @click="assignBackCode(scope.$index, scope.row)">后码段分配</el-button>
-          <el-button size="small" type="success "  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>
+          <el-button size="small" v-if="false" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+          <el-button size="small" type="primary" plain  @click="assignBackCode(scope.$index, scope.row)">后码段分配</el-button>
+          <el-button size="small" type="success " plain  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>
           <!--<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>-->
         </template>
       </el-table-column>
@@ -48,7 +48,7 @@
     </el-col>
 
     <!--编辑界面-->
-    <el-dialog title="编辑前码段" v-model="editFormVisible" :close-on-click-modal="false">
+    <el-dialog title="编辑前码段" :visible.sync="editFormVisible" :close-on-click-modal="false">
       <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
 
         <el-form-item label="前码段" prop="preCode">
@@ -69,8 +69,8 @@
     </el-dialog>
 
     <!--新增界面-->
-    <el-dialog title="分配前码段" v-model="addFormVisible" :close-on-click-modal="false" >
-      <el-form :model="addForm" :label-positon="labelPosition1" label-width="120px"  :rules="addFormRules" ref="addForm">
+    <el-dialog title="新增前码段" :visible.sync="addFormVisible" :close-on-click-modal="false" >
+      <el-form :model="addForm" :label-positon="labelPosition" label-width="120px"  :rules="addFormRules" ref="addForm">
         <el-form-item label="前段码" prop="preCode">
         <el-input v-model="addForm.preCode" auto-complete="off"></el-input>
       </el-form-item>
@@ -103,9 +103,9 @@
     </el-dialog>
 
     <!--后码段查询管理界面-->
-    <el-dialog title="后码段管理" v-model="codeTableVisible" :close-on-click-modal="false" @close="dialogClose">
+    <el-dialog title="后码段管理" :visible.sync="codeTableVisible" :close-on-click-modal="false" @close="dialogClose">
       <!--后码段列表-->
-      <el-table :data="suffixCodeData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+      <el-table :data="suffixCodeData"  highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;margin-top: -30px">
         <el-table-column type="selection" width="55" v-if="false">
         </el-table-column>
         <el-table-column type="index" width="80" label="序号">
@@ -122,21 +122,19 @@
         <el-table-column label="操作" width="120">
           <template scope="scope">
             <el-button type="danger" size="small" v-if="scope.row.status != '已禁用'" @click="handleBCStatus(scope.$index, scope.row)">禁用</el-button>
-            <el-button type="info" size="small" v-if="scope.row.status == '已禁用'" @click="handleBCStatus(scope.$index, scope.row)">启用</el-button>
+            <el-button type="success" size="small" v-if="scope.row.status == '已禁用'" @click="handleBCStatus(scope.$index, scope.row)">启用</el-button>
           </template>
         </el-table-column>
       </el-table>
 
-      <el-col :span="24" class="toolbar">
-        <!--  <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>-->
-        <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange1" :page-size="pageSize1" :total="total1" style="float:right;">
+        <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange1" :page-size="pageSize1" :total="total1" style="float:right;display:inline-block;height: 50px;;">
         </el-pagination>
-      </el-col>
+
     </el-dialog>
 
 
     <!--后码段分配-->
-    <el-dialog title="后码段分配" v-model="backEditFormVisible" :close-on-click-modal="false">
+    <el-dialog title="后码段分配" :visible.sync="backEditFormVisible" :close-on-click-modal="false">
       <div style="padding-left: 10px ;background-color:#d4edfc;height: 35px;line-height: 35px;">前码段信息</div>
       <el-table :data="assignData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
         <el-table-column type="selection" width="55" v-if="false">
@@ -187,7 +185,7 @@
         allCodeNames:[],//存储所有公司名称
         total: 0,
         page: 1,
-        pageSize:15,
+        pageSize:10,
         total1: 0,
         page1: 1,
         pageSize1:10,//后码段列表页面容量
@@ -222,8 +220,14 @@
         addFormVisible: false,//新增界面是否显示
         addLoading: false,
         addFormRules: {
-          preCodeName: [
+          preCode: [
             { required: true, message: '请输入前段码', trigger: 'blur' }
+          ],
+          codeTypeId: [
+            { required: true, message: '请选择编码类型', trigger: 'blur' }
+          ],
+          organizationId: [
+            { required: true, message: '请选择组织机构', trigger: 'blur' }
           ]
         },
         //新增界面数据
@@ -420,7 +424,7 @@
         let typeDatas = res.data;
         let tempData = [];
         for(var i=0;i<typeDatas.length;i++){
-          tempData.push({value:typeDatas[i].typeId,label:typeDatas[i].typeName});
+          tempData.push({value:typeDatas[i].typeId+'',label:typeDatas[i].typeName});
         }
         this.allCodeTypes = tempData;
       });
@@ -429,7 +433,7 @@
           let tempData1 = [];
         let orgNames = res.data;
         for(var i=0;i<orgNames.length;i++){
-          tempData1.push({value:orgNames[i].organizationId,label:orgNames[i].organizationName});
+          tempData1.push({value:orgNames[i].organizationId+'',label:orgNames[i].organizationName});
         }
         this.allCodeNames = tempData1;
         });

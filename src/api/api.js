@@ -57,6 +57,15 @@ export const configIF = params => { return axios.get(`${baseWGQ}/CBSP/controlSer
 
 //编码赋码接口
 export const addFrontCode = params => { return axios.get(`${baseCode}/CodeSystem/codeType/insert`, { params: params }); };
+//编码概览统计接口--by way
+export const getCount = params => { return axios.get(`${baseCode}/CodeSystem/statistics/getCount`); };
+export const getCodeType = params => { return axios.get(`${baseCode}/CodeSystem/statistics/getSufCodeByCodeType`); };
+export const getSufCodeCount = params => { return axios.get(`${baseCode}/CodeSystem/statistics/getSufCodeCountByOrgName`, { params: params }); };
+
+//解析概览统计接口--by way
+let analysisAdr = 'http://192.168.12.86:8080';//编码url
+export const getAnalysisCount = params => { return axios.get(`${analysisAdr}/CBSP/countParseInfo`); };
+
 //zxf增加的
 export const getServerInfoPage = params => { return axios.get(`${baseInfo}/Manager/researchServiceInfo`, { params: params }); }
 export const addServerInfo = params => { return axios.get(`${baseAddInfo}/Manager/addServiceInfo`, { params: params }); }

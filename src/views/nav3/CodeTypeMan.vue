@@ -10,13 +10,13 @@
           <el-button type="primary" v-on:click="getData">查询</el-button>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleAdd">新增</el-button>
+          <el-button type="primary" v-on:click="handleAdd">新增</el-button>
         </el-form-item>
       </el-form>
     </el-col>
 
     <!--列表-->
-    <el-table :data="typeData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100% ;">
+    <el-table :data="typeData" border  highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100% ;">
      <!-- <el-table-column type="selection" width="55">
       </el-table-column>-->
       <el-table-column type="index" width="100" label="序号">
@@ -30,9 +30,9 @@
 
       <el-table-column label="操作" width="300">
         <template scope="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+          <el-button type="primary" plain size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
          <!-- <el-button size="small" type="info"  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>-->
-          <el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
+          <el-button type="danger" plain disabled=true size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -45,7 +45,7 @@
     </el-col>
 
     <!--编辑界面-->
-    <el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
+    <el-dialog title="编辑" :visible.sync="editFormVisible" :close-on-click-modal="false">
       <el-form :model="editForm" :label-position="labelPosition" label-width="120px" :rules="editFormRules" ref="editForm">
         <el-form-item label="编码类型ID" v-if="false">
           <el-input v-model="editForm.id" ></el-input>
@@ -53,7 +53,7 @@
         <el-form-item label="编码类型名称" prop="typeName">
           <el-input v-model="editForm.typeName"  auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="编码规则">
+        <el-form-item label="编码规则" prop="rule">
           <el-input v-model="editForm.rule" ></el-input>
         </el-form-item>
       </el-form>
@@ -64,19 +64,19 @@
     </el-dialog>
 
     <!--新增界面-->
-    <el-dialog title="自定义编码类型" v-model="addFormVisible" :close-on-click-modal="false">
+    <el-dialog title="自定义编码类型" :visible.sync="addFormVisible" :close-on-click-modal="false" :before-close="addFormClose">
       <el-form :model="addForm" :label-position="labelPosition" label-width="120px" :rules="addFormRules" ref="addForm">
         <el-form-item label="编码类型名称" prop="typeName">
           <el-input v-model="addForm.typeName" name="typeName" auto-complete="off"></el-input>
         </el-form-item>
 
-        <el-form-item label="编码规则">
-          <el-input type="textarea" :row="3" name="rule" v-model="addForm.rule" ></el-input>
+        <el-form-item label="编码规则" prop="rule">
+          <el-input type="textarea" :row="3" v-model="addForm.rule" ></el-input>
         </el-form-item>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click.native="addFormVisible = false">取消</el-button>
+        <el-button @click.native="addFormClose">取消</el-button>
         <el-button type="primary" @click.native="addSubmit" :loading="addLoading">提交</el-button>
       </div>
     </el-dialog>
@@ -100,15 +100,18 @@
         typeData: [],
         total: 0,
         page: 1,
-        pageSize:15,
+        pageSize:10,
         listLoading: false,
         sels: [],//列表选中列
 
         editFormVisible: false,//编辑界面是否显示
         editLoading: false,
         editFormRules: {
-          name: [
+          typeName: [
             { required: true, message: '请输入姓名', trigger: 'blur' }
+          ],
+          rule: [
+            { required: true, message: '请输入编码规则', trigger: 'blur' }
           ]
         },
         //编辑界面数据
@@ -123,8 +126,11 @@
         addFormVisible: false,//新增界面是否显示
         addLoading: false,
         addFormRules: {
-          name: [
+          typeName: [
             { required: true, message: '请输入名称', trigger: 'blur' }
+          ],
+          rule: [
+            { required: true, message: '请输入编码规则', trigger: 'blur' }
           ]
         },
         //新增界面数据
@@ -200,6 +206,12 @@
           rule: ''
 
         };
+      },
+      addFormClose:function () {
+
+        this.$refs['addForm'].resetFields();
+        //location.reload();
+        this.addFormVisible = false;
       },
       //编辑
       editSubmit: function () {

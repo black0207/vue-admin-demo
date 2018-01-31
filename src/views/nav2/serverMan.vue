@@ -16,7 +16,7 @@
 		</el-col>
 
 		<!--列表-->
-		<el-table :data="serverinfo" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+		<el-table :data="serverinfo" border highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
 			<!--<el-table-column type="selection" width="55">-->
 			<!--</el-table-column>-->
 			<el-table-column type="index" width="80" label="序号" align="center">
@@ -133,7 +133,7 @@
 				serverinfo: [],
 				total: 0,
 				page: 1,
-				pageSize:15,
+				pageSize:10,
 				listLoading: false,
 				sels: [],//列表选中列
 

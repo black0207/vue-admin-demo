@@ -13,7 +13,8 @@ import CodeTypeMan from './views/nav3/CodeTypeMan.vue'
 import Page5 from './views/nav3/Page5.vue'
 import codeAllocation from './views/nav3/codeAllocation.vue'
 import Page6 from './views/nav1/Page6.vue'
-import echarts from './views/charts/echarts.vue'
+import codeOverview from './views/overview/codeOverview.vue'
+import analysisOverview from './views/overview/analysisOverview.vue'
 
 let routes = [
     {
@@ -43,13 +44,13 @@ let routes = [
         path: '/',
         component: Home,
         name: '解析服务管理',
-        iconCls: 'el-icon-message',//图标样式class
+        iconCls: 'el-icon-setting',//图标样式class
         children: [
            /* { path: '/main', component: Main, name: '主页', hidden: true },*/
+            { path: '/configStats', component: analysisOverview, name: '解析概览统计' },
             { path: '/serverMan', component: serverMan, name: '解析服务器管理' },
             { path: '/serverState', component: serverState, name: '服务器状态管理' },
             { path: '/configMan', component: configMan, name: '解析配置管理' },
-            { path: '/configStats', component: echarts, name: '解析配置统计' },
             { path: '/form', component: Form, name: 'Form', hidden: true },
             { path: '/user', component: user, name: '列表',hidden:true },
         ]
@@ -58,12 +59,12 @@ let routes = [
         path: '/',
         component: Home,
         name: '编码赋码管理',
-        iconCls: 'fa fa-id-card-o',
+        iconCls: 'el-icon-edit-outline',
         children: [
+            { path: '/codeStats', component: codeOverview, name: '编码概览统计' },
             { path: '/CodeTypeMan', component: CodeTypeMan, name: '编码类型管理', },
             { path: '/frontCodeMan', component: frontCodeMan, name: '编码码段管理' },
-            { path: '/codeStats', component: echarts, name: '编码概览统计' },
-            { path: '/codeStatsDetail', component: echarts, name: '编码码段统计' },
+           /* { path: '/codeStatsDetail', component: echarts, name: '编码码段统计' },*/
         ]
     },
     /*{

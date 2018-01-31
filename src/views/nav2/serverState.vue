@@ -46,7 +46,7 @@
 		</el-col>
 
 		<!--状态控制界面-->
-		<el-dialog title="状态控制" v-model="controlFormVisible" :close-on-click-modal="false">
+		<el-dialog title="状态控制" :visible.sync="controlFormVisible" :close-on-click-modal="false">
 			<el-form :model="controlForm" label-width="120px" ref="controlForm">
 				<el-form-item label="服务器名称">
 					<el-input v-model="controlForm.serverName" readonly style="width: 200px;"></el-input>

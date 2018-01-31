@@ -48,7 +48,7 @@
 		</el-col>
 
 		<!--新增界面-->
-		<el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
+		<el-dialog title="新增" :visible.sync="addFormVisible" :close-on-click-modal="false">
 			<el-form :model="addForm" label-width="120px" ref="addForm" :rules="addFormRules">
 
 				<el-form-item label="解析类型" prop="type">
@@ -78,7 +78,7 @@
 		</el-dialog>
 
 		<!--关联界面-->
-		<el-dialog title="关联服务器" v-model="associationFormVisible" :close-on-click-modal="false" width="70%">
+		<el-dialog title="关联服务器" :visible.sync="associationFormVisible" :close-on-click-modal="false" width="50%" >
 			<el-form :model="associationForm" label-width="120px" ref="associationForm">
 				<el-form-item label="解析类型">
 					<el-input v-model="associationForm.type" readonly></el-input>
@@ -200,7 +200,9 @@
                 }, (res) => {
                     this.$message.error('数据加载失败!');
                     this.listLoading = false;
-				});
+				}).catch(() => {
+
+                });
             },
             //删除
             handleDel: function (index, row) {
@@ -284,7 +286,7 @@
                 this.associationForm.result = row.result;
                 this.associationForm.associatedServersId = row.associatedServersId;
                 let para = {
-                    serverQueryWords:'',
+                    serverQueryWords: '',
 				};
                 getServerStatePage(para).then((res) => {
                     let serversInfo = res.data;

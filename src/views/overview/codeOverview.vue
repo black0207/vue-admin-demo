@@ -15,48 +15,61 @@
             <el-col :span="6">
                 <el-row class="grid-content bg-purple">
                     <el-col :span="10" class="grid-left">
-                        <i class="el-icon-star-on"></i>
+                        <i class="el-icon-date"></i>
                     </el-col>
                     <el-col :span="14" class="grid-right">
-                        <div class="title">公司/前段码</div>
+                        <div class="title">组织名数量/前段码数量</div>
                         <div class="number">{{totalCount.orgCount}}/{{totalCount.preCodeCount}}</div>
                     </el-col>
                 </el-row>
             </el-col>
-            <el-col :span="6">
+            <el-col :span="12">
                 <el-row class="grid-content bg-purple">
-                    <el-col :span="10" class="grid-left">
-                        <i class="el-icon-star-on"></i>
+                    <el-col :span="4" class="grid-left">
+                        <i class="el-icon-setting"></i>
                     </el-col>
-                    <el-col :span="14" class="grid-right">
+                    <el-col :span="5" class="grid-right">
                         <div class="title">码池容量</div>
                         <div class="number">{{totalCount.sufCodeCount}}</div>
                     </el-col>
+                    <el-col :span="5" class="grid-right">
+                        <div class="title">已分配</div>
+                        <div class="number">{{totalCount.sufHaveUseCount}}</div>
+                    </el-col>
+                    <el-col :span="5" class="grid-right">
+                        <div class="title">未分配</div>
+                        <div class="number">{{totalCount.sufNoUseCount}}</div>
+                    </el-col>
+                    <el-col :span="5" class="grid-right">
+                        <div class="title">禁用</div>
+                        <div class="number">{{totalCount.sufCantUseCount}}</div>
+                    </el-col>
+
                 </el-row>
             </el-col>
-            <el-col :span="6">
-                <el-row class="grid-content bg-purple">
-                    <el-col :span="10" class="grid-left">
-                        <i class="el-icon-star-on"></i>
-                    </el-col>
-                    <el-col :span="14" class="grid-right">
-                        <div class="title">码池情况</div>
-                        <div class="number">{{totalCount.sufNoUseCount}}/{{totalCount.sufHaveUseCount}}/{{totalCount.sufCantUseCount}}</div>
-                    </el-col>
-                </el-row>
-            </el-col>
+
+
         </el-row>
         <el-row :gutter="20">
             <el-col :span="12" >
                 <div class="chart-panel">
-                    <div id="chartColumn" style="width:100%; height:400px;"></div>
+                    <div id="chartColumn" style="width:100%; height:500px;"></div>
                 </div>
 
             </el-col>
             <el-col :span="12" >
                 <div class="chart-panel">
+                    <el-row style="height:80px;padding-top:20px;text-align: center">
+                        <el-form :inline="true" :model="searchCompanyForm" class="demo-form-inline" ref="searchCompanyForm">
+                            <el-form-item prop="name" label="查看组织名码段信息":rules="[{ required: true, message: '名称不能为空'}]">
+                                <el-input type="name" v-model="searchCompanyForm.name" placeholder="请输入组织名"></el-input>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" @click="submitForm('searchCompanyForm')">查询</el-button>
+                            </el-form-item>
+                        </el-form>
+                    </el-row>
                     <div id="orgColumnChart" style="width:100%; height:400px;">
-
                     </div>
                 </div>
             </el-col>
@@ -83,6 +96,7 @@
         sufNoUseCount:0,
         sufHaveUseCount:0,
         sufCantUseCount:0,
+        title:''
     }
     export default {
         data() {
@@ -97,6 +111,9 @@
                 pieCount,
                 companyBarBottomData:[],
                 companyBarTopData:[],
+                searchCompanyForm:{
+                    name:''
+                },
             }
         },
 
@@ -129,6 +146,13 @@
                 this.chartColumn.setOption({
                   title: { text: '编码类型统计' },
                   tooltip: {},
+                    color:[ '#749f83',  '#ca8622', '#bda29a','#6e7074', '#546570', '#c4ccd3'],
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'top'
+                        }
+                    },
                   xAxis: {
                       data: this.codeTypeName
                   },
@@ -140,38 +164,53 @@
                     }]
                 },true);
             },
-            companyCodeChart(){
+            //查询公司码段情况
+            companyCodeChart(parm){
                 let para = {
-                    organizationName:'福州市数字办'
+                    organizationName:parm
                 }
                 getSufCodeCount(para).then((res) => {
-                        this.pieCount.sufHaveUseCount = res.data.sufHaveUseCount;
-                        this.pieCount.sufCantUseCount = res.data.sufCantUseCount;
-                        this.pieCount.sufNoUseCount = res.data.sufNoUseCount;
-                        //公司码段总和
-                        let total = res.data.sufHaveUseCount+res.data.sufCantUseCount+res.data.sufNoUseCount;
-                        this.companyBarBottomData.push(0);
-                        //已使用底部数据
-                        this.companyBarBottomData.push(total-res.data.sufHaveUseCount);
-                        //未使用底部数据
-                        this.companyBarBottomData.push(total-res.data.sufHaveUseCount-res.data.sufNoUseCount);
-                        //禁用底部数据
-                        this.companyBarBottomData.push(0);
+                        if(res.data.sufHaveUseCount==0&&res.data.sufCantUseCount==0&&res.data.sufNoUseCount==0){
+                            document.getElementById("orgColumnChart").style.visibility = "hidden";
+                            this.openError();
+                        }else{
+                            console.log("success");
+                            document.getElementById("orgColumnChart").style.visibility = "visible";
+                            //初始化清空图表数组
+                            this.companyBarBottomData.splice(0,this.companyBarBottomData.length);
+                            this.companyBarTopData.splice(0,this.companyBarTopData.length);
+                            /* document.getElementById("orgColumnChart").innerText='';*/
+                            this.pieCount.sufHaveUseCount = res.data.sufHaveUseCount;
+                            this.pieCount.sufCantUseCount = res.data.sufCantUseCount;
+                            this.pieCount.sufNoUseCount = res.data.sufNoUseCount;
+                            this.pieCount.title = parm;
+                            //公司码段总和
+                            let total = res.data.sufHaveUseCount+res.data.sufCantUseCount+res.data.sufNoUseCount;
+                            this.companyBarBottomData.push(0);
+                            //已使用底部数据
+                            this.companyBarBottomData.push(total-res.data.sufHaveUseCount);
+                            //未使用底部数据
+                            this.companyBarBottomData.push(total-res.data.sufHaveUseCount-res.data.sufNoUseCount);
+                            //禁用底部数据
+                            this.companyBarBottomData.push(0);
 
-                        this.companyBarTopData.push(total);
-                        this.companyBarTopData.push(res.data.sufHaveUseCount);
-                        this.companyBarTopData.push(res.data.sufNoUseCount);
-                        this.companyBarTopData.push(res.data.sufCantUseCount);
+                            this.companyBarTopData.push(total);
+                            this.companyBarTopData.push(res.data.sufHaveUseCount);
+                            this.companyBarTopData.push(res.data.sufNoUseCount);
+                            this.companyBarTopData.push(res.data.sufCantUseCount);
+                            this.drawOrgColumnChart();
+                        }
 
-                        this.drawOrgColumnChart();
                 });
 
             },
             drawOrgColumnChart(){
                 this.chartColumn = echarts.init(document.getElementById('orgColumnChart'));
+                this.chartColumn.clear();
                 this.chartColumn.setOption({
                     title: {
-                        text: 'XXX公司码段情况',
+                        text: this.pieCount.title+'码段情况',
+                        left: 'center',
                     },
                     tooltip : {
                         trigger: 'axis',
@@ -187,6 +226,7 @@
                        x: '10%', y: '20%', width: '45%', height: '70%'
                         ,
                     },
+                    color:['#ca8622', '#546570', '#c4ccd3'],
                     xAxis: {
                         type : 'category',
                         splitLine: {show:false},
@@ -236,23 +276,30 @@
                             ].sort(function (a, b) { return a.value - b.value; }),
                         }
                     ]
-                });
+                },true);
             },
             drawCharts() {
                     this.getCodeTypeData();
                     this.getTotalCount();
-
-
-                    this.companyCodeChart();
-                   // this.drawColumnChart();
-                   // this.drawOrgColumnChart()
-               // })
-               // this.drawBarChart()
-              //  this.drawLineChart()
-                //this.drawPieChart()
-
-
+                    //this.companyCodeChart();
             },
+            submitForm(formName) {
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        //调用查询接口，画出图表
+                        this.companyCodeChart(this.searchCompanyForm.name)
+                    } else {
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            openError() {
+                this.$notify.error({
+                    title: '注意',
+                    message: '无此组织名码段信息!'
+                });
+            }
         },
 
         mounted: function () {
@@ -266,6 +313,7 @@
 
 <style scoped lang="less" rel="stylesheet/less">
     .chart-container {
+        margin-top: 20px;
         width: 100%;
         float: left;
     }

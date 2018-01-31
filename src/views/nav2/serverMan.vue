@@ -249,6 +249,7 @@
 			},
 			//显示新增界面
 			handleAdd: function () {
+			    console.log("new");
 				this.addFormVisible = true;
 				this.addForm = {
                     serviceName: '',

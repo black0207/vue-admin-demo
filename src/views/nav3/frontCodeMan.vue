@@ -19,18 +19,18 @@
     <el-table :data="preCodeData" border highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
       <el-table-column type="selection" width="55" v-if="false">
       </el-table-column>
-      <el-table-column type="index" width="80" label="序号">
+      <el-table-column type="index" width="80" label="序号" align="center">
       </el-table-column>
-      <el-table-column prop="preCodeId" label="前码段ID" width="300" sortable v-if="false">
+      <el-table-column prop="preCodeId" label="前码段ID" width="300" sortable v-if="false" align="center">
       </el-table-column>
-      <el-table-column prop="preCode" label="前码段" min-width="300" sortable>
+      <el-table-column prop="preCode" label="前码段" min-width="300" sortable align="center">
       </el-table-column>
-      <el-table-column prop="codeType" label="编码类型" width="200" sortable>
+      <el-table-column prop="codeType" label="编码类型" width="200" sortable align="center">
       </el-table-column>
-      <el-table-column prop="organizationName" label="组织名" min-width="400"  sortable>
+      <el-table-column prop="organizationName" label="组织名" min-width="400"  sortable align="center">
       </el-table-column>
 
-      <el-table-column label="操作" width="300">
+      <el-table-column label="操作" width="300" align="center">
         <template scope="scope">
           <el-button size="small" v-if="false" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
           <el-button size="small" type="primary" plain  @click="assignBackCode(scope.$index, scope.row)">后码段分配</el-button>
@@ -49,7 +49,7 @@
 
     <!--编辑界面-->
     <el-dialog title="编辑前码段" :visible.sync="editFormVisible" :close-on-click-modal="false">
-      <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
+      <el-form :model="editForm" label-position="labelPosition" label-width="80px" :rules="editFormRules" ref="editForm">
 
         <el-form-item label="前码段" prop="preCode">
           <el-input v-model="editForm.preCode" auto-complete="off"></el-input>
@@ -70,7 +70,7 @@
 
     <!--新增界面-->
     <el-dialog title="新增前码段" :visible.sync="addFormVisible" :close-on-click-modal="false" >
-      <el-form :model="addForm" :label-positon="labelPosition" label-width="120px"  :rules="addFormRules" ref="addForm">
+      <el-form :model="addForm" label-positon="labelPosition" label-width="120px"  :rules="addFormRules" ref="addForm">
         <el-form-item label="前段码" prop="preCode">
         <el-input v-model="addForm.preCode" auto-complete="off"></el-input>
       </el-form-item>

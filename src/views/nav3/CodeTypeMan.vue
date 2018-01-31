@@ -19,16 +19,16 @@
     <el-table :data="typeData" border  highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100% ;">
      <!-- <el-table-column type="selection" width="55">
       </el-table-column>-->
-      <el-table-column type="index" width="100" label="序号">
+      <el-table-column type="index" width="100" label="序号" align="center">
       </el-table-column>
-      <el-table-column prop="typeId" label="编码类型ID" width="320" sortable>
+      <el-table-column prop="typeId" label="编码类型ID" width="320" sortable align="center">
       </el-table-column>
-      <el-table-column prop="typeName" label="编码类型名称" min-width="320"  sortable>
+      <el-table-column prop="typeName" label="编码类型名称" min-width="320"  sortable align="center">
       </el-table-column>
-      <el-table-column prop="rule" label="编码规则" min-width="550" sortable>
+      <el-table-column prop="rule" label="编码规则" min-width="550" sortable align="center">
       </el-table-column>
 
-      <el-table-column label="操作" width="300">
+      <el-table-column label="操作" width="300" align="center">
         <template scope="scope">
           <el-button type="primary" plain size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
          <!-- <el-button size="small" type="info"  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>-->

@@ -64,7 +64,7 @@ var _Page3 = require('./views/nav1/Page6.vue');
 
 var _Page4 = _interopRequireDefault(_Page3);
 
-var _echarts = require('./views/charts/echarts.vue');
+var _echarts = require('./views/overview/codeOverview.vue');
 
 var _echarts2 = _interopRequireDefault(_echarts);
 

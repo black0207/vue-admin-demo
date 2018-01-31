@@ -75,7 +75,7 @@
 	export default {
 		data() {
 			return {
-				sysName:'福州后台管理系统',
+				sysName:'公共服务管理平台',
 				collapsed:false,
 				sysUserName: 'admin',
 				sysUserAvatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',

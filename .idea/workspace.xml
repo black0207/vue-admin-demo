@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="326815dd-df0c-40ae-aca5-a46588a1f50c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/nav2/configMan.vue" afterPath="$PROJECT_DIR$/src/views/nav2/configMan.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/nav2/serverState.vue" afterPath="$PROJECT_DIR$/src/views/nav2/serverState.vue" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/api.js" afterPath="$PROJECT_DIR$/src/api/api.js" />
     </list>
     <ignored path="vue-admin-master.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -26,7 +25,7 @@
       <file leaf-file-name="frontCodeMan.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/nav3/frontCodeMan.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="11178">
+            <state relative-caret-position="0">
               <caret line="414" column="14" lean-forward="false" selection-start-line="414" selection-start-column="14" selection-end-line="414" selection-end-column="14" />
               <folding>
                 <element signature="n#style#0;n#el-pagination#0;n#el-col#1;n#section#0;n#template#0;n#!!top" expanded="true" />
@@ -70,6 +69,19 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
               <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="9" />
+              <folding>
+                <marker date="1517365193631" expanded="true" signature="587:2006" ph="{&quot;autoprefixer&quot;: &quot;^6.7.2&quot;...}" />
+                <marker date="1517365193631" expanded="true" signature="2021:2072" ph="{&quot;node&quot;: &quot;&gt;= 4.0.0&quot;...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="api.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/api/api.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="217">
+              <caret line="55" column="72" lean-forward="false" selection-start-line="55" selection-start-column="72" selection-end-line="55" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -95,50 +107,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/routes.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="20" column="21" lean-forward="false" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="21" />
-              <folding>
-                <element signature="e#0#37#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="serverState.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="serverState.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/nav2/serverState.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+            <state relative-caret-position="357">
+              <caret line="259" column="9" lean-forward="true" selection-start-line="259" selection-start-column="9" selection-end-line="259" selection-end-column="9" />
               <folding>
                 <element signature="n#style#0;n#el-col#0;n#section#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#el-table#0;n#section#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#el-pagination#0;n#el-col#1;n#section#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#el-input#0;n#el-form-item#2;n#el-form#0;n#el-dialog#0;n#section#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="api.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/api/api.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1377">
-              <caret line="51" column="115" lean-forward="false" selection-start-line="51" selection-start-column="115" selection-end-line="51" selection-end-column="115" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="mock.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/mock/mock.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
-              <caret line="21" column="18" lean-forward="true" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
+                <element signature="n#script#0;n#!!top" expanded="false" />
+                <element signature="n#style#0;n#!!top" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -176,13 +156,13 @@
         <option value="$PROJECT_DIR$/src/views/Home.vue" />
         <option value="$PROJECT_DIR$/src/views/nav3/frontCodeMan.vue" />
         <option value="$PROJECT_DIR$/build/dev-server.js" />
-        <option value="$PROJECT_DIR$/src/api/api.js" />
         <option value="$PROJECT_DIR$/src/views/nav2/serverMan.vue" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/mock/mock.js" />
         <option value="$PROJECT_DIR$/src/views/Login.vue" />
         <option value="$PROJECT_DIR$/src/views/nav2/configMan.vue" />
         <option value="$PROJECT_DIR$/src/views/nav2/serverState.vue" />
+        <option value="$PROJECT_DIR$/src/api/api.js" />
       </list>
     </option>
   </component>
@@ -254,6 +234,12 @@
               <item name="vue-admin-demo" type="b2602c69:ProjectViewProjectNode" />
               <item name="vue-admin-demo" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="vue-admin-demo" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vue-admin-demo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="api" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="vue-admin-demo" type="b2602c69:ProjectViewProjectNode" />
@@ -401,7 +387,7 @@
       <workItem from="1517213796506" duration="4232000" />
       <workItem from="1517297939437" duration="4578000" />
       <workItem from="1517361062060" duration="227000" />
-      <workItem from="1517361564438" duration="3498000" />
+      <workItem from="1517361564438" duration="4708000" />
     </task>
     <task id="LOCAL-00001" summary="修改跳转链接">
       <created>1515656237800</created>
@@ -480,11 +466,18 @@
       <option name="project" value="LOCAL" />
       <updated>1517362583188</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="zqc">
+      <created>1517365183222</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1517365183222</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="156496000" />
+    <option name="totallyTimeSpent" value="157706000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -568,7 +561,8 @@
     <MESSAGE value="Merge branch 'master' of https://github.com/black0207/vue-admin-demo&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/api/api.js&#10;#&#9;src/mock/mock.js" />
     <MESSAGE value="Merge branch 'master' of https://github.com/black0207/vue-admin-demo&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/api/api.js" />
     <MESSAGE value="Merge branch 'master' of https://github.com/black0207/vue-admin-demo&#10;&#10;# Conflicts:&#10;#&#9;.idea/libraries/Generated_files.xml&#10;#&#9;.idea/workspace.xml" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/black0207/vue-admin-demo&#10;&#10;# Conflicts:&#10;#&#9;.idea/libraries/Generated_files.xml&#10;#&#9;.idea/workspace.xml" />
+    <MESSAGE value="zqc" />
+    <option name="LAST_COMMIT_MESSAGE" value="zqc" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -785,14 +779,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1377">
-          <caret line="51" column="115" lean-forward="false" selection-start-line="51" selection-start-column="115" selection-end-line="51" selection-end-column="115" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/events/events.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -825,7 +811,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/nav3/frontCodeMan.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="11178">
+        <state relative-caret-position="0">
           <caret line="414" column="14" lean-forward="false" selection-start-line="414" selection-start-column="14" selection-end-line="414" selection-end-column="14" />
           <folding>
             <element signature="n#style#0;n#el-pagination#0;n#el-col#1;n#section#0;n#template#0;n#!!top" expanded="true" />
@@ -853,7 +839,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="9" />
-          <folding />
+          <folding>
+            <marker date="1517365193631" expanded="true" signature="587:2006" ph="{&quot;autoprefixer&quot;: &quot;^6.7.2&quot;...}" />
+            <marker date="1517365193631" expanded="true" signature="2021:2072" ph="{&quot;node&quot;: &quot;&gt;= 4.0.0&quot;...}" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -862,6 +851,16 @@
         <state relative-caret-position="-1782">
           <caret line="12" column="43" lean-forward="false" selection-start-line="12" selection-start-column="43" selection-end-line="12" selection-end-column="43" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/Login.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="588">
+          <caret line="67" column="43" lean-forward="true" selection-start-line="67" selection-start-column="43" selection-end-line="67" selection-end-column="43" />
+          <folding>
+            <element signature="n#style#0;n#el-form-item#2;n#el-form#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -885,16 +884,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/Login.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="67" column="43" lean-forward="true" selection-start-line="67" selection-start-column="43" selection-end-line="67" selection-end-column="43" />
-          <folding>
-            <element signature="n#style#0;n#el-form-item#2;n#el-form#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/views/nav2/configMan.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1170">
@@ -905,14 +894,24 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/nav2/serverState.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+        <state relative-caret-position="357">
+          <caret line="259" column="9" lean-forward="true" selection-start-line="259" selection-start-column="9" selection-end-line="259" selection-end-column="9" />
           <folding>
             <element signature="n#style#0;n#el-col#0;n#section#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-table#0;n#section#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-pagination#0;n#el-col#1;n#section#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-input#0;n#el-form-item#2;n#el-form#0;n#el-dialog#0;n#section#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#script#0;n#!!top" expanded="false" />
+            <element signature="n#style#0;n#!!top" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="55" column="72" lean-forward="false" selection-start-line="55" selection-start-column="72" selection-end-line="55" selection-end-column="72" />
+          <folding />
         </state>
       </provider>
     </entry>

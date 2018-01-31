@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.js"],"names":[],"mappings":";;;;;;AAAA","file":"index-compiled.js","sourcesContent":["import mock from './mock';\n\nexport default mock;\n"]}

@@ -16,7 +16,7 @@
     </el-col>
 
     <!--列表-->
-    <el-table :data="preCodeData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+    <el-table :data="preCodeData" border highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
       <el-table-column type="selection" width="55" v-if="false">
       </el-table-column>
       <el-table-column type="index" width="80" label="序号">
@@ -25,14 +25,14 @@
       </el-table-column>
       <el-table-column prop="preCode" label="前码段" min-width="300" sortable>
       </el-table-column>
-      <el-table-column prop="codeType" label="编码类型" width="150" sortable>
+      <el-table-column prop="codeType" label="编码类型" width="200" sortable>
       </el-table-column>
       <el-table-column prop="organizationName" label="组织名" min-width="400"  sortable>
       </el-table-column>
 
       <el-table-column label="操作" width="300">
         <template scope="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+          <el-button size="small" v-if="false" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
           <el-button size="small" type="info"  @click="assignBackCode(scope.$index, scope.row)">后码段分配</el-button>
           <el-button size="small" type="success "  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>
           <!--<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>-->
@@ -69,8 +69,8 @@
     </el-dialog>
 
     <!--新增界面-->
-    <el-dialog title="分配前码段" v-model="addFormVisible" :close-on-click-modal="false" >
-      <el-form :model="addForm" :label-positon="labelPosition1" label-width="120px"  :rules="addFormRules" ref="addForm">
+    <el-dialog title="新增前码段" v-model="addFormVisible" :close-on-click-modal="false" >
+      <el-form :model="addForm" :label-positon="labelPosition" label-width="120px"  :rules="addFormRules" ref="addForm">
         <el-form-item label="前段码" prop="preCode">
         <el-input v-model="addForm.preCode" auto-complete="off"></el-input>
       </el-form-item>
@@ -222,8 +222,14 @@
         addFormVisible: false,//新增界面是否显示
         addLoading: false,
         addFormRules: {
-          preCodeName: [
+          preCode: [
             { required: true, message: '请输入前段码', trigger: 'blur' }
+          ],
+          codeTypeId: [
+            { required: true, message: '请选择编码类型', trigger: 'blur' }
+          ],
+          organizationId: [
+            { required: true, message: '请选择组织机构', trigger: 'blur' }
           ]
         },
         //新增界面数据
@@ -420,7 +426,7 @@
         let typeDatas = res.data;
         let tempData = [];
         for(var i=0;i<typeDatas.length;i++){
-          tempData.push({value:typeDatas[i].typeId,label:typeDatas[i].typeName});
+          tempData.push({value:typeDatas[i].typeId+'',label:typeDatas[i].typeName});
         }
         this.allCodeTypes = tempData;
       });
@@ -429,7 +435,7 @@
           let tempData1 = [];
         let orgNames = res.data;
         for(var i=0;i<orgNames.length;i++){
-          tempData1.push({value:orgNames[i].organizationId,label:orgNames[i].organizationName});
+          tempData1.push({value:orgNames[i].organizationId+'',label:orgNames[i].organizationName});
         }
         this.allCodeNames = tempData1;
         });

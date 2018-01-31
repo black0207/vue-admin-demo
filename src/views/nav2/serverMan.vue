@@ -16,7 +16,7 @@
 		</el-col>
 
 		<!--列表-->
-		<el-table :data="serverinfo" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+		<el-table :data="serverinfo" border highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
 			<!--<el-table-column type="selection" width="55">-->
 			<!--</el-table-column>-->
 			<el-table-column type="index" width="80" label="序号" align="center">
@@ -67,14 +67,14 @@
 				<!--<el-form-item label="生日">-->
 					<!--<el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>-->
 				<!--</el-form-item>-->
-				<el-form-item label="服务器地址">
+				<el-form-item label="服务器地址" prop="serviceAddress">
 					<el-input type="textarea" v-model="editForm.serviceAddress"></el-input>
 				</el-form-item>
-				<el-form-item label="管理秘钥">
-				<el-input type="textarea" v-model="editForm.serviceKey"></el-input>
+				<el-form-item label="管理秘钥" prop="serviceKey">
+				<el-input type="textarea" v-model="editForm.serviceKey" ></el-input>
 			    </el-form-item>
-				<el-form-item label="服务器归属信息">
-					<el-input type="textarea" v-model="editForm.serInfor"></el-input>
+				<el-form-item label="服务器归属信息" prop="serInfor">
+					<el-input type="textarea" v-model="editForm.serInfor" ></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -101,14 +101,14 @@
 				<!--<el-form-item label="生日">-->
 					<!--<el-date-picker type="date" placeholder="选择日期" v-model="addForm.birth"></el-date-picker>-->
 				<!--</el-form-item>-->
-				<el-form-item label="服务器地址">
-					<el-input type="textarea" v-model="addForm.serviceAddress"></el-input>
+				<el-form-item label="服务器地址" prop="serviceAddress">
+					<el-input type="textarea" v-model="addForm.serviceAddress" ></el-input>
 				</el-form-item>
-				<el-form-item label="管理秘钥">
-					<el-input type="textarea" v-model="addForm.serviceKey"></el-input>
+				<el-form-item label="管理秘钥" prop="serviceKey">
+					<el-input type="textarea" v-model="addForm.serviceKey" ></el-input>
 				</el-form-item>
-				<el-form-item label="服务器归属信息">
-					<el-input type="textarea" v-model="addForm.serInfor"></el-input>
+				<el-form-item label="服务器归属信息" prop="serInfor">
+					<el-input type="textarea" v-model="addForm.serInfor" ></el-input>
 				</el-form-item>
 			</el-form>
 			<div slot="footer" class="dialog-footer">
@@ -133,7 +133,7 @@
 				serverinfo: [],
 				total: 0,
 				page: 1,
-				pageSize:5,
+				pageSize:15,
 				listLoading: false,
 				sels: [],//列表选中列
 
@@ -142,7 +142,16 @@
 				editFormRules: {
                     serviceName: [
 						{ required: true, message: '请输入服务器名称', trigger: 'blur' }
-					]
+					],
+                    serviceAddress: [
+                        { required: true, message: '请输入服务器地址', trigger: 'blur' }
+                    ],
+                    serviceKey: [
+                        { required: true, message: '请输入服务器秘钥', trigger: 'blur' }
+                    ],
+                    serInfor: [
+                        { required: true, message: '请输入服务器归属信息', trigger: 'blur' }
+                    ]
 				},
 				//更新界面数据
 				editForm: {
@@ -158,7 +167,16 @@
 				addFormRules: {
                     serviceName: [
 						{ required: true, message: '请输入服务器名称', trigger: 'blur' }
-					]
+					],
+                    serviceAddress: [
+                        { required: true, message: '请输入服务器地址', trigger: 'blur' }
+                    ],
+                    serviceKey: [
+                        { required: true, message: '请输入服务器秘钥', trigger: 'blur' }
+                    ],
+                    serInfor: [
+                        { required: true, message: '请输入服务器归属信息', trigger: 'blur' }
+                    ]
 				},
 				//添加界面数据
 				addForm: {

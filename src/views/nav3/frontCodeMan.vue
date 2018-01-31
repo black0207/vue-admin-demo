@@ -16,23 +16,23 @@
     </el-col>
 
     <!--列表-->
-    <el-table :data="preCodeData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+    <el-table :data="preCodeData" border highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
       <el-table-column type="selection" width="55" v-if="false">
       </el-table-column>
       <el-table-column type="index" width="80" label="序号">
       </el-table-column>
-      <el-table-column prop="preCodeId" label="前码段ID" width="300" sortable>
+      <el-table-column prop="preCodeId" label="前码段ID" width="300" sortable v-if="false">
       </el-table-column>
       <el-table-column prop="preCode" label="前码段" min-width="300" sortable>
       </el-table-column>
-      <el-table-column prop="codeType" label="编码类型" width="150" sortable>
+      <el-table-column prop="codeType" label="编码类型" width="200" sortable>
       </el-table-column>
       <el-table-column prop="organizationName" label="组织名" min-width="400"  sortable>
       </el-table-column>
 
       <el-table-column label="操作" width="300">
         <template scope="scope">
-          <el-button size="small" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+          <el-button size="small" v-if="false" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
           <el-button size="small" type="info"  @click="assignBackCode(scope.$index, scope.row)">后码段分配</el-button>
           <el-button size="small" type="success "  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>
           <!--<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>-->
@@ -50,9 +50,7 @@
     <!--编辑界面-->
     <el-dialog title="编辑前码段" v-model="editFormVisible" :close-on-click-modal="false">
       <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-        <el-form-item label="前码段ID" prop="preCodeId">
-          <el-input v-model="editForm.preCodeId" auto-complete="off" disabled="true"></el-input>
-        </el-form-item>
+
         <el-form-item label="前码段" prop="preCode">
           <el-input v-model="editForm.preCode" auto-complete="off"></el-input>
         </el-form-item>
@@ -71,16 +69,30 @@
     </el-dialog>
 
     <!--新增界面-->
-    <el-dialog title="分配前码段" v-model="addFormVisible" :close-on-click-modal="false">
-      <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
+    <el-dialog title="新增前码段" v-model="addFormVisible" :close-on-click-modal="false" >
+      <el-form :model="addForm" :label-positon="labelPosition" label-width="120px"  :rules="addFormRules" ref="addForm">
         <el-form-item label="前段码" prop="preCode">
         <el-input v-model="addForm.preCode" auto-complete="off"></el-input>
       </el-form-item>
-        <el-form-item label="编码类型ID" prop="codeTypeId">
-          <el-input v-model="addForm.codeTypeId" auto-complete="off"></el-input>
+        <el-form-item label="编码类型" prop="codeTypeId">
+          <el-select v-model="addForm.codeTypeId" filterable style="width: 100%" placeholder="请选择">
+            <el-option
+                    v-for="item in allCodeTypes"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="组织ID" prop="organizationId">
-          <el-input v-model="addForm.organizationId" auto-complete="off"></el-input>
+        <el-form-item label="组织机构名称" prop="organizationId">
+          <el-select v-model="addForm.organizationId" filterable style="width: 100%" placeholder="请选择">
+            <el-option
+                    v-for="item in allCodeNames"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
 
       </el-form>
@@ -90,63 +102,68 @@
       </div>
     </el-dialog>
 
-    <!--后码段界面-->
-    <el-dialog title="后码段管理" v-model="codeTableVisible" :close-on-click-modal="false">
+    <!--后码段查询管理界面-->
+    <el-dialog title="后码段管理" v-model="codeTableVisible" :close-on-click-modal="false" @close="dialogClose">
       <!--后码段列表-->
-      <el-table :data="backData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+      <el-table :data="suffixCodeData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
         <el-table-column type="selection" width="55" v-if="false">
         </el-table-column>
         <el-table-column type="index" width="80" label="序号">
         </el-table-column>
-        <el-table-column prop="name" label="前码段" width="120" sortable>
+        <el-table-column prop="preCode" label="前码段" min-width="150" sortable>
         </el-table-column>
-        <el-table-column prop="sex" label="组织名" width="100" :formatter="formatSex" sortable>
+        <el-table-column prop="suffixcode" label="后段码" min-width="150" sortable>
         </el-table-column>
-        <el-table-column prop="age" label="年龄" width="100" sortable>
+        <el-table-column prop="status" label="状态" width="120" sortable>
         </el-table-column>
-        <el-table-column prop="birth" label="日期" width="120" sortable>
+        <el-table-column prop="codeDis" label="描述" width="200" sortable>
         </el-table-column>
-        <el-table-column prop="addr" label="地址" min-width="250" sortable>
-        </el-table-column>
-        <el-table-column label="操作" width="100">
+
+        <el-table-column label="操作" width="120">
           <template scope="scope">
-            <el-button size="small" @click="handleBCinfo(scope.$index, scope.row)">禁用</el-button>
+            <el-button type="danger" size="small" v-if="scope.row.status != '已禁用'" @click="handleBCStatus(scope.$index, scope.row)">禁用</el-button>
+            <el-button type="info" size="small" v-if="scope.row.status == '已禁用'" @click="handleBCStatus(scope.$index, scope.row)">启用</el-button>
           </template>
         </el-table-column>
       </el-table>
+
+      <el-col :span="24" class="toolbar">
+        <!--  <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>-->
+        <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange1" :page-size="pageSize1" :total="total1" style="float:right;">
+        </el-pagination>
+      </el-col>
     </el-dialog>
 
 
     <!--后码段分配-->
     <el-dialog title="后码段分配" v-model="backEditFormVisible" :close-on-click-modal="false">
-      <div>前码段信息</div>
-      <el-table :data="backData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+      <div style="padding-left: 10px ;background-color:#d4edfc;height: 35px;line-height: 35px;">前码段信息</div>
+      <el-table :data="assignData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
         <el-table-column type="selection" width="55" v-if="false">
         </el-table-column>
         <el-table-column type="index" width="80" label="序号">
         </el-table-column>
-        <el-table-column prop="name" label="前码段" width="120" sortable>
+
+        <el-table-column prop="preCode" label="前码段" min-width="150" sortable>
         </el-table-column>
-        <el-table-column prop="sex" label="组织名" width="100" :formatter="formatSex" sortable>
+        <el-table-column prop="codeType" label="编码类型" min-width="120" sortable>
         </el-table-column>
-        <el-table-column prop="age" label="年龄" width="100" sortable>
-        </el-table-column>
-        <el-table-column prop="birth" label="日期" width="120" sortable>
-        </el-table-column>
-        <el-table-column prop="addr" label="地址" min-width="250" sortable>
+        <el-table-column prop="organizationName" label="所属机构" min-width="200" sortable>
         </el-table-column>
 
+
       </el-table>
-      <div>后段码分配</div>
-      <el-form :model="assignForm" label-width="80px" :rules="editFormRules" ref="editForm">
-        <el-form-item label="后段码数量" prop="number">
-          <el-input-number v-model="assignForm.number" auto-complete="off"></el-input-number>
+      <div style="margin-top:20px;padding-left: 10px ;background-color:#d4edfc;height: 35px;line-height: 35px;">后段码分配</div>
+      <el-form :model="assignForm" :label-position="labelPosition" label-width="120px" :rules="editFormRules" ref="assignForm" style="margin-top: 20px">
+
+        <el-form-item label="后段码数量" prop="number" style="padding-left: 20px">
+          <el-input-number v-model="assignForm.number" style="text-align: center" auto-complete="off"></el-input-number>
         </el-form-item>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native="editFormVisible = false">取消</el-button>
-        <el-button type="primary" @click.native="editSubmit" :loading="editLoading">提交</el-button>
+        <el-button type="primary" @click.native="assignSubmit" :loading="editLoading">提交</el-button>
       </div>
     </el-dialog>
   </section>
@@ -155,7 +172,7 @@
 <script>
   import util from '../../common/js/util'
   //import NProgress from 'nprogress'
-  import {addPreCode,searchPreCode, getUserListPage, removeUser, batchRemoveUser, editUser, addUser ,addFrontCode} from '../../api/api';
+  import {searchOrgInfo,searchCodeType,modifySuffixStatus,searchSuffixCode,addSuffixCode,addPreCode,searchPreCode,  batchRemoveUser,} from '../../api/api';
 
   export default {
     data() {
@@ -163,12 +180,22 @@
         filters: {
           precode: ''
         },
+        labelPosition:'left',
         preCodeData: [],
+        suffixCodeData:[],
+        allCodeTypes:[],//存储所有编码类型
+        allCodeNames:[],//存储所有公司名称
         total: 0,
         page: 1,
-        pageSize:3,
+        pageSize:15,
+        total1: 0,
+        page1: 1,
+        pageSize1:10,//后码段列表页面容量
         listLoading: false,
         sels: [],//列表选中列
+        currentPreCode:'',
+        currentPreCodeId:'',
+        dsStatus:false,
 
         editFormVisible: false,//编辑界面是否显示
         editLoading: false,
@@ -195,8 +222,14 @@
         addFormVisible: false,//新增界面是否显示
         addLoading: false,
         addFormRules: {
-          preCodeName: [
+          preCode: [
             { required: true, message: '请输入前段码', trigger: 'blur' }
+          ],
+          codeTypeId: [
+            { required: true, message: '请选择编码类型', trigger: 'blur' }
+          ],
+          organizationId: [
+            { required: true, message: '请选择组织机构', trigger: 'blur' }
           ]
         },
         //新增界面数据
@@ -209,8 +242,9 @@
         backEditFormVisible: false,
         assignForm:{
           number:''
-        }
-
+        },
+        backData: [{preCodeId:"李振营",preCode:1,codeType:22,organizationName:2010-1-1}],
+        assignData:[],
 
       }
     },
@@ -222,6 +256,15 @@
       handleCurrentChange(val) {
         this.page = val;
         this.getPreCodeList();
+      },
+      handleCurrentChange1(val) {
+        this.page1 = val;
+        this.handleBackCode1();
+      },
+      dialogClose(){
+        this.suffixCodeData = [];
+        this.page1 = 1;
+        this.total1 = 0;
       },
       //获取前码段列表
       getPreCodeList() {
@@ -250,23 +293,37 @@
           this.listLoading = false;
         //NProgress.done();
       });
+
       },
-      //删除
-      handleDel: function (index, row) {
-        this.$confirm('确认删除该记录吗?', '提示', {
+      //修改后段码状态（禁用）
+      handleBCStatus: function (index, row) {
+        this.$confirm('确认禁用该后段码吗?', '提示', {
           type: 'warning'
         }).then(() => {
           this.listLoading = true;
         //NProgress.start();
-        let para = { id: row.id };
-        removeUser(para).then((res) => {
+        let para = Object.assign({},row);
+        if (para.status !="已禁用"){
+          para.status = "已禁用";
+        }else{
+          para.status = "未使用";
+        };
+
+        modifySuffixStatus(para).then((res) => {
           this.listLoading = false;
-        //NProgress.done();
-        this.$message({
-          message: '删除成功',
-          type: 'success'
-        });
-        this.getUsers();
+        if (res.data == "success"){
+          this.$message({
+            message: '操作成功！',
+            type: 'success'
+          });
+          this.handleBackCode1();
+        }else {
+          this.$message({
+            message: '操作失败！',
+            type: 'error'
+          });
+        }
+
       });
       }).catch(() => {
 
@@ -280,10 +337,68 @@
       //显示分配界面
       assignBackCode: function (index, row) {
         this.backEditFormVisible = true;
-        this.assignForm = Object.assign({}, row);
+        let tempData = Object.assign({}, row);
+        this.assignData= [{preCodeId:tempData.preCodeId,preCode:tempData.preCode,codeType:tempData.codeType,organizationName:tempData.organizationName}]
       },
-      //显示后码段管理界面
-      handleBackCode: function (index, row) {
+      //后段码页面分页操作
+      handleBackCode1:function () {
+
+        let preCodeId = this.suffixCodeData[0].preCodeId;
+        let preCodeName = this.suffixCodeData[0].preCode;
+        let para = {
+          page: this.page1,
+          preCode:preCodeId,
+          preCodeName:preCodeName,
+          pageSize : this.pageSize1
+        };
+        let formateData = [];
+        this.listLoading = true;
+
+        searchSuffixCode(para).then((res) => {
+          this.total1 = res.data.length;//数据总条目
+        for(var i=0;i<res.data.length;i++){
+
+          formateData.push({
+            "preCodeId":para.preCode,
+            "preCode":para.preCodeName,
+            "suffixcode": res.data[i].suffixCode,
+            "status": this.switchStatus(res.data[i].status),
+            "codeDis" : res.data[i].description || "暂无描述",
+          })
+        }
+        this.suffixCodeData = formateData.filter((u, index) => index < para.pageSize * para.page && index >= para.pageSize * (para.page - 1));//显示分页后的数据
+        this.listLoading = false;
+        //NProgress.done();
+      });
+
+      },
+      //显示后码段管理界面并查询数据
+      handleBackCode: function (index, row){
+          let para = {
+            page: this.page1,
+            preCode:Object.assign({}, row).preCodeId,
+            preCodeName:Object.assign({}, row).preCode,
+            pageSize : this.pageSize1
+          };
+          let formateData = [];
+          this.listLoading = true;
+
+          searchSuffixCode(para).then((res) => {
+            this.total1 = res.data.length;//数据总条目
+          for(var i=0;i<res.data.length;i++){
+
+            formateData.push({
+              "preCodeId":para.preCode,
+              "preCode":para.preCodeName,
+              "suffixcode": res.data[i].suffixCode,
+              "status": this.switchStatus(res.data[i].status),
+              "codeDis" : res.data[i].description || "暂无描述",
+            })
+          }
+          this.suffixCodeData = formateData.filter((u, index) => index < para.pageSize * para.page && index >= para.pageSize * (para.page - 1));//显示分页后的数据
+          this.listLoading = false;
+          //NProgress.done();
+          });
         this.codeTableVisible = true;
         //this.editForm = Object.assign({}, row);
         /* this.$router.push({
@@ -305,6 +420,26 @@
           codeTypeId: '',
           organizationId: ''
         };
+        let para = {};
+        searchCodeType(para).then((res)=>{
+          //console.log(res.data);
+        let typeDatas = res.data;
+        let tempData = [];
+        for(var i=0;i<typeDatas.length;i++){
+          tempData.push({value:typeDatas[i].typeId+'',label:typeDatas[i].typeName});
+        }
+        this.allCodeTypes = tempData;
+      });
+
+        searchOrgInfo(para).then((res)=>{
+          let tempData1 = [];
+        let orgNames = res.data;
+        for(var i=0;i<orgNames.length;i++){
+          tempData1.push({value:orgNames[i].organizationId+'',label:orgNames[i].organizationName});
+        }
+        this.allCodeNames = tempData1;
+        });
+
       },
       //编辑
       editSubmit: function () {
@@ -339,8 +474,9 @@
             //NProgress.start();
             let para = Object.assign({}, this.addForm);
 
-            addPreCode(para).then((res) => {
               this.addLoading = false;
+            addPreCode(para).then((res) => {
+
             //NProgress.done();
             if(res.data == "success"){
               this.$message({
@@ -361,31 +497,55 @@
           }
         });
       },
+      //分配后段码
+      assignSubmit: function () {
+        let para = {
+          page: this.page,
+          preCode:this.assignData[0].preCodeId,
+          num:Object.assign({}, this.assignForm).number,
+          pageSize : this.pageSize
+        };
+        let formateData = [];
+        this.listLoading = true;
+        //NProgress.start();
+        addSuffixCode(para).then((res) => {
+          console.log(res.data);
+        if(res.data == "success"){
+          this.backEditFormVisible = false;
+          this.$refs['assignForm'].resetFields();
+          this.$message({
+            message: '新增编码成功！',
+            type: 'success'
+          });
+        }else {
+          this.$message({
+            message: '操作失败！',
+            type: 'error'
+          });
+        }
+
+          this.listLoading = false;
+      });
+      },
       selsChange: function (sels) {
         this.sels = sels;
       },
-      //批量删除
-      batchRemove: function () {
-        var ids = this.sels.map(item => item.id).toString();
-        this.$confirm('确认删除选中记录吗？', '提示', {
-          type: 'warning'
-        }).then(() => {
-          this.listLoading = true;
-        //NProgress.start();
-        let para = { ids: ids };
-        batchRemoveUser(para).then((res) => {
-          this.listLoading = false;
-        //NProgress.done();
-        this.$message({
-          message: '删除成功',
-          type: 'success'
-        });
-        this.getUsers();
-      });
-      }).catch(() => {
-
-        });
-      }
+     switchStatus: function (status) {
+       switch(status){
+         case 1 :
+              status = "未使用";
+               break;
+         case 2 :
+              status = "已使用";
+               break;
+         case 3 :
+               status = "已禁用";
+               break;
+         default :
+              status = "未使用";
+       }
+       return status;
+     }
     },
     mounted() {
       this.getPreCodeList();

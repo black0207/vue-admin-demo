@@ -30,7 +30,7 @@ let routes = [
         hidden: true
     },
 
-    {
+    /*{
         path: '/',
         component: Home,
         name: '',
@@ -39,7 +39,7 @@ let routes = [
         children: [
             { path: '/main', component: Main, name: '主页' }
         ]
-    },
+    },*/
     {
         path: '/',
         component: Home,

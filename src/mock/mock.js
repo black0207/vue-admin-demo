@@ -16,8 +16,7 @@ export default {
   bootstrap() {
    let mock = new MockAdapter(axios);
 
-    mock.restore();//关闭mock模拟数据
-
+     mock.restore();//关闭mock模拟数据
     // mock success request
     mock.onGet('/success').reply(200, {
       msg: 'success'
@@ -129,9 +128,9 @@ export default {
       //zxf增加的
       //获取服务器管理信息列表（分页）
       mock.onGet('/serverinfo/infopage').reply(config => {
-          let {page, name} = config.params;
+          let {page, serviceName} = config.params;
           let mockServerinfo = _Serverinfo.filter(serverinfo => {
-              if (name && serverinfo.name.indexOf(name) == -1) return false;
+              if (serviceName && serverinfo.serviceName.indexOf(serviceName) == -1) return false;
               return true;
           });
           let total = mockServerinfo.length;

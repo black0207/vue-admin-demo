@@ -61,7 +61,7 @@
             if (loginParams.username == "admin" && loginParams.password =="123456"){
                   this.logining = false;
                   sessionStorage.setItem('user', JSON.stringify(loginParams));
-                  this.$router.push({ path: '/serverMan' });
+                  this.$router.push({ path: '/configStats' });
             }else {
               this.logining = false;
                   this.$message({

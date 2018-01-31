@@ -50,7 +50,7 @@
 		</el-col>
 
 		<!--更新界面-->
-		<el-dialog title="更新" v-model="editFormVisible" :close-on-click-modal="false">
+		<el-dialog title="更新" :visible.sync="editFormVisible" :close-on-click-modal="false">
 			<el-form :model="editForm" label-width="120px" :rules="editFormRules" ref="editForm">
 				<el-form-item label="服务器名称" prop="serviceName">
 					<el-input v-model="editForm.serviceName" auto-complete="off"></el-input>
@@ -84,7 +84,7 @@
 		</el-dialog>
 
 		<!--添加界面-->
-		<el-dialog title="添加" v-model="addFormVisible" :close-on-click-modal="false">
+		<el-dialog title="添加"  :visible.sync="addFormVisible" :close-on-click-modal="false">
 			<el-form :model="addForm" label-width="120px" :rules="addFormRules" ref="addForm">
 				<el-form-item label="服务器名称" prop="serviceName">
 					<el-input v-model="addForm.serviceName" auto-complete="off"></el-input>
@@ -249,6 +249,7 @@
 			},
 			//显示新增界面
 			handleAdd: function () {
+			    console.log("new");
 				this.addFormVisible = true;
 				this.addForm = {
                     serviceName: '',

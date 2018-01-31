@@ -47,13 +47,13 @@ export const  modifySuffixStatus = params =>{ return axios.post(`${suffixCode}/C
 
 
 //zqc增加的
-export const getServerStatePage = params => { return axios.get(`${baseWGQ}/CBSP/researchServiceState`, { params: params }); }
-export const getResolveConfigPage = params => { return axios.get(`${baseWGQ}/CBSP/researchParseConfig`, { params: params }); }
-export const addResolveConfig = params => { return axios.get(`${baseWGQ}/CBSP/addParseConfig`, { params: params }); };
-export const removeResolveConfig = params => { return axios.get(`${baseWGQ}/CBSP/deleteParseConfig`, { params: params }); };
+export const getServerStatePage = params => { return axios.get(`${baseWGQ}/Manager/researchServiceState`, { params: params }); }
+export const getResolveConfigPage = params => { return axios.get(`${baseWGQ}/Manager/researchParseConfig`, { params: params }); }
+export const addResolveConfig = params => { return axios.get(`${baseWGQ}/Manager/addParseConfig`, { params: params }); };
+export const removeResolveConfig = params => { return axios.get(`${baseWGQ}/Manager/deleteParseConfig`, { params: params }); };
 // export const batchRemoveResolveConfigs = params => { return axios.get(`${baseWGQ}/CBSP/batchDeleteParseConfig`, { params: params }); };
-export const associateServers = params => { return axios.get(`${baseWGQ}/CBSP/relateService`, { params: params }); };
-export const configIF = params => { return axios.get(`${baseWGQ}/CBSP/controlServiceState`, { params: params }); };
+export const associateServers = params => { return axios.get(`${baseWGQ}/Manager/relateService`, { params: params }); };
+export const configIF = params => { return axios.get(`${baseWGQ}/Manager/controlServiceState`, { params: params }); };
 
 //编码赋码接口
 export const addFrontCode = params => { return axios.get(`${baseCode}/CodeSystem/codeType/insert`, { params: params }); };
@@ -64,11 +64,11 @@ export const getSufCodeCount = params => { return axios.get(`${baseCode}/CodeSys
 
 //解析概览统计接口--by way
 let analysisAdr = 'http://192.168.12.86:8080';//编码url
-export const getAnalysisCount = params => { return axios.get(`${analysisAdr}/CBSP/countParseInfo`); };
+export const getAnalysisCount = params => { return axios.get(`${analysisAdr}/Manager/countParseInfo`); };
 
 //zxf增加的
-export const getServerInfoPage = params => { return axios.get(`${baseInfo}/CBSP/researchServiceInfo`, { params: params }); }
-export const addServerInfo = params => { return axios.get(`${baseAddInfo}/CBSP/addServiceInfo`, { params: params }); }
-export const editServerInfo = params => { return axios.get(`${baseEditInfo}/CBSP/updateServiceInfo`, { params: params }); }
-export const deleteServerInfo = params => { return axios.get(`${baseDeleteInfo}/CBSP/deleteServiceInfo`, { params: params }); }
+export const getServerInfoPage = params => { return axios.get(`${baseInfo}/Manager/researchServiceInfo`, { params: params }); }
+export const addServerInfo = params => { return axios.get(`${baseAddInfo}/Manager/addServiceInfo`, { params: params }); }
+export const editServerInfo = params => { return axios.get(`${baseEditInfo}/Manager/updateServiceInfo`, { params: params }); }
+export const deleteServerInfo = params => { return axios.get(`${baseDeleteInfo}/Manager/deleteServiceInfo`, { params: params }); }
 // export const getServerInfoPage = params => { return axios.get(`${base}/serverinfo/infopage`, { params: params }); }

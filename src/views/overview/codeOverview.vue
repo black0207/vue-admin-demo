@@ -61,8 +61,16 @@
                 <div class="chart-panel">
                     <el-row style="height:80px;padding-top:20px;text-align: center">
                         <el-form :inline="true" :model="searchCompanyForm" class="demo-form-inline" ref="searchCompanyForm">
-                            <el-form-item prop="name" label="查看组织名码段信息":rules="[{ required: true, message: '名称不能为空'}]">
-                                <el-input type="name" v-model="searchCompanyForm.name" placeholder="请输入组织名"></el-input>
+                            <el-form-item prop="name" label="查看组织名码段信息">
+                                <!--<el-input type="name" v-model="searchCompanyForm.name" placeholder="请输入组织名"></el-input>-->
+                                <el-select  v-model="searchCompanyForm.name" filterable  placeholder="请选择组织名">
+                                    <el-option
+                                            v-for="item in allCodeNames"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.label">
+                                    </el-option>
+                                </el-select>
                             </el-form-item>
                             <el-form-item>
                                 <el-button type="primary" @click="submitForm('searchCompanyForm')">查询</el-button>
@@ -80,7 +88,7 @@
 
 <script>
     import echarts from 'echarts';
-    import {getCount,getCodeType,getSufCodeCount} from "../../api/api";
+    import {getCount,getCodeType,getSufCodeCount,searchOrgInfo} from "../../api/api";
 
     var totalCount = {
         codeCount:0,
@@ -114,6 +122,7 @@
                 searchCompanyForm:{
                     name:''
                 },
+                allCodeNames:[]
             }
         },
 
@@ -163,6 +172,19 @@
                       data: this.codeTypeNumber
                     }]
                 },true);
+            },
+            searchAllCodeNames(){
+                let para = {};
+                searchOrgInfo(para).then((res)=>{
+                    let tempData1 = [];
+                    let orgNames = res.data;
+                    for(var i=0;i<orgNames.length;i++){
+                        tempData1.push({value:orgNames[i].organizationId+'',label:orgNames[i].organizationName});
+                    }
+                    this.allCodeNames = tempData1;
+                    this.companyCodeChart(this.allCodeNames[0].label);
+                    this.searchCompanyForm.name = this.allCodeNames[0].label;
+                });
             },
             //查询公司码段情况
             companyCodeChart(parm){
@@ -281,8 +303,10 @@
             drawCharts() {
                     this.getCodeTypeData();
                     this.getTotalCount();
+                    this.searchAllCodeNames();
                     //this.companyCodeChart();
             },
+
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {

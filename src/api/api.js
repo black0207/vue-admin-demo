@@ -64,7 +64,7 @@ export const getSufCodeCount = params => { return axios.get(`${baseCode}/CodeSys
 
 //解析概览统计接口--by way
 let analysisAdr = 'http://192.168.12.86:8080';//编码url
-export const getAnalysisCount = params => { return axios.get(`${analysisAdr}/CBSP/countParseInfo`); };
+export const getAnalysisCount = params => { return axios.get(`${analysisAdr}/Manager/countParseInfo`); };
 
 //zxf增加的
 export const getServerInfoPage = params => { return axios.get(`${baseInfo}/CBSP/researchServiceInfo`, { params: params }); }

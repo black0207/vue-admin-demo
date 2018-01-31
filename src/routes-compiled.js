@@ -92,7 +92,7 @@ var routes = [{
     component: _Home2.default,
     name: '解析服务管理',
     iconCls: 'el-icon-message',
-    children: [{ path: '/main', component: _Main2.default, name: '主页', hidden: true }, { path: '/serverMan', component: _serverMan2.default, name: '解析服务器管理' }, { path: '/serverState', component: _serverState2.default, name: '服务器状态管理' }, { path: '/configMan', component: _configMan2.default, name: '解析配置管理' }, { path: '/configStats', component: _echarts2.default, name: '解析配置统计' }, { path: '/form', component: _Form2.default, name: 'Form', hidden: true }, { path: '/user', component: _user2.default, name: '列表', hidden: true }]
+    children: [{ path: '/serverMan', component: _serverMan2.default, name: '解析服务器管理' }, { path: '/serverState', component: _serverState2.default, name: '服务器状态管理' }, { path: '/configMan', component: _configMan2.default, name: '解析配置管理' }, { path: '/configStats', component: _echarts2.default, name: '解析配置统计' }, { path: '/form', component: _Form2.default, name: 'Form', hidden: true }, { path: '/user', component: _user2.default, name: '列表', hidden: true }]
 }, {
     path: '/',
     component: _Home2.default,

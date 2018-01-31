@@ -1,14 +1,22 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { LoginUsers, Users } from './data/user';
+import { Servers } from './data/user';
+import { ResolveConfigs } from './data/user';
+import { Serverinfo } from './data/user';
 let _Users = Users;
+let _Servers = Servers;
+let _ResolveConfigs = ResolveConfigs;
+let _Serverinfo = Serverinfo;
 
 export default {
   /**
    * mock bootstrap
    */
   bootstrap() {
-    let mock = new MockAdapter(axios);
+   let mock = new MockAdapter(axios);
+
+    mock.restore();//关闭mock模拟数据
 
     // mock success request
     mock.onGet('/success').reply(200, {
@@ -78,6 +86,67 @@ export default {
       });
     });
 
+    //zqc增加的
+    //获取服务器状态列表（分页）
+      mock.onGet('/server/statepage').reply(config => {
+          let {page, name} = config.params;
+          let mockServers = _Servers.filter(server => {
+              if (name && server.name.indexOf(name) == -1) return false;
+              return true;
+          });
+          let total = mockServers.length;
+          mockServers = mockServers.filter((u, index) => index < 20 * page && index >= 20 * (page - 1));
+          return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                  resolve([200, {
+                      total: total,
+                      servers: mockServers
+                  }]);
+              }, 1000);
+          });
+      });
+
+      //获取解析配置列表（分页）
+      mock.onGet('/resolve/configpage').reply(config => {
+          let {page, resolveType} = config.params;
+          let mockResolveConfigs = _ResolveConfigs.filter(resolveConfigs => {
+              if (resolveType && resolveConfigs.resolveType.indexOf(resolveType) == -1) return false;
+              return true;
+          });
+          let total = mockResolveConfigs.length;
+          mockResolveConfigs = mockResolveConfigs.filter((u, index) => index < 20 * page && index >= 20 * (page - 1));
+          return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                  resolve([200, {
+                      total: total,
+                      resolveConfigs: mockResolveConfigs,
+                  }]);
+              }, 1000);
+          });
+      });
+      //zqc
+
+      //zxf增加的
+      //获取服务器管理信息列表（分页）
+      mock.onGet('/serverinfo/infopage').reply(config => {
+          let {page, name} = config.params;
+          let mockServerinfo = _Serverinfo.filter(serverinfo => {
+              if (name && serverinfo.name.indexOf(name) == -1) return false;
+              return true;
+          });
+          let total = mockServerinfo.length;
+          mockServerinfo = mockServerinfo.filter((u, index) => index < 20 * page && index >= 20 * (page - 1));
+          return new Promise((resolve, reject) => {
+              setTimeout(() => {
+                  resolve([200, {
+                      total: total,
+                      serverinfo: mockServerinfo
+                  }]);
+              }, 1000);
+          });
+      });
+      //zxf
+
     //删除用户
     mock.onGet('/user/remove').reply(config => {
       let { id } = config.params;
@@ -130,7 +199,7 @@ export default {
       });
     });
 
-    //新增用户
+    // 新增用户
     mock.onGet('/user/add').reply(config => {
       let { name, addr, age, birth, sex } = config.params;
       _Users.push({
@@ -149,6 +218,7 @@ export default {
         }, 500);
       });
     });
+
 
   }
 };

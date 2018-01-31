@@ -4,10 +4,10 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true" :model="filters">
         <el-form-item>
-          <el-input v-model="filters.name" placeholder="前码段/组织名"></el-input>
+          <el-input v-model="filters.precode" placeholder="前码段/组织名"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" v-on:click="getUsers">查询</el-button>
+          <el-button type="primary" v-on:click="getPreCodeList">查询</el-button>
         </el-form-item>
        <el-form-item>
           <el-button type="primary" @click="handleAdd">新增</el-button>
@@ -16,25 +16,24 @@
     </el-col>
 
     <!--列表-->
-    <el-table :data="users" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+    <el-table :data="preCodeData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
       <el-table-column type="selection" width="55" v-if="false">
       </el-table-column>
       <el-table-column type="index" width="80" label="序号">
       </el-table-column>
-      <el-table-column prop="name" label="前码段" width="120" sortable>
+      <el-table-column prop="preCodeId" label="前码段ID" width="300" sortable>
       </el-table-column>
-      <el-table-column prop="sex" label="组织名" width="100" :formatter="formatSex" sortable>
+      <el-table-column prop="preCode" label="前码段" min-width="300" sortable>
       </el-table-column>
-      <el-table-column prop="age" label="年龄" width="100" sortable>
+      <el-table-column prop="codeType" label="编码类型" width="150" sortable>
       </el-table-column>
-      <el-table-column prop="birth" label="日期" width="120" sortable>
+      <el-table-column prop="organizationName" label="组织名" min-width="400"  sortable>
       </el-table-column>
-      <el-table-column prop="addr" label="地址" min-width="250" sortable>
-      </el-table-column>
+
       <el-table-column label="操作" width="300">
         <template scope="scope">
           <el-button size="small" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-          <el-button size="small" type="info"  @click="handleBackCode(scope.$index, scope.row)">后码段分配</el-button>
+          <el-button size="small" type="info"  @click="assignBackCode(scope.$index, scope.row)">后码段分配</el-button>
           <el-button size="small" type="success "  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>
           <!--<el-button type="danger" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>-->
         </template>
@@ -44,31 +43,26 @@
     <!--工具条-->
     <el-col :span="24" class="toolbar">
     <!--  <el-button type="danger" @click="batchRemove" :disabled="this.sels.length===0">批量删除</el-button>-->
-      <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="15" :total="total" style="float:right;">
+      <el-pagination layout="prev, pager, next" @current-change="handleCurrentChange" :page-size="pageSize" :total="total" style="float:right;">
       </el-pagination>
     </el-col>
 
     <!--编辑界面-->
-    <el-dialog title="编辑" v-model="editFormVisible" :close-on-click-modal="false">
+    <el-dialog title="编辑前码段" v-model="editFormVisible" :close-on-click-modal="false">
       <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="editForm.name" auto-complete="off"></el-input>
+        <el-form-item label="前码段ID" prop="preCodeId">
+          <el-input v-model="editForm.preCodeId" auto-complete="off" disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="性别">
-          <el-radio-group v-model="editForm.sex">
-            <el-radio class="radio" :label="1">男</el-radio>
-            <el-radio class="radio" :label="0">女</el-radio>
-          </el-radio-group>
+        <el-form-item label="前码段" prop="preCode">
+          <el-input v-model="editForm.preCode" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="年龄">
-          <el-input-number v-model="editForm.age" :min="0" :max="200"></el-input-number>
+        <el-form-item label="编码类型" prop="codeType">
+          <el-input v-model="editForm.codeType" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="生日">
-          <el-date-picker type="date" placeholder="选择日期" v-model="editForm.birth"></el-date-picker>
+        <el-form-item label="组织名" prop="organizationName">
+          <el-input v-model="editForm.organizationName" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="地址">
-          <el-input type="textarea" v-model="editForm.addr"></el-input>
-        </el-form-item>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native="editFormVisible = false">取消</el-button>
@@ -77,26 +71,18 @@
     </el-dialog>
 
     <!--新增界面-->
-    <el-dialog title="新增" v-model="addFormVisible" :close-on-click-modal="false">
+    <el-dialog title="分配前码段" v-model="addFormVisible" :close-on-click-modal="false">
       <el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="addForm.name" auto-complete="off"></el-input>
+        <el-form-item label="前段码" prop="preCode">
+        <el-input v-model="addForm.preCode" auto-complete="off"></el-input>
+      </el-form-item>
+        <el-form-item label="编码类型ID" prop="codeTypeId">
+          <el-input v-model="addForm.codeTypeId" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="性别">
-          <el-radio-group v-model="addForm.sex">
-            <el-radio class="radio" :label="1">男</el-radio>
-            <el-radio class="radio" :label="0">女</el-radio>
-          </el-radio-group>
+        <el-form-item label="组织ID" prop="organizationId">
+          <el-input v-model="addForm.organizationId" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="年龄">
-          <el-input-number v-model="addForm.age" :min="0" :max="200"></el-input-number>
-        </el-form-item>
-        <el-form-item label="生日">
-          <el-date-picker type="date" placeholder="选择日期" v-model="addForm.birth"></el-date-picker>
-        </el-form-item>
-        <el-form-item label="地址">
-          <el-input type="textarea" v-model="addForm.addr"></el-input>
-        </el-form-item>
+
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click.native="addFormVisible = false">取消</el-button>
@@ -105,7 +91,7 @@
     </el-dialog>
 
     <!--后码段界面-->
-    <el-dialog title="后码段信息" v-model="codeTableVisible" :close-on-click-modal="false">
+    <el-dialog title="后码段管理" v-model="codeTableVisible" :close-on-click-modal="false">
       <!--后码段列表-->
       <el-table :data="backData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
         <el-table-column type="selection" width="55" v-if="false">
@@ -124,11 +110,44 @@
         </el-table-column>
         <el-table-column label="操作" width="100">
           <template scope="scope">
-            <el-button size="small" @click="handleBCinfo(scope.$index, scope.row)">操作</el-button>
+            <el-button size="small" @click="handleBCinfo(scope.$index, scope.row)">禁用</el-button>
           </template>
         </el-table-column>
       </el-table>
+    </el-dialog>
 
+
+    <!--后码段分配-->
+    <el-dialog title="后码段分配" v-model="backEditFormVisible" :close-on-click-modal="false">
+      <div>前码段信息</div>
+      <el-table :data="backData" highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;">
+        <el-table-column type="selection" width="55" v-if="false">
+        </el-table-column>
+        <el-table-column type="index" width="80" label="序号">
+        </el-table-column>
+        <el-table-column prop="name" label="前码段" width="120" sortable>
+        </el-table-column>
+        <el-table-column prop="sex" label="组织名" width="100" :formatter="formatSex" sortable>
+        </el-table-column>
+        <el-table-column prop="age" label="年龄" width="100" sortable>
+        </el-table-column>
+        <el-table-column prop="birth" label="日期" width="120" sortable>
+        </el-table-column>
+        <el-table-column prop="addr" label="地址" min-width="250" sortable>
+        </el-table-column>
+
+      </el-table>
+      <div>后段码分配</div>
+      <el-form :model="assignForm" label-width="80px" :rules="editFormRules" ref="editForm">
+        <el-form-item label="后段码数量" prop="number">
+          <el-input-number v-model="assignForm.number" auto-complete="off"></el-input-number>
+        </el-form-item>
+
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click.native="editFormVisible = false">取消</el-button>
+        <el-button type="primary" @click.native="editSubmit" :loading="editLoading">提交</el-button>
+      </div>
     </el-dialog>
   </section>
 </template>
@@ -136,17 +155,18 @@
 <script>
   import util from '../../common/js/util'
   //import NProgress from 'nprogress'
-  import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser ,addFrontCode} from '../../api/api';
+  import {addPreCode,searchPreCode, getUserListPage, removeUser, batchRemoveUser, editUser, addUser ,addFrontCode} from '../../api/api';
 
   export default {
     data() {
       return {
         filters: {
-          name: ''
+          precode: ''
         },
-        users: [],
+        preCodeData: [],
         total: 0,
         page: 1,
+        pageSize:3,
         listLoading: false,
         sels: [],//列表选中列
 
@@ -159,12 +179,12 @@
         },
         //编辑界面数据
         editForm: {
-          id: 0,
-          name: '',
-          sex: -1,
-          age: 0,
-          birth: '',
-          addr: ''
+          preCodeId:'',
+          preCode: '',
+          codeTypeId: '',
+          codeType:'',
+          organizationId: '',
+          organizationName:''
         },
 
         codeTableVisible: false,//后码段界面是否显示
@@ -175,18 +195,22 @@
         addFormVisible: false,//新增界面是否显示
         addLoading: false,
         addFormRules: {
-          name: [
-            { required: true, message: '请输入姓名', trigger: 'blur' }
+          preCodeName: [
+            { required: true, message: '请输入前段码', trigger: 'blur' }
           ]
         },
         //新增界面数据
         addForm: {
-          name: '',
-          sex: -1,
-          age: 0,
-          birth: '',
-          addr: ''
+          preCode: '',
+          codeTypeId: '',
+          organizationId: ''
+        },
+        //分配页面是否展示
+        backEditFormVisible: false,
+        assignForm:{
+          number:''
         }
+
 
       }
     },
@@ -197,20 +221,33 @@
       },
       handleCurrentChange(val) {
         this.page = val;
-        this.getUsers();
+        this.getPreCodeList();
       },
-      //获取用户列表
-      getUsers() {
+      //获取前码段列表
+      getPreCodeList() {
         let para = {
           page: this.page,
-          name: this.filters.name
+          condition: this.filters.precode,
+          pageSize : this.pageSize
         };
+        let formateData = [];
         this.listLoading = true;
         //NProgress.start();
-        getUserListPage(para).then((res) => {
-          this.total = res.data.total;
-        this.users = res.data.users;
-        this.listLoading = false;
+        searchPreCode(para).then((res) => {
+          this.total = res.data.length;//数据总条目
+          for(var i=0;i<res.data.length;i++){
+
+            formateData.push({
+              "preCodeId":res.data[i].preCodeId,
+              "preCode":res.data[i].preCode,
+              "codeType": res.data[i].codeType.typeName,
+              "organizationName": res.data[i].organization.organizationName,
+              "organizationId" : res.data[i].organization.organizationId,
+              "codeTypeId" : res.data[i].codeType.typeId,
+            })
+          }
+          this.preCodeData = formateData.filter((u, index) => index < para.pageSize * para.page && index >= para.pageSize * (para.page - 1));//显示分页后的数据
+          this.listLoading = false;
         //NProgress.done();
       });
       },
@@ -240,6 +277,11 @@
         this.editFormVisible = true;
         this.editForm = Object.assign({}, row);
       },
+      //显示分配界面
+      assignBackCode: function (index, row) {
+        this.backEditFormVisible = true;
+        this.assignForm = Object.assign({}, row);
+      },
       //显示后码段管理界面
       handleBackCode: function (index, row) {
         this.codeTableVisible = true;
@@ -259,11 +301,9 @@
       handleAdd: function () {
         this.addFormVisible = true;
         this.addForm = {
-          name: '',
-          sex: -1,
-          age: 0,
-          birth: '',
-          addr: ''
+          preCode: '',
+          codeTypeId: '',
+          organizationId: ''
         };
       },
       //编辑
@@ -298,17 +338,24 @@
               this.addLoading = true;
             //NProgress.start();
             let para = Object.assign({}, this.addForm);
-            para.birth = (!para.birth || para.birth == '') ? '' : util.formatDate.format(new Date(para.birth), 'yyyy-MM-dd');
-            addUser(para).then((res) => {
+
+            addPreCode(para).then((res) => {
               this.addLoading = false;
             //NProgress.done();
-            this.$message({
-              message: '提交成功',
-              type: 'success'
-            });
-            this.$refs['addForm'].resetFields();
-            this.addFormVisible = false;
-            this.getUsers();
+            if(res.data == "success"){
+              this.$message({
+                message: '新增编码成功',
+                type: 'success'
+              });
+              this.$refs['addForm'].resetFields();
+              this.addFormVisible = false;
+              this.getPreCodeList();
+            }else {
+              this.$message({
+                message: '新增编码失败',
+                type: 'error'
+              });
+            }
           });
           });
           }
@@ -341,7 +388,7 @@
       }
     },
     mounted() {
-      this.getUsers();
+      this.getPreCodeList();
     }
   }
 

@@ -58,8 +58,8 @@ export const configIF = params => { return axios.get(`${baseWGQ}/CBSP/controlSer
 //编码赋码接口
 export const addFrontCode = params => { return axios.get(`${baseCode}/CodeSystem/codeType/insert`, { params: params }); };
 //zxf增加的
-export const getServerInfoPage = params => { return axios.get(`${baseInfo}/CBSP/researchServiceInfo`, { params: params }); }
-export const addServerInfo = params => { return axios.get(`${baseAddInfo}/CBSP/addServiceInfo`, { params: params }); }
-export const editServerInfo = params => { return axios.get(`${baseEditInfo}/CBSP/updateServiceInfo`, { params: params }); }
-export const deleteServerInfo = params => { return axios.get(`${baseDeleteInfo}/CBSP/deleteServiceInfo`, { params: params }); }
+export const getServerInfoPage = params => { return axios.get(`${baseInfo}/Manager/researchServiceInfo`, { params: params }); }
+export const addServerInfo = params => { return axios.get(`${baseAddInfo}/Manager/addServiceInfo`, { params: params }); }
+export const editServerInfo = params => { return axios.get(`${baseEditInfo}/Manager/updateServiceInfo`, { params: params }); }
+export const deleteServerInfo = params => { return axios.get(`${baseDeleteInfo}/Manager/deleteServiceInfo`, { params: params }); }
 // export const getServerInfoPage = params => { return axios.get(`${base}/serverinfo/infopage`, { params: params }); }

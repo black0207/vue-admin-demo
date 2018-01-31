@@ -53,11 +53,11 @@
 				</el-form-item>
 
 				<el-form-item label="配置更新">
-					<el-input v-model="controlForm.configUpdateState" readonly style="width: 400px;" placeholder="请手动更新配置" ></el-input>
+					<el-input v-model="controlForm.configUpdateState" readonly style="width: 300px;" placeholder="请手动更新配置" ></el-input>
 					<el-button type="success" @click.native="configUpdate" :loading="updateLoading">更新</el-button>
 				</el-form-item>
 				<el-form-item label="软件版本">
-					<el-input v-model="controlForm.softwareVersion" readonly style="width: 200px;"></el-input>
+					<el-input v-model="controlForm.softwareVersion" readonly style="width: 300px;"></el-input>
 					<el-button type="success" @click.native="checkUpdate" disabled>检查更新</el-button>
 				</el-form-item>
 				<el-form-item label="开关机">
@@ -181,7 +181,7 @@
                             message: '更新成功',
                             type: 'success'
                         });
-                        this.controlForm.configUpdateState = '已更新,更新时间:'+ resArray[1];
+                        this.controlForm.configUpdateState = '已更新,更新时间: '+ resArray[1];
                         this.getServerStates();
 					} else if ( resArray[0] == 'fail') {
                         this.updateLoading = false;

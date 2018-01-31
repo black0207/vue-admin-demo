@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="326815dd-df0c-40ae-aca5-a46588a1f50c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vue-admin-master.iml" afterPath="$PROJECT_DIR$/.idea/vue-admin-master.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/api/api.js" afterPath="$PROJECT_DIR$/src/api/api.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/nav2/configMan.vue" afterPath="$PROJECT_DIR$/src/views/nav2/configMan.vue" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/views/nav2/serverState.vue" afterPath="$PROJECT_DIR$/src/views/nav2/serverState.vue" />
     </list>
     <ignored path="vue-admin-master.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,29 +25,58 @@
       <file leaf-file-name="frontCodeMan.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/nav3/frontCodeMan.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7866">
-              <caret line="414" column="28" lean-forward="false" selection-start-line="414" selection-start-column="28" selection-end-line="414" selection-end-column="28" />
+            <state relative-caret-position="0">
+              <caret line="418" column="28" lean-forward="false" selection-start-line="418" selection-start-column="28" selection-end-line="418" selection-end-column="28" />
               <folding>
-                <element signature="n#style#0;n#el-pagination#0;n#el-col#1;n#section#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#el-select#0;n#el-form-item#1;n#el-form#0;n#el-dialog#1;n#section#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#el-select#0;n#el-form-item#2;n#el-form#0;n#el-dialog#1;n#section#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#el-pagination#0;n#el-col#0;n#el-dialog#2;n#section#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#el-dialog#3;n#section#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#el-dialog#3;n#section#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#el-form#0;n#el-dialog#3;n#section#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#el-form-item#0;n#el-form#0;n#el-dialog#3;n#section#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#el-input-number#0;n#el-form-item#0;n#el-form#0;n#el-dialog#3;n#section#0;n#template#0;n#!!top" expanded="true" />
+                <marker date="1517382541670" expanded="true" signature="16101:16198" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="16101:16209" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="16101:19213" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="16101:19269" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="16101:19279" ph="..." />
+                <marker date="1517382541670" expanded="true" signature="16252:17041" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="16302:17031" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="16325:17021" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="16384:17007" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="16682:16993" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="16782:16858" ph="{&quot;message&quot;: '提交成功'...}" />
+                <marker date="1517382541670" expanded="true" signature="17083:17952" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="17132:17942" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="17155:17932" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="17214:17918" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="17426:17904" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="17498:17759" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="17528:17612" ph="{&quot;message&quot;: '新增编码成功'...}" />
+                <marker date="1517382541670" expanded="true" signature="17764:17892" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="17794:17876" ph="{&quot;message&quot;: '新增编码失败'...}" />
+                <marker date="1517382541670" expanded="true" signature="18000:18775" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="18021:18199" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="18335:18765" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="18403:18608" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="18523:18596" ph="{&quot;message&quot;: '新增编码成功！'...}" />
+                <marker date="1517382541670" expanded="true" signature="18613:18720" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="18639:18708" ph="{&quot;message&quot;: '操作失败！'...}" />
+                <marker date="1517382541670" expanded="true" signature="18811:18846" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="18885:19207" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="18908:19178" ph="{...}" />
+                <marker date="1517382541670" expanded="true" signature="18927:18979" ph="..." />
+                <marker date="1517382541670" expanded="true" signature="18997:19049" ph="..." />
+                <marker date="1517382541670" expanded="true" signature="19067:19120" ph="..." />
+                <marker date="1517382541670" expanded="true" signature="19139:19169" ph="..." />
+                <marker date="1517382541670" expanded="true" signature="19229:19265" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="serverMan.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="serverMan.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/nav2/serverMan.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1197">
-              <caret line="63" column="48" lean-forward="true" selection-start-line="63" selection-start-column="48" selection-end-line="63" selection-end-column="48" />
-              <folding />
+            <state relative-caret-position="380">
+              <caret line="128" column="20" lean-forward="true" selection-start-line="128" selection-start-column="20" selection-end-line="128" selection-end-column="20" />
+              <folding>
+                <element signature="n#style#0;n#el-table#0;n#section#0;n#template#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#el-pagination#0;n#el-col#1;n#section#0;n#template#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -57,10 +84,26 @@
       <file leaf-file-name="configMan.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/views/nav2/configMan.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1881">
-              <caret line="99" column="0" lean-forward="true" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+            <state relative-caret-position="342">
+              <caret line="18" column="94" lean-forward="false" selection-start-line="18" selection-start-column="94" selection-end-line="18" selection-end-column="94" />
               <folding>
-                <element signature="e#3835#3874#0" expanded="true" />
+                <element signature="n#style#0;n#el-table#0;n#section#0;n#template#0;n#!!top" expanded="true" />
+                <marker date="1517382541664" expanded="true" signature="10389:10939" ph="{...}" />
+                <marker date="1517382541664" expanded="true" signature="10389:13782" ph="..." />
+                <marker date="1517382541664" expanded="true" signature="10455:10869" ph="{...}" />
+                <marker date="1517382541664" expanded="true" signature="10644:10810" ph="{...}" />
+                <marker date="1517382541664" expanded="true" signature="10692:10802" ph="{...}" />
+                <marker date="1517382541664" expanded="true" signature="11006:12803" ph="{...}" />
+                <marker date="1517382541664" expanded="true" signature="11071:12787" ph="{...}" />
+                <marker date="1517382541664" expanded="true" signature="11177:12743" ph="{...}" />
+                <marker date="1517382541664" expanded="true" signature="11321:11413" ph="{...}" />
+                <marker date="1517382541664" expanded="true" signature="11584:11793" ph="{...}" />
+                <marker date="1517382541664" expanded="true" signature="11795:12006" ph="//..." />
+                <marker date="1517382541664" expanded="true" signature="12072:12561" ph="{...}" />
+                <marker date="1517382541664" expanded="true" signature="12185:12325" ph="{&quot;message&quot;: '提交成功'...}" />
+                <marker date="1517382541664" expanded="true" signature="12571:12715" ph="{...}" />
+                <marker date="1517382541664" expanded="true" signature="12846:12895" ph="{...}" />
+                <marker date="1517382541664" expanded="true" signature="12897:13687" ph="//..." />
               </folding>
             </state>
           </provider>
@@ -70,12 +113,11 @@
         <entry file="file://$PROJECT_DIR$/src/views/nav2/serverState.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="190">
-              <caret line="10" column="31" lean-forward="true" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+              <caret line="10" column="31" lean-forward="false" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
               <folding>
                 <element signature="n#style#0;n#el-col#0;n#section#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#el-table#0;n#section#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#el-pagination#0;n#el-col#1;n#section#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#el-input#0;n#el-form-item#2;n#el-form#0;n#el-dialog#0;n#section#0;n#template#0;n#!!top" expanded="true" />
+                <marker date="1517382541667" expanded="true" signature="9488:9570" ph="..." />
               </folding>
             </state>
           </provider>
@@ -84,8 +126,18 @@
       <file leaf-file-name="api.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/api/api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="969">
-              <caret line="51" column="115" lean-forward="false" selection-start-line="51" selection-start-column="115" selection-end-line="51" selection-end-column="115" />
+            <state relative-caret-position="453">
+              <caret line="73" column="118" lean-forward="false" selection-start-line="73" selection-start-column="118" selection-end-line="73" selection-end-column="118" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="244">
+              <caret line="14" column="12" lean-forward="false" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -114,7 +166,6 @@
       <list>
         <option value="$PROJECT_DIR$/src/views/nav2/Page51.vue" />
         <option value="$PROJECT_DIR$/src/mock/data/user.js" />
-        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
         <option value="$PROJECT_DIR$/src/views/nav3/CodeTypeMan.vue" />
         <option value="$PROJECT_DIR$/src/routes.js" />
         <option value="$PROJECT_DIR$/src/views/Home.vue" />
@@ -126,6 +177,7 @@
         <option value="$PROJECT_DIR$/src/views/nav2/serverState.vue" />
         <option value="$PROJECT_DIR$/src/views/nav2/configMan.vue" />
         <option value="$PROJECT_DIR$/src/views/nav2/serverMan.vue" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
       </list>
     </option>
   </component>
@@ -163,6 +215,7 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -225,7 +278,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -422,11 +474,18 @@
       <option name="project" value="LOCAL" />
       <updated>1517297979925</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Merge branch 'master' of https://github.com/black0207/vue-admin-demo&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml">
+      <created>1517382627009</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1517382627009</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="152771000" />
+    <option name="totallyTimeSpent" value="153401000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -440,24 +499,34 @@
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16807166" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16807166" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.5039703" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39219934" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827735" sideWeight="0.49602965" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39219934" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32842582" sideWeight="0.5039703" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.39219934" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32827735" sideWeight="0.49602965" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32719395" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16807166" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295583" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -503,12 +572,12 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="修改跳转链接" />
     <MESSAGE value="小修改" />
-    <MESSAGE value="Merge branch 'master' of https://github.com/black0207/vue-admin-demo&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
     <MESSAGE value="Merge branch 'master' of https://github.com/black0207/vue-admin-demo&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;" />
     <MESSAGE value="修改登录" />
     <MESSAGE value="Merge branch 'master' of https://github.com/black0207/vue-admin-demo&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/api/api.js&#10;#&#9;src/mock/mock.js" />
     <MESSAGE value="Merge branch 'master' of https://github.com/black0207/vue-admin-demo&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/api/api.js" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/black0207/vue-admin-demo&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/api/api.js" />
+    <MESSAGE value="Merge branch 'master' of https://github.com/black0207/vue-admin-demo&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
+    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master' of https://github.com/black0207/vue-admin-demo&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -649,14 +718,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-534">
-          <caret line="28" column="16" lean-forward="false" selection-start-line="28" selection-start-column="16" selection-end-line="28" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/mock/data/user.js" />
     <entry file="file://$PROJECT_DIR$/src/api/index.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -665,21 +726,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/charts/echarts.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="4" column="45" lean-forward="false" selection-start-line="4" selection-start-column="45" selection-end-line="4" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/charts/echarts.vue" />
     <entry file="file://$PROJECT_DIR$/src/mock/data/user.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -708,7 +755,7 @@
         <state relative-caret-position="1296">
           <caret line="48" column="31" lean-forward="false" selection-start-line="48" selection-start-column="22" selection-end-line="48" selection-end-column="31" />
           <folding>
-            <element signature="e#0#37#0" expanded="true" />
+            <element signature="e#0#37#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -757,14 +804,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/api/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="969">
-          <caret line="51" column="115" lean-forward="false" selection-start-line="51" selection-start-column="115" selection-end-line="51" selection-end-column="115" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/events/events.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -776,7 +815,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="385">
           <caret line="89" column="0" lean-forward="true" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -819,48 +857,116 @@
     <entry file="file://$PROJECT_DIR$/src/views/nav2/serverState.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
-          <caret line="10" column="31" lean-forward="true" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
+          <caret line="10" column="31" lean-forward="false" selection-start-line="10" selection-start-column="31" selection-end-line="10" selection-end-column="31" />
           <folding>
             <element signature="n#style#0;n#el-col#0;n#section#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-table#0;n#section#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-pagination#0;n#el-col#1;n#section#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-input#0;n#el-form-item#2;n#el-form#0;n#el-dialog#0;n#section#0;n#template#0;n#!!top" expanded="true" />
+            <marker date="1517382541667" expanded="true" signature="9488:9570" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/nav3/frontCodeMan.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7866">
-          <caret line="414" column="28" lean-forward="false" selection-start-line="414" selection-start-column="28" selection-end-line="414" selection-end-column="28" />
+        <state relative-caret-position="0">
+          <caret line="418" column="28" lean-forward="false" selection-start-line="418" selection-start-column="28" selection-end-line="418" selection-end-column="28" />
           <folding>
-            <element signature="n#style#0;n#el-pagination#0;n#el-col#1;n#section#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-select#0;n#el-form-item#1;n#el-form#0;n#el-dialog#1;n#section#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-select#0;n#el-form-item#2;n#el-form#0;n#el-dialog#1;n#section#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-pagination#0;n#el-col#0;n#el-dialog#2;n#section#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#el-dialog#3;n#section#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#el-dialog#3;n#section#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-form#0;n#el-dialog#3;n#section#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-form-item#0;n#el-form#0;n#el-dialog#3;n#section#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-input-number#0;n#el-form-item#0;n#el-form#0;n#el-dialog#3;n#section#0;n#template#0;n#!!top" expanded="true" />
+            <marker date="1517382541670" expanded="true" signature="16101:16198" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="16101:16209" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="16101:19213" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="16101:19269" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="16101:19279" ph="..." />
+            <marker date="1517382541670" expanded="true" signature="16252:17041" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="16302:17031" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="16325:17021" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="16384:17007" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="16682:16993" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="16782:16858" ph="{&quot;message&quot;: '提交成功'...}" />
+            <marker date="1517382541670" expanded="true" signature="17083:17952" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="17132:17942" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="17155:17932" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="17214:17918" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="17426:17904" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="17498:17759" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="17528:17612" ph="{&quot;message&quot;: '新增编码成功'...}" />
+            <marker date="1517382541670" expanded="true" signature="17764:17892" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="17794:17876" ph="{&quot;message&quot;: '新增编码失败'...}" />
+            <marker date="1517382541670" expanded="true" signature="18000:18775" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="18021:18199" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="18335:18765" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="18403:18608" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="18523:18596" ph="{&quot;message&quot;: '新增编码成功！'...}" />
+            <marker date="1517382541670" expanded="true" signature="18613:18720" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="18639:18708" ph="{&quot;message&quot;: '操作失败！'...}" />
+            <marker date="1517382541670" expanded="true" signature="18811:18846" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="18885:19207" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="18908:19178" ph="{...}" />
+            <marker date="1517382541670" expanded="true" signature="18927:18979" ph="..." />
+            <marker date="1517382541670" expanded="true" signature="18997:19049" ph="..." />
+            <marker date="1517382541670" expanded="true" signature="19067:19120" ph="..." />
+            <marker date="1517382541670" expanded="true" signature="19139:19169" ph="..." />
+            <marker date="1517382541670" expanded="true" signature="19229:19265" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/nav2/configMan.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1881">
-          <caret line="99" column="0" lean-forward="true" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
+        <state relative-caret-position="342">
+          <caret line="18" column="94" lean-forward="false" selection-start-line="18" selection-start-column="94" selection-end-line="18" selection-end-column="94" />
           <folding>
-            <element signature="e#3835#3874#0" expanded="true" />
+            <element signature="n#style#0;n#el-table#0;n#section#0;n#template#0;n#!!top" expanded="true" />
+            <marker date="1517382541664" expanded="true" signature="10389:10939" ph="{...}" />
+            <marker date="1517382541664" expanded="true" signature="10389:13782" ph="..." />
+            <marker date="1517382541664" expanded="true" signature="10455:10869" ph="{...}" />
+            <marker date="1517382541664" expanded="true" signature="10644:10810" ph="{...}" />
+            <marker date="1517382541664" expanded="true" signature="10692:10802" ph="{...}" />
+            <marker date="1517382541664" expanded="true" signature="11006:12803" ph="{...}" />
+            <marker date="1517382541664" expanded="true" signature="11071:12787" ph="{...}" />
+            <marker date="1517382541664" expanded="true" signature="11177:12743" ph="{...}" />
+            <marker date="1517382541664" expanded="true" signature="11321:11413" ph="{...}" />
+            <marker date="1517382541664" expanded="true" signature="11584:11793" ph="{...}" />
+            <marker date="1517382541664" expanded="true" signature="11795:12006" ph="//..." />
+            <marker date="1517382541664" expanded="true" signature="12072:12561" ph="{...}" />
+            <marker date="1517382541664" expanded="true" signature="12185:12325" ph="{&quot;message&quot;: '提交成功'...}" />
+            <marker date="1517382541664" expanded="true" signature="12571:12715" ph="{...}" />
+            <marker date="1517382541664" expanded="true" signature="12846:12895" ph="{...}" />
+            <marker date="1517382541664" expanded="true" signature="12897:13687" ph="//..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/nav2/serverMan.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1197">
-          <caret line="63" column="48" lean-forward="true" selection-start-line="63" selection-start-column="48" selection-end-line="63" selection-end-column="48" />
+        <state relative-caret-position="380">
+          <caret line="128" column="20" lean-forward="true" selection-start-line="128" selection-start-column="20" selection-end-line="128" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#el-table#0;n#section#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-pagination#0;n#el-col#1;n#section#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/api/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="73" column="118" lean-forward="false" selection-start-line="73" selection-start-column="118" selection-end-line="73" selection-end-column="118" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="244">
+          <caret line="14" column="12" lean-forward="false" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="12" />
           <folding />
         </state>
       </provider>

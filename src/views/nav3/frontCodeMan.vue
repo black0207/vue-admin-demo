@@ -4,7 +4,7 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true" :model="filters">
         <el-form-item>
-          <el-input v-model="filters.precode" placeholder="前码段/组织名"></el-input>
+          <el-input v-model="filters.precode" placeholder="前码段名称/组织机构"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" v-on:click="getPreCodeList">查询</el-button>
@@ -23,11 +23,11 @@
       </el-table-column>
       <el-table-column prop="preCodeId" label="前码段ID" width="300" sortable v-if="false" align="center">
       </el-table-column>
-      <el-table-column prop="preCode" label="前码段" min-width="300" sortable align="center">
+      <el-table-column prop="preCode" label="前码段名称" min-width="300" sortable align="center">
       </el-table-column>
       <el-table-column prop="codeType" label="编码类型" width="200" sortable align="center">
       </el-table-column>
-      <el-table-column prop="organizationName" label="组织名" min-width="400"  sortable align="center">
+      <el-table-column prop="organizationName" label="所属组织机构" min-width="400"  sortable align="center">
       </el-table-column>
 
       <el-table-column label="操作" width="300" align="center">
@@ -57,7 +57,7 @@
         <el-form-item label="编码类型" prop="codeType">
           <el-input v-model="editForm.codeType" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="组织名" prop="organizationName">
+        <el-form-item label="所属组织机构" prop="organizationName">
           <el-input v-model="editForm.organizationName" auto-complete="off"></el-input>
         </el-form-item>
 
@@ -95,7 +95,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="组织机构名称" prop="organizationId">
+        <el-form-item label="所属组织机构" prop="organizationId">
           <el-select v-model="addForm.organizationId" filterable style="width: 100%" placeholder="请选择">
             <el-option
                     v-for="item in allCodeNames"
@@ -119,18 +119,18 @@
       <el-table :data="suffixCodeData"  highlight-current-row v-loading="listLoading" @selection-change="selsChange" style="width: 100%;margin-top: -30px">
         <el-table-column type="selection" width="55" v-if="false">
         </el-table-column>
-        <el-table-column type="index" width="80" label="序号">
+        <el-table-column type="index" width="80" label="序号" align="center">
         </el-table-column>
-        <el-table-column prop="preCode" label="前码段" min-width="150" sortable>
+        <el-table-column prop="preCode" label="前码段名称" min-width="150" align="center">
         </el-table-column>
-        <el-table-column prop="suffixcode" label="后段码" min-width="150" sortable>
+        <el-table-column prop="suffixcode" label="后段码" min-width="150" align="center" sortable>
         </el-table-column>
-        <el-table-column prop="status" label="状态" width="120" sortable>
+        <el-table-column prop="status" label="使用状态" width="120" align="center" sortable>
         </el-table-column>
-        <el-table-column prop="codeDis" label="描述" width="200" sortable>
+        <el-table-column prop="codeDis" label="描述" min-width="200" align="center">
         </el-table-column>
 
-        <el-table-column label="操作" width="120">
+        <el-table-column label="操作" width="120" align="center">
           <template scope="scope">
             <el-button type="danger" size="small" v-if="scope.row.status != '已禁用'" @click="handleBCStatus(scope.$index, scope.row)">禁用</el-button>
             <el-button type="success" size="small" v-if="scope.row.status == '已禁用'" @click="handleBCStatus(scope.$index, scope.row)">启用</el-button>
@@ -153,11 +153,11 @@
         <el-table-column type="index" width="80" label="序号">
         </el-table-column>
 
-        <el-table-column prop="preCode" label="前码段" min-width="150" sortable>
+        <el-table-column prop="preCode" label="前码段名称" min-width="150" sortable>
         </el-table-column>
         <el-table-column prop="codeType" label="编码类型" min-width="120" sortable>
         </el-table-column>
-        <el-table-column prop="organizationName" label="所属机构" min-width="200" sortable>
+        <el-table-column prop="organizationName" label="所属组织机构" min-width="200" sortable>
         </el-table-column>
 
 
@@ -165,7 +165,7 @@
       <div style="margin-top:20px;padding-left: 10px ;background-color:#d4edfc;height: 35px;line-height: 35px;">后段码分配</div>
       <el-form :model="assignForm" :label-position="labelPosition" label-width="120px" :rules="editFormRules" ref="assignForm" style="margin-top: 20px">
 
-        <el-form-item label="后段码数量" prop="number" style="padding-left: 20px">
+        <el-form-item label="后段码分配数量" prop="number" style="padding-left: 20px">
           <el-input-number v-model="assignForm.number" style="text-align: center" auto-complete="off"></el-input-number>
         </el-form-item>
 

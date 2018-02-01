@@ -4,7 +4,7 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px;">
       <el-form :inline="true" :model="filters">
         <el-form-item>
-          <el-input v-model="filters.name" placeholder="编码类型/类型ID"></el-input>
+          <el-input v-model="filters.name" placeholder="编码类型名称/类型ID"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" v-on:click="getData">查询</el-button>
@@ -25,7 +25,7 @@
       </el-table-column>
       <el-table-column prop="typeName" label="编码类型名称" min-width="320"  sortable align="center">
       </el-table-column>
-      <el-table-column prop="rule" label="编码规则描述" min-width="550" sortable align="center">
+      <el-table-column prop="rule" label="编码类型描述" min-width="550" sortable align="center">
       </el-table-column>
 
       <el-table-column label="操作" width="200" align="center">
@@ -52,7 +52,7 @@
         <el-form-item label="编码类型名称" prop="typeName">
           <el-input v-model="editForm.typeName"  auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="编码规则描述" prop="rule">
+        <el-form-item label="编码类型描述" prop="rule">
           <el-input v-model="editForm.rule"  ></el-input>
         </el-form-item>
       </el-form>
@@ -63,7 +63,7 @@
     </el-dialog>
 
     <!--新增界面-->
-    <el-dialog title="自定义编码类型" :visible.sync="addFormVisible" :close-on-click-modal="false" :before-close="addFormClose">
+    <el-dialog title="新增编码类型" :visible.sync="addFormVisible" :close-on-click-modal="false" :before-close="addFormClose">
       <el-form :model="addForm" :label-position="labelPosition" label-width="120px" :rules="addFormRules" ref="addForm">
         <el-form-item label="编码类型名称" prop="typeName">
           <el-input v-model="addForm.typeName" name="typeName" auto-complete="off"></el-input>
@@ -79,7 +79,7 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="编码规则描述" prop="rule">
+        <el-form-item label="编码类型描述" prop="rule">
           <el-input type="textarea" :row="4" v-model="addForm.rule" ></el-input>
         </el-form-item>
 

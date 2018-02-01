@@ -70,7 +70,7 @@
 
     <!--新增界面-->
     <el-dialog title="新增前码段" :visible.sync="addFormVisible" :close-on-click-modal="false" >
-      <el-form :model="addForm" label-positon="labelPosition" label-width="120px"  :rules="addFormRules" ref="addForm">
+      <el-form :model="addForm" label-positon="labelPosition" label-width="120px"  :rules="addFormRules" ref="addForm" :before-close="addFormClose">
 
         <el-form-item label="编码类型" prop="codeTypeId">
         <el-select v-model="addForm.codeTypeId" filterable @change="getFrontCodeByCodeTypeId" style="width: 100%" placeholder="请选择">
@@ -83,7 +83,7 @@
         </el-select>
       </el-form-item>
         <el-form-item label="前段码" prop="preCode"  v-if="frontCodeDisplay">
-          <el-input v-model="addForm.preCode"  auto-complete="off"></el-input>
+          <el-input v-model="addForm.preCode"   auto-complete="off" placeholder="请先选择编码类型，再输入前码段"></el-input>
         </el-form-item>
         <el-form-item label="前段码" prop="preCode1" v-if="!frontCodeDisplay">
           <el-select v-model="addForm.preCode1"  filterable style="width: 100%" placeholder="请选择">
@@ -190,6 +190,7 @@
           precode: ''
         },
         labelPosition:'left',
+        isInput:true,
         frontCodeDisplay:true,
         preCodeData: [],
         suffixCodeData:[],
@@ -309,6 +310,12 @@
         //NProgress.done();
       });
       },
+      addFormClose:function () {
+
+        this.$refs['addForm'].resetFields();
+        //location.reload();
+        this.addFormVisible = false;
+      },
       //根据codeTypeId 查询前码段分配信息
       getFrontCodeByCodeTypeId() {
         let para = {
@@ -320,9 +327,12 @@
           switch (res.data.type){
             case "add":
                   this.frontCodeDisplay = true;
+                  this.addForm.preCode1 = "";
+                   this.frontCodeByCT = [];
                   break;
             case "json":
                   this.frontCodeDisplay = false;
+                    this.addForm.preCode = "";
                   for(var i=0;i<temp.length;i++){
                     this.frontCodeByCT.push({id:temp[i]+'',name:temp[i]});
                   };

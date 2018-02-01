@@ -71,16 +71,27 @@
     <!--新增界面-->
     <el-dialog title="新增前码段" :visible.sync="addFormVisible" :close-on-click-modal="false" >
       <el-form :model="addForm" label-positon="labelPosition" label-width="120px"  :rules="addFormRules" ref="addForm">
-        <el-form-item label="前段码" prop="preCode">
-        <el-input v-model="addForm.preCode" auto-complete="off"></el-input>
-      </el-form-item>
+
         <el-form-item label="编码类型" prop="codeTypeId">
-          <el-select v-model="addForm.codeTypeId" filterable style="width: 100%" placeholder="请选择">
+        <el-select v-model="addForm.codeTypeId" filterable @change="getFrontCodeByCodeTypeId" style="width: 100%" placeholder="请选择">
+          <el-option
+                  v-for="item in allCodeTypes"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value">
+          </el-option>
+        </el-select>
+      </el-form-item>
+        <el-form-item label="前段码" prop="preCode"  v-if="frontCodeDisplay">
+          <el-input v-model="addForm.preCode"  auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="前段码" prop="preCode1" v-if="!frontCodeDisplay">
+          <el-select v-model="addForm.preCode1"  filterable style="width: 100%" placeholder="请选择">
             <el-option
-                    v-for="item in allCodeTypes"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value">
+                    v-for="item in frontCodeByCT"
+                    :key="item.id"
+                    :label="item.name"
+                    :value="item.id">
             </el-option>
           </el-select>
         </el-form-item>
@@ -170,7 +181,7 @@
 <script>
   import util from '../../common/js/util'
   //import NProgress from 'nprogress'
-  import {searchOrgInfo,searchCodeType,modifySuffixStatus,searchSuffixCode,addSuffixCode,addPreCode,searchPreCode,  batchRemoveUser,} from '../../api/api';
+  import {getFrontCodeByCodeTypeId,searchOrgInfo,searchCodeType,modifySuffixStatus,searchSuffixCode,addSuffixCode,addPreCode,searchPreCode,  batchRemoveUser,} from '../../api/api';
 
   export default {
     data() {
@@ -179,10 +190,12 @@
           precode: ''
         },
         labelPosition:'left',
+        frontCodeDisplay:true,
         preCodeData: [],
         suffixCodeData:[],
         allCodeTypes:[],//存储所有编码类型
         allCodeNames:[],//存储所有公司名称
+        frontCodeByCT:[],//存储前码段信息BYcodeType
         total: 0,
         page: 1,
         pageSize:10,
@@ -223,6 +236,9 @@
           preCode: [
             { required: true, message: '请输入前段码', trigger: 'blur' }
           ],
+          preCode1: [
+            { required: true, message: '请输入前段码', trigger: 'blur' }
+          ],
           codeTypeId: [
             { required: true, message: '请选择编码类型', trigger: 'blur' }
           ],
@@ -233,6 +249,7 @@
         //新增界面数据
         addForm: {
           preCode: '',
+          preCode1:'',
           codeTypeId: '',
           organizationId: ''
         },
@@ -291,7 +308,33 @@
           this.listLoading = false;
         //NProgress.done();
       });
+      },
+      //根据codeTypeId 查询前码段分配信息
+      getFrontCodeByCodeTypeId() {
+        let para = {
+          codeTypeId:this.addForm.codeTypeId
+        };
+        getFrontCodeByCodeTypeId(para).then((res)=>{
+          console.log(res.data);
+        let  temp = res.data.dataList;
+          switch (res.data.type){
+            case "add":
+                  this.frontCodeDisplay = true;
+                  break;
+            case "json":
+                  this.frontCodeDisplay = false;
+                  for(var i=0;i<temp.length;i++){
+                    this.frontCodeByCT.push({id:temp[i]+'',name:temp[i]});
+                  };
+                  break;
+            case "fail":
+                  this.$message("输入错误！");
+                  break;
+            default:
+              this.frontCodeDisplay = true;
+          }
 
+        });
       },
       //修改后段码状态（禁用）
       handleBCStatus: function (index, row) {

@@ -36,12 +36,19 @@ export const  searchOrgInfo = params =>{ return axios.get(`${baseCode}/CodeSyste
 export const searchPreCode = params => { return axios.get(`${baseCode}/CodeSystem/preCode/findList`, { params: params }); };
 //新增前码段 by LZY
 export const addPreCode = params => { return axios.post(`${baseCode}/CodeSystem/preCode/insert`, params); };
+//查询前码段是否可填写 by LZY
+export const  getFrontCodeByCodeTypeId = params =>{ return axios.get(`${baseCode}/CodeSystem/preCode/getCodeModel`, { params: params });};
+//获取rule列表  by LZY
+export const  getRuleList = params =>{ return axios.get(`${baseCode}/CodeSystem/codeType/getRuleList `, { params: params });};
+
+
 //批量生成后码段 by LZY
 export const  addSuffixCode = params =>{ return axios.post(`${suffixCode}/CodeSystem/SuffixCode/batchInsert`, params);};
 //查询特定前段码对应的后码段 by LZY
 export const  searchSuffixCode = params =>{ return axios.get(`${suffixCode}/CodeSystem/SuffixCode/findSuffixList`, { params: params });};
 //修改后码段状态 by LZY
 export const  modifySuffixStatus = params =>{ return axios.post(`${suffixCode}/CodeSystem/SuffixCode/modifySuffixCode`, params);};
+
 
 
 

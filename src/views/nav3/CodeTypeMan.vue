@@ -25,14 +25,13 @@
       </el-table-column>
       <el-table-column prop="typeName" label="编码类型名称" min-width="320"  sortable align="center">
       </el-table-column>
-      <el-table-column prop="rule" label="编码规则" min-width="550" sortable align="center">
+      <el-table-column prop="rule" label="编码规则描述" min-width="550" sortable align="center">
       </el-table-column>
 
-      <el-table-column label="操作" width="300" align="center">
+      <el-table-column label="操作" width="200" align="center">
         <template scope="scope">
           <el-button type="primary" plain size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-         <!-- <el-button size="small" type="info"  @click="handleBackCode(scope.$index, scope.row)">后码段管理</el-button>-->
-          <el-button type="danger" plain disabled=true size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
+          <el-button type="danger" plain v-if="false" size="small" @click="handleDel(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -53,8 +52,8 @@
         <el-form-item label="编码类型名称" prop="typeName">
           <el-input v-model="editForm.typeName"  auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="编码规则" prop="rule">
-          <el-input v-model="editForm.rule" ></el-input>
+        <el-form-item label="编码规则描述" prop="rule">
+          <el-input v-model="editForm.rule"  ></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -69,9 +68,19 @@
         <el-form-item label="编码类型名称" prop="typeName">
           <el-input v-model="addForm.typeName" name="typeName" auto-complete="off"></el-input>
         </el-form-item>
+        <el-form-item label="编码规则名称" prop="ruleId">
+          <el-select v-model="addForm.ruleId" filterable style="width: 100%" placeholder="请选择">
+            <el-option
+                    v-for="item in allRules"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
 
-        <el-form-item label="编码规则" prop="rule">
-          <el-input type="textarea" :row="3" v-model="addForm.rule" ></el-input>
+        <el-form-item label="编码规则描述" prop="rule">
+          <el-input type="textarea" :row="4" v-model="addForm.rule" ></el-input>
         </el-form-item>
 
       </el-form>
@@ -88,7 +97,7 @@
 <script>
   import util from '../../common/js/util'
   //import NProgress from 'nprogress'
-  import { searchCodeType,addCodeType,updateCodeType,getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
+  import {getRuleList,searchCodeType,addCodeType,updateCodeType,getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../api/api';
 
   export default {
     data() {
@@ -98,6 +107,7 @@
         },
         labelPosition:"left",
         typeData: [],
+        allRules:[],
         total: 0,
         page: 1,
         pageSize:10,
@@ -130,12 +140,16 @@
             { required: true, message: '请输入名称', trigger: 'blur' }
           ],
           rule: [
-            { required: true, message: '请输入编码规则', trigger: 'blur' }
+            { required: true, message: '请输入编码规则描述', trigger: 'blur' }
+          ],
+          ruleId: [
+            { required: true, message: '请输入编码规则名称', trigger: 'blur' }
           ]
         },
         //新增界面数据
         addForm: {
           typeName: '',
+          ruleId:'',
           rule: ''
         }
 
@@ -203,9 +217,18 @@
         this.addFormVisible = true;
         this.addForm = {
           typeName: '',
-          rule: ''
-
+          rule: '',
+          ruleId:''
         };
+        let para ={};
+        getRuleList(para).then((res)=>{
+          let rule = res.data;
+          let tempData = [];
+          for(var i=0;i<rule.length;i++){
+            tempData.push({value:rule[i].rule_id+'',label:rule[i].rule_name});
+          }
+          this.allRules = tempData;
+        })
       },
       addFormClose:function () {
 

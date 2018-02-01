@@ -1,6 +1,6 @@
 <template>
   <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="demo-ruleForm login-container">
-    <h3 class="title">系统登录</h3>
+    <h2 class="title">福州市公共服务管理平台</h2>
     <el-form-item prop="account">
       <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
@@ -9,7 +9,7 @@
     </el-form-item>
     <el-checkbox v-model="checked"  class="remember">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;" @keyup.native="handleSubmit2" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
+      <el-button type="primary" style="width:100%;" native-type="submit" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
       <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
     </el-form-item>
   </el-form>
@@ -58,7 +58,7 @@
             //NProgress.start();
             var loginParams = { username: this.ruleForm2.account, password: this.ruleForm2.checkPass ,avatar: this.ruleForm2.avatar};
 
-            if (loginParams.username == "admin" && loginParams.password =="123456"){
+            if (loginParams.username == "admin" && loginParams.password =="admin"){
                   this.logining = false;
                   sessionStorage.setItem('user', JSON.stringify(loginParams));
                   this.$router.push({ path: '/configStats' });

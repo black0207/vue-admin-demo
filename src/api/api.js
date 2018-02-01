@@ -47,13 +47,27 @@ export const  modifySuffixStatus = params =>{ return axios.post(`${suffixCode}/C
 
 
 //zqc增加的
+//获取服务器状态信息
 export const getServerStatePage = params => { return axios.get(`${baseWGQ}/Manager/researchServiceState`, { params: params }); }
+//获取配置信息
 export const getResolveConfigPage = params => { return axios.get(`${baseWGQ}/Manager/researchParseConfig`, { params: params }); }
+//添加一条配置
 export const addResolveConfig = params => { return axios.get(`${baseWGQ}/Manager/addParseConfig`, { params: params }); };
+//删除一条配置
 export const removeResolveConfig = params => { return axios.get(`${baseWGQ}/Manager/deleteParseConfig`, { params: params }); };
-// export const batchRemoveResolveConfigs = params => { return axios.get(`${baseWGQ}/CBSP/batchDeleteParseConfig`, { params: params }); };
+//将一条配置关联到服务器
 export const associateServers = params => { return axios.get(`${baseWGQ}/Manager/relateService`, { params: params }); };
+//服务器状态控制接口（更新配置、开机、关机）
 export const configIF = params => { return axios.get(`${baseWGQ}/Manager/controlServiceState`, { params: params }); };
+//查询一个服务器上已有的配置
+export const searchResolveConfigsIn = params => { return axios.get(`${baseWGQ}/Manager/operationServerConfig`, { params: params }); };
+//查询一个服务器上未添加过的配置
+export const searchResolveConfigsOut = params => { return axios.get(`${baseWGQ}/Manager/operationServerConfig`, { params: params }); };
+//从服务器上删除一条配置
+export const removeResolveConfigFromServer = params => { return axios.get(`${baseWGQ}/Manager/deleteOperServerConfig`, { params: params }); };
+//向服务器添加一条配置
+export const addResolveConfigToServer = params => { return axios.get(`${baseWGQ}/Manager/addOperServerConfig`, { params: params }); };
+//zqc
 
 //编码赋码接口
 export const addFrontCode = params => { return axios.get(`${baseCode}/CodeSystem/codeType/insert`, { params: params }); };

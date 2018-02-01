@@ -300,8 +300,8 @@
                     let len = res.data.length;
                     for (let i=0; i<len; i++) {
                         tempServersName[i] =  {
-                            key: serversInfo[i].serviceId,
-							label: serversInfo[i].serviceName,
+                            key: serversInfo[i].serverId,
+							label: serversInfo[i].serverName,
 						};
 					}
 					this.serversName = tempServersName;

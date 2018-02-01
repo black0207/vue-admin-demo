@@ -139,7 +139,7 @@
                             configUpdateState: '',
                             resolveQuantity: '',
                         };
-                        singleServersState.serverId = data[i].serviceId;
+                        singleServersState.serverId = data[i].serverId;
                         singleServersState.serverName = data[i].serverName;
                         singleServersState.workingState = data[i].workState;
                         singleServersState.softwareVersion = data[i].softVersion;

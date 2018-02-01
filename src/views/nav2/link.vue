@@ -2,18 +2,7 @@
 	<section>
 		<!--link页面-->
 		<el-col :span="24" style="padding-bottom: 10px;padding-top: 10px;">
-			<span>服务器：{{this.serverInfo.serverName}}</span>
-			<!--<el-form :inline="true">-->
-				<!--<el-form-item>-->
-					<!--<el-input v-model="resolveQueryWords" placeholder="类型/标识/结果"></el-input>-->
-				<!--</el-form-item>-->
-				<!--<el-form-item>-->
-					<!--<el-button type="primary" @click="getResolveConfigs">查询</el-button>-->
-				<!--</el-form-item>-->
-				<!--<el-form-item>-->
-				<!--<el-button type="primary" @click="handleAdd">新增</el-button>-->
-				<!--</el-form-item>-->
-			<!--</el-form>-->
+			<span>服务器：{{serverName}}</span>
 		</el-col>
 		<el-col :span="24" style="padding-bottom: 5px;">
 			<el-form :inline="true">
@@ -27,17 +16,19 @@
 		</el-col>
 
 		<!--已添加的配置-->
-		<el-table :data="resolveConfigsIn" highlight-current-row v-loading="listLoading" max-height="500" style="width: 100%;" border>
+		<el-table :data="resolveConfigsIn" highlight-current-row v-loading="listLoadingIn" max-height="500" style="width: 100%;" border>
+			<!--选择框-->
+			<!--<el-table-column type="selection" width="55"></el-table-column>-->
 
 			<el-table-column type="index" width="80" align="center" label="序号">
 			</el-table-column>
-			<!--name-->
+			<!--type-->
 			<el-table-column prop="type" label="解析类型" min-width="140" show-overflow-tooltip sortable align="center">
 			</el-table-column>
-			<!--workingState-->
+			<!--identifier-->
 			<el-table-column prop="identifier" label="解析标识" min-width="140" show-overflow-tooltip sortable align="center">
 			</el-table-column>
-			<!--softwareVersion-->
+			<!--result-->
 			<el-table-column prop="result" label="解析结果" min-width="140" show-overflow-tooltip sortable align="center">
 			</el-table-column>
 
@@ -60,23 +51,25 @@
 		</el-col>
 
 		<!--未添加的配置-->
-		<el-table :data="resolveConfigsOut" highlight-current-row v-loading="listLoading" max-height="500" style="width: 100%;" border>
+		<el-table :data="resolveConfigsOut" highlight-current-row v-loading="listLoadingOut" max-height="500" style="width: 100%;" border>
+			<!--选择框-->
+			<!--<el-table-column type="selection" width="55"></el-table-column>-->
 
 			<el-table-column type="index" width="80" align="center" label="序号">
 			</el-table-column>
-			<!--name-->
+			<!--type-->
 			<el-table-column prop="type" label="解析类型" min-width="140" show-overflow-tooltip sortable align="center">
 			</el-table-column>
-			<!--workingState-->
+			<!--identifier-->
 			<el-table-column prop="identifier" label="解析标识" min-width="140" show-overflow-tooltip sortable align="center">
 			</el-table-column>
-			<!--softwareVersion-->
+			<!--result-->
 			<el-table-column prop="result" label="解析结果" min-width="140" show-overflow-tooltip sortable align="center">
 			</el-table-column>
 
 			<el-table-column label="操作" min-width="180" align="center">
 				<template scope="scope">
-					<el-button type="primary" size="small" @click="handleAssociation(scope.$index, scope.row)">添加</el-button>
+					<el-button type="primary" size="small" @click="handleAdd(scope.$index, scope.row)">添加</el-button>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -90,62 +83,44 @@
 
 <script>
     import util from '../../common/js/util'
-    import { getResolveConfigPage, addResolveConfig, removeResolveConfig, batchRemoveResolveConfigs, associateServers, getServerStatePage, searchCodeType } from '../../api/api';
+    import { removeResolveConfigFromServer, addResolveConfigToServer, searchResolveConfigsIn, searchResolveConfigsOut, getResolveConfigPage, addResolveConfig, removeResolveConfig, batchRemoveResolveConfigs, associateServers, getServerStatePage, searchCodeType } from '../../api/api';
 
     export default {
         data() {
             return {
+                serverId: this.$route.query.serverInfo.serverId,
+                serverName: this.$route.query.serverInfo.serverName,
                 resolveConfigsIn: [],
                 resolveConfigsOut: [],
 
-
-                serversName: [],
-				resolveTypes:[],
                 resolveQueryWordsIn: '',
                 resolveQueryWordsOut: '',
-//                resolveConfigs: [],
-//                total: 0,
-//				pageSize: 10,
-//                page: 1,
-                listLoading: false,
-				serverInfo: this.$route.query.serverInfo,
+
+                listLoadingIn: false,
+                listLoadingOut: false,
+
 //				sels: [],//列表选中列
 
-                associationFormVisible: false,//关联界面是否显示
-                associationLoading: false,
-
-                //关联界面数据
-                associationForm: {
-                    configId: '',
-                    type: '',
-                    identifier: '',
-                    result: '',
-                    associatedServersId: [],
-
-                },
 
             }
         },
         methods: {
-            handleCurrentChange(val) {
-//                this.page = val;
-                this.getResolveConfigsIn();
-                this.getResolveConfigsOut();
 
-            },
             //获取已添加的解析配置列表
-            getResolveConfigsIn() {
+            getResolveConfigsIn: function () {
+                console.log(this.serverId);
+                console.log(this.serverName);
                 let para = {
-//                    page: this.page,
-                    resolveQueryWordsIn: this.resolveQueryWordsIn,
-                    serverId: this.serverInfo.serverId,
+                    type: 'in',
+                    resolveQueryWords: this.resolveQueryWordsIn,
+                    serverId: this.serverId,
                 };
-                this.listLoading = true;
+                this.listLoadingIn = true;
                 searchResolveConfigsIn(para).then((res) => {
-                    this.total = res.data.length;
+                    let len = res.data.length;
                     let data = res.data;
                     let tempResolveConfigsIn = [];
-                    for(let i=0; i<this.total; i++) {
+                    for(let i=0; i<len; i++) {
                         let singleResolveConfigIn = {
                             configId: '',
                             type: '',
@@ -161,47 +136,47 @@
 					}
 					this.resolveConfigsIn = tempResolveConfigsIn;
 
-                    this.listLoading = false;
+                    this.listLoadingIn = false;
                 }, (res) => {
                     this.$message.error('数据加载失败!');
-                    this.listLoading = false;
+                    this.listLoadingIn = false;
 				}).catch(() => {
 
                 });
             },
 
             //获取未添加的解析配置列表
-            getResolveConfigsOut() {
+            getResolveConfigsOut: function () {
                 let para = {
-//                    page: this.page,
-                    resolveQueryWordsOut: this.resolveQueryWordsOut,
-                    serverId: this.serverInfo.serverId,
+                    type: 'out',
+                    resolveQueryWords: this.resolveQueryWordsOut,
+                    serverId: this.serverId,
                 };
-                this.listLoading = true;
+                this.listLoadingOut = true;
                 searchResolveConfigsOut(para).then((res) => {
-                    this.total = res.data.length;
+                    let len = res.data.length;
                     let data = res.data;
-                    let tempResolveConfigsIn = [];
-                    for(let i=0; i<this.total; i++) {
-                        let singleResolveConfigIn = {
+                    let tempResolveConfigsOut = [];
+                    for(let i=0; i<len; i++) {
+                        let singleResolveConfigOut = {
                             configId: '',
                             type: '',
                             identifier: '',
                             result: '',
                         };
-                        singleResolveConfigIn.configId =data[i].configId;
-                        singleResolveConfigIn.type = data[i].type;
-                        singleResolveConfigIn.identifier = data[i].identify;
-                        singleResolveConfigIn.result = data[i].result;
+                        singleResolveConfigOut.configId =data[i].configId;
+                        singleResolveConfigOut.type = data[i].type;
+                        singleResolveConfigOut.identifier = data[i].identify;
+                        singleResolveConfigOut.result = data[i].result;
 
-                        tempResolveConfigsIn.push(singleResolveConfigIn);
+                        tempResolveConfigsOut.push(singleResolveConfigOut);
                     }
-                    this.resolveConfigsIn = tempResolveConfigsIn;
+                    this.resolveConfigsOut = tempResolveConfigsOut;
 
-                    this.listLoading = false;
+                    this.listLoadingOut = false;
                 }, (res) => {
                     this.$message.error('数据加载失败!');
-                    this.listLoading = false;
+                    this.listLoadingOut = false;
                 }).catch(() => {
 
                 });
@@ -212,13 +187,13 @@
                 this.$confirm('确认删除该解析项吗?', '提示', {
                     type: 'warning'
                 }).then(() => {
-                    this.listLoading = true;
+                    this.listLoadingIn = true;
                     let para = {
-                        serverId: this.serverInfo.serverId,
+                        serverId: this.serverId,
                         configId: row.configId,
                     };
                     removeResolveConfigFromServer(para).then((res) => {
-                        this.listLoading = false;
+                        this.listLoadingIn = false;
                         this.$message({
                             message: '删除成功',
                             type: 'success'
@@ -236,13 +211,13 @@
                 this.$confirm('确认添加该解析项吗?', '提示', {
                     type: 'warning'
                 }).then(() => {
-                    this.listLoading = true;
+                    this.listLoadingOut = true;
                     let para = {
-                        serverId: this.serverInfo.serverId,
+                        serverId: this.serverId,
                         configId: row.configId,
                     };
                     addResolveConfigToServer(para).then((res) => {
-                        this.listLoading = false;
+                        this.listLoadingOut = false;
                         this.$message({
                             message: '添加成功',
                             type: 'success'
@@ -256,9 +231,9 @@
 
             },
 
-            selsChange: function (sels) {
-                this.sels = sels;
-            },
+//            selsChange: function (sels) {
+//                this.sels = sels;
+//            },
 //            //批量删除
 //            batchRemove: function () {
 //                var ids = this.sels.map(item => item.id).toString();

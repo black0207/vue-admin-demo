@@ -167,7 +167,7 @@
                   },
                   yAxis: {},
                   series: [{
-                      name: '销量',
+                      name: '数量',
                       type: 'bar',
                       data: this.codeTypeNumber
                     }]

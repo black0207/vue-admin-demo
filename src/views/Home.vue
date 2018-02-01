@@ -4,11 +4,16 @@
 			<el-col :span="10" class="logo" :class="collapsed?'logo-collapse-width':'logo-width'">
 				{{collapsed?'':sysName}}
 			</el-col>
-			<el-col :span="10">
+			<el-col :span="1">
 				<div class="tools" @click.prevent="collapse">
 					<i class="fa fa-align-justify"></i>
 				</div>
+
 			</el-col>
+			<el-col :span="9">
+				<h1 style="text-align: left;margin-top: 0;">福州市物联网公共服务管理平台</h1>
+			</el-col>
+
 			<el-col :span="4" class="userinfo">
 				<el-dropdown trigger="hover">
 					<span class="el-dropdown-link userinfo-inner"><img :src="this.sysUserAvatar" /> {{sysUserName}}</span>
@@ -75,7 +80,7 @@
 	export default {
 		data() {
 			return {
-				sysName:'公共服务管理平台',
+				sysName:'',
 				collapsed:false,
 				sysUserName: 'admin',
 				sysUserAvatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',

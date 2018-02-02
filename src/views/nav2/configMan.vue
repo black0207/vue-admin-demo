@@ -277,6 +277,7 @@
 								});
 								this.$refs['addForm'].resetFields();
 								this.addFormVisible = false;
+								this.resolveQueryWords = '',
 								this.getResolveConfigs();
 							});
 						});

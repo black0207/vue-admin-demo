@@ -108,8 +108,6 @@
 
             //获取已添加的解析配置列表
             getResolveConfigsIn: function () {
-                console.log(this.serverId);
-                console.log(this.serverName);
                 let para = {
                     type: 'in',
                     resolveQueryWords: this.resolveQueryWordsIn,
@@ -198,6 +196,8 @@
                             message: '删除成功',
                             type: 'success'
                         });
+                        this.resolveQueryWordsIn = '';
+                        this.resolveQueryWordsOut = '';
                         this.getResolveConfigsIn();
                         this.getResolveConfigsOut();
                     });
@@ -222,6 +222,8 @@
                             message: '添加成功',
                             type: 'success'
                         });
+                        this.resolveQueryWordsIn = '';
+                        this.resolveQueryWordsOut = '';
                         this.getResolveConfigsIn();
                         this.getResolveConfigsOut();
                     });
